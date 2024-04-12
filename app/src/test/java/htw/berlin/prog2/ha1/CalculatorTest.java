@@ -90,5 +90,24 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should correctly add negative numbers")
+    void testAddNegatives() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(9);
+        calc.pressNegativeKey();
+        calc.pressEqualsKey(); 
+    
+        String expected = "-18"; 
+        String actual = calc.readScreen(); 
+        assertEquals(expected, actual); 
+    }
+
+
 }
+
+//klammern hinzufügen um übersichtlicher zu machen?
 
