@@ -34,7 +34,7 @@ public class Calculator {
 
         if (screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
-        if (screen.length() < 16) { // Auf 16 Ziffern begrenzt!
+        if (screen.length() < 16) { // Auf 16 Ziffern begrenzt.
             screen = screen + digit;
         }
     }
@@ -112,7 +112,7 @@ public class Calculator {
     public void pressNegativeKey() {
 
         if (screen.equals("0")) {
-            return; // Keine Änderung erforderlich, da der Bildschirm bereits 0 ist
+            return; // Keine Änderung erforderlich
         }
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
     }
