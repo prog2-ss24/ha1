@@ -90,5 +90,23 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+
+    // Teilaufgabe 1
+    @Test
+    @DisplayName("should display inverse of a one digit number ")
+    void testPositiveSubtraction() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(3);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "0.33333333";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+   
 }
 
