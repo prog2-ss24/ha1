@@ -107,6 +107,36 @@ class CalculatorTest {
     }
 
 
-   
+    //Teilaufgabe 2
+    // Fehler 1: Wenn eine Zahl eingegeben wird,
+    // und sofort "=" gedrückt wird, erscheint die vorherige Zahl nicht
+    @Test
+    @DisplayName("should display latest number after pressing equals")
+    void testEqualKey() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    //Teilaufgabe 2
+    // Fehler 2: Die Nachkommastellen bei ganzen Wurzelwerten werden nicht
+    // weggeschnitten
+    @Test
+    @DisplayName("should display root of the given number")
+    void testRoot(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
