@@ -107,4 +107,23 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("Punkt vor Strich")
+    void testPunktVorStrich() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        
+        String expected = "12";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
