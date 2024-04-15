@@ -120,7 +120,6 @@ class CalculatorTest {
         calc.pressBinaryOperationKey("x");
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
-        calc.punktVorStich();
         
         String expected = "12";
         String actual = calc.readScreen();
