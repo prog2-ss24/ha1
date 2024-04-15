@@ -27,7 +27,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display result after multiplaying two positive numbers")
+    @DisplayName("should display result after multiplying two positive numbers")
     void testPositiveMultiplication() {
         Calculator calc = new Calculator();
 
@@ -105,6 +105,39 @@ class CalculatorTest {
     }
 
 
-    //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after adding one negative number to a positive number")
+    void testAdditionNegatives() {
+        Calculator calc = new Calculator();
+
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "-1";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after adding decimal number to a decimal number, with just using the decimal point")
+    void testNegative() {
+        Calculator calc = new Calculator();
+
+        calc.pressDotKey();
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "0.5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
