@@ -90,5 +90,22 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("multiplication of 2 natural numbers")
+    void testMultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+        String expected = "70";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
