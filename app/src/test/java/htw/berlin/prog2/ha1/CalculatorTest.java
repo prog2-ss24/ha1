@@ -90,5 +90,75 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+
+
+    // Teilaufgabe 1)
+    @Test
+    @DisplayName("should display result after subtract two positive multi-digit numbers")
+    void testPositiveSubtract() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+
+
+
+
+
+        //Teilaufgabe 2 (1.1)
+
+    @Test
+    @DisplayName("should display result after adding two Negative multi-digit numbers")
+    void testNegativeAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("+");
+        calc.pressNegativeKey();
+        calc.pressDigitKey(8);
+        calc.pressEqualsKey();
+
+        String expected = "-16";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+        //Teilaufgabe 2 (1.2)
+
+    @Test
+    @DisplayName("Should Display result after Dividing positive multi-digit numbers")
+    void testDivideByZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "0.04";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+
 }
 
