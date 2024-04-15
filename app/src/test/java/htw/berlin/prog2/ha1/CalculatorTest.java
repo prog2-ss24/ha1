@@ -90,5 +90,112 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after subtracting two positive multi-digit numbers")
+    void testSubtraction() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display result after multiplying two positive multi-digit numbers")
+    void testMultiplying() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "400";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display result after dividing two positive multi-digit numbers")
+    void testDivision() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "1";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display result after dividing the number by 100")
+    void testDividingByHundred() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressUnaryOperationKey("%");
+
+        String expected = "0.02";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display result after turning it into a fraction denominator")
+    void testFractionDenominator() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "0.5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    // Redtest 1
+    @Test
+    @DisplayName("should display error when nominating 0 for fraction denominator")
+    void testZeroAsDenominator(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    // Redtest 2
+    @Test
+    @DisplayName("should display your input value after pressing equalskey even if you haven't made any operation")
+    void OneInputOp(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
 }
 
