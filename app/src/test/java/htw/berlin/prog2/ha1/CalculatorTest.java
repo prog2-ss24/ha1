@@ -154,7 +154,7 @@ class CalculatorTest {
         calc.pressDigitKey(5);
         calc.pressEqualsKey();
 
-        String expected = "0.2";
+        String expected = "0.04";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
