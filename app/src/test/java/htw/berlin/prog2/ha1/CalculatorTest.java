@@ -105,7 +105,18 @@ class CalculatorTest {
         String actual = calc.readScreen(); 
         assertEquals(expected, actual); 
     }
+    @Test
+    @DisplayName("should correctly clear cache after pressing clear key")
+    void testClearKey(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressNegativeKey();
+        calc.pressClearKey();
 
+        String expected = "0";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
 
 }
 
