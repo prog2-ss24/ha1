@@ -14,6 +14,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    boolean dotPressed = false;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -26,14 +28,21 @@ public class Calculator {
      * drücken kann muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
      * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
      * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
+     * Ist zuvor der Punkt gedrückt worden, wird die Ziffer durch 10 dividiert.
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
-    public void pressDigitKey(int digit) {
+    public void pressDigitKey(double digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
+        if (dotPressed) {
+            digit = digit/10;
+            dotPressed = false;
+        }
+
         screen = screen + digit;
+
     }
 
     /**
@@ -95,6 +104,7 @@ public class Calculator {
      */
     public void pressDotKey() {
         if(!screen.contains(".")) screen = screen + ".";
+        dotPressed = true;
     }
 
     /**
