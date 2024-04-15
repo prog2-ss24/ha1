@@ -1,5 +1,7 @@
 package htw.berlin.prog2.ha1;
 
+import org.checkerframework.checker.units.qual.degrees;
+
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
@@ -14,11 +16,11 @@ public class Calculator {
 
     private String latestOperation = "";
 
-    boolean strich = false;
+    private boolean strich = false;
 
-    double latestaddition = 1;
+    private double latestaddition = 1;
 
-    double temporarysum = 0;
+    private double temporarysum = 0;
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -126,28 +128,50 @@ public class Calculator {
     public void pressEqualsKey() {
         if (latestOperation == "+") {
             strich = true;
-            latestaddition = latestValue;
+            latestaddition = Double.parseDouble(screen);
         }
         if (latestOperation == "-") {
             strich = true;
-            latestaddition = latestValue;
+            latestaddition = Double.parseDouble(screen);
         }
-        if (latestOperation == "x") {
-            if (strich == true) {
-                temporarysum = Double.parseDouble(screen);
-                temporarysum = temporarysum - latestaddition;
-            } else {
-                temporarysum = Double.parseDouble(screen);
+
+        double result;  //ChatGPT für die Lösung in den Zeilen 140 und 142 genutzt
+
+        switch(latestOperation) {
+            case "+" -> result = latestValue + Double.parseDouble(screen);
+            case "-" -> result = latestValue - Double.parseDouble(screen);
+            case "x" -> {
+                if (strich) {
+                    result = latestaddition * Double.parseDouble(screen);
+                    temporarysum = latestValue - latestaddition;
+                    strich = false;
+                } else {
+                    result = latestValue * Double.parseDouble(screen);
+                }
             }
-        }
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * temporarysum;
-            case "/" -> latestValue / Double.parseDouble(screen);
+            case "/" -> {
+                if (strich) {
+                    result = latestaddition / Double.parseDouble(screen);
+                    temporarysum = latestValue - latestaddition;
+                    strich = false;
+                } else {
+                    result = latestValue / Double.parseDouble(screen);
+                }
+            }
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        if(screen.equals("Infinity")) screen = "Error";
+        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
+        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+    }
+
+
+
+    public void punktVorStich() {
+        double newResult;
+        newResult = Double.parseDouble(screen) + temporarysum;
+        screen = Double.toString(newResult);
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
