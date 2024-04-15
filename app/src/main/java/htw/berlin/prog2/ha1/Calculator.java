@@ -14,6 +14,12 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    boolean strich = false;
+
+    double latestaddition = 1;
+
+    double temporarysum = 0;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -118,10 +124,26 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        if (latestOperation == "+") {
+            strich = true;
+            latestaddition = latestValue;
+        }
+        if (latestOperation == "-") {
+            strich = true;
+            latestaddition = latestValue;
+        }
+        if (latestOperation == "x") {
+            if (strich == true) {
+                temporarysum = Double.parseDouble(screen);
+                temporarysum = temporarysum - latestaddition;
+            } else {
+                temporarysum = Double.parseDouble(screen);
+            }
+        }
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
             case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
+            case "x" -> latestValue * temporarysum;
             case "/" -> latestValue / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
