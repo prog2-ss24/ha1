@@ -44,6 +44,25 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("should display result after adding two positive numbers and subtract one multi-digit number")
+    void testFailMultiplikationAndSubstraction() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(6);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(8);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "-38";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     @DisplayName("should display result after getting the square root of two")
     void testSquareRoot() {
         Calculator calc = new Calculator();
