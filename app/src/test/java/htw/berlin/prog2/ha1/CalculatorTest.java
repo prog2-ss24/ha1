@@ -27,22 +27,6 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display result after subtracting (negative result)")
-    void testSubtractionNegativeResult() {
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(8);
-        calc.pressEqualsKey();
-
-        String expected = "-3";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
     @DisplayName("should display result after getting the square root of two")
     void testSquareRoot() {
         Calculator calc = new Calculator();
@@ -105,6 +89,36 @@ class CalculatorTest {
     }
 
 
-    //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after subtracting (negative result)")
+    void testSubtractionNegativeResult() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(8);
+        calc.pressEqualsKey();
+
+        String expected = "-3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("repeatOperationWhenRepeatingEqual")
+    void testRepeatingEqual() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        String expected = "7";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
