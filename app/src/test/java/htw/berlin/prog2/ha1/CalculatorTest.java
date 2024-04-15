@@ -105,7 +105,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("repeatOperationWhenRepeatingEqual")
+    @DisplayName("shouldRepeatOperationWhenRepeatingEqual")
     void testRepeatingEqual() {
         Calculator calc = new Calculator();
 
@@ -120,5 +120,22 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("shouldDisplayIntermediateResult")
+    void testIntermediateResult() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("*");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("*");
+
+        String expected = "10";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
