@@ -111,10 +111,26 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("Negative Zahl in einer Wurzel ")  //wird grün, davor falsch benutz => anderen Fehler gefunden
+    void testNegativSquareRoot() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
+        calc.pressNegativeKey();
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 //Tests die rot werden
 
     @Test
-    @DisplayName("Punkt vor Strichrechnung Test")
+    @DisplayName("Punkt vor Strichrechnung Test")  //hier stimmt was anderes nicht, nur die letze Rechnung wird ausgeführt
     void testPunktVorStrich() {
         Calculator calc = new Calculator();
 
@@ -136,22 +152,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    @DisplayName("Negative Zahl in einer Wurzel ")
-    void testNegativSquareRoot() {
-        Calculator calc = new Calculator();
 
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(2);
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("-");
-        calc.pressUnaryOperationKey("√");
-
-        String expected = "Error";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
 
 
 }
