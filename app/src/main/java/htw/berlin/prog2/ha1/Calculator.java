@@ -16,6 +16,10 @@ public class Calculator {
 
     boolean dotPressed = false;
 
+    boolean minusPressed = false;
+
+    private int dotCount = 0;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -29,20 +33,31 @@ public class Calculator {
      * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
      * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
      * Ist zuvor der Punkt gedrückt worden, wird die Ziffer durch 10 dividiert.
+     * Wird versucht ein zweites Komma in eine Zahl einzugeben, wird der hinzugefügte Zweig um eine Kommazahl zu erstellen nicht ausgeführt und die Ziffer ohne weiteren Punkt an die vorhandene Zahl hinzugefügt
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
-    public void pressDigitKey(double digit) {
+    public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
-        if (dotPressed) {
-            digit = digit/10;
-            dotPressed = false;
+        if (minusPressed) {
+            digit = digit * (-1);
+            minusPressed = false;
         }
-
-        screen = screen + digit;
-
+        if (dotCount < 2) {
+            if (dotPressed) {
+                double dotDigit = digit;
+                dotDigit = dotDigit / 10;
+                dotPressed = false;
+                if (screen.length() > 0) {
+                    double screenValue = Double.parseDouble(screen);
+                    screenValue = screenValue + dotDigit;
+                    screen = String.valueOf(screenValue);
+                } else screen = screen + dotDigit;
+            } else screen = screen + digit;
+        }
+        else screen = screen + digit;
     }
 
     /**
@@ -66,11 +81,14 @@ public class Calculator {
      * Rechner in den passenden Operationsmodus versetzt.
      * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * Wird ein Minus gedrückt, hat die Ziffer die Möglichkeit negativ zu werden, bevor eine Rechenoperation durchgeführt wird
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        if (operation.equals("-")) minusPressed = true;
+        dotCount = 0;
     }
 
     /**
@@ -89,6 +107,7 @@ public class Calculator {
             case "1/x" -> 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
+        dotCount = 0;
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
@@ -105,6 +124,7 @@ public class Calculator {
     public void pressDotKey() {
         if(!screen.contains(".")) screen = screen + ".";
         dotPressed = true;
+        dotCount++;
     }
 
     /**
