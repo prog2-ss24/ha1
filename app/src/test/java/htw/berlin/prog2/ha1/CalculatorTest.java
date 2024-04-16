@@ -135,11 +135,12 @@ class CalculatorTest {
         calc.pressDigitKey(0);
         calc.pressBinaryOperationKey("/");
         calc.pressDigitKey(2);
-        calc.pressBinaryOperationKey("-");
+        //calc.pressBinaryOperationKey("-"); // wird durch calc.pressEqualsKeyThenBinaryOperationKey ersetzt, damit der Wert von (10/2=5) "5" nicht mit 2 überschrieben wird. 
+        calc.pressEqualsKeyThenBinaryOperationKey("-");
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
 
-        String expected = "2";
+        String expected = "2"; // ((10 / 2) - 3 = 2)
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
