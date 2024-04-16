@@ -173,6 +173,21 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("Pressing the minus bevor inputting a number and after (should be a negativ number)")
+    void testPressingMinusBevorInputNumberAndAfter() {
+        Calculator calc = new Calculator();
+
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+
+        String expected = "-25";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
 
 
