@@ -48,6 +48,7 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+
     }
 
     /**
