@@ -127,9 +127,9 @@ class CalculatorTest {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("*");
+        calc.pressBinaryOperationKey("x");
         calc.pressDigitKey(2);
-        calc.pressBinaryOperationKey("*");
+        calc.pressBinaryOperationKey("x");
 
         String expected = "10";
         String actual = calc.readScreen();
