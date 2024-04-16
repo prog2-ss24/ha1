@@ -111,7 +111,8 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-//Test die rot werden
+//Tests die rot werden
+
     @Test
     @DisplayName("Punkt vor Strichrechnung Test")
     void testPunktVorStrich() {
@@ -134,5 +135,24 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("Negative Zahl in einer Wurzel ")
+    void testNegativSquareRoot() {
+        Calculator calc = new Calculator();
+
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
 }
 
