@@ -14,6 +14,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    public boolean minusBevorInput = false;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -60,6 +62,14 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+
+        if (operation.equals("-") && screen.equals("0")){
+            minusBevorInput = true;
+        }
+        if (minusBevorInput && operation.equals("-")) {
+            screen = "-"+ screen;
+        }
+
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
