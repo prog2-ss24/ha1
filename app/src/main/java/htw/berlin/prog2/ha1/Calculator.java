@@ -100,6 +100,7 @@ public class Calculator {
         if(!screen.contains(".")) screen = screen + ".";
     }
 
+
     /**
      * Empfängt den Befehl der gedrückten Vorzeichenumkehrstaste ("+/-").
      * Zeigt der Bildschirm einen positiven Wert an, so wird ein "-" links angehängt, der Bildschirm
