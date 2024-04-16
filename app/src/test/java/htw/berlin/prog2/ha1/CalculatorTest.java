@@ -90,5 +90,60 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-}
 
+
+    //Teilaufgabe 1: Schreiben Sie einen neuen zusätzlichen Test, der eine bisher nicht getestete Funktionalität abdeckt, die bereits funktioniert und der daher direkt grün wird.
+    @Test
+    @DisplayName("Calculator is able to devide 2 numbers")
+        //new Tests
+    void testDivision() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    //Teilaufgabe 2: Schreiben Sie zwei weitere zusätzliche Tests, die zwei unterschiedliche Fehlerkategorien aufdecken (d.h. deren Fehlerursachen in unterschiedlichen Methoden liegen) und somit fehlschlagen.
+    @Test
+    @DisplayName("Clear Key drücken und gleich darauf = sollte 0 wiedergeben aber gibt Error") //new Test // will fail
+    //gefixt durch if anweisung isEmpty()
+    void pressClear() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(3);
+        calc.pressClearKey();
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    @DisplayName("should correctly calculate 7 divided by 6")
+    //gefixt durch pressEqualsKey Anpassung
+    void testRoundingOfDecimalNumbers() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(6);
+        calc.pressEqualsKey();
+
+        String expected = "1.1666667";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+}
