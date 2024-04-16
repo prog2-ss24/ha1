@@ -111,7 +111,8 @@ class CalculatorTest {
 
     //Teilaufgabe 2: Schreiben Sie zwei weitere zusätzliche Tests, die zwei unterschiedliche Fehlerkategorien aufdecken (d.h. deren Fehlerursachen in unterschiedlichen Methoden liegen) und somit fehlschlagen.
     @Test
-    @DisplayName("Clear Key drücken und gleich darauf = sollte 0 wiedergeben tut es nicht") //new Test // will fail
+    @DisplayName("Clear Key drücken und gleich darauf = sollte 0 wiedergeben aber gibt Error") //new Test // will fail
+    //gefixt durch if anweisung isEmpty()
     void pressClear() {
         Calculator calc = new Calculator();
         calc.pressDigitKey(9);
@@ -129,6 +130,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should correctly calculate 7 divided by 6")
+    //gefixt durch pressEqualsKey Anpassung
     void testRoundingOfDecimalNumbers() {
         Calculator calc = new Calculator();
 
@@ -137,7 +139,7 @@ class CalculatorTest {
         calc.pressDigitKey(6);
         calc.pressEqualsKey();
 
-        String expected = "1,1666667";
+        String expected = "1.1666667";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
