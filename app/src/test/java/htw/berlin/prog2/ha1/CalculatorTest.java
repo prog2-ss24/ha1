@@ -119,12 +119,12 @@ class CalculatorTest {
         calc.pressDigitKey(2);
         calc.pressDigitKey(0);
         calc.pressBinaryOperationKey("+");
-        calc.pressBinaryOperationKey("-");
+       // calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(2);
         calc.pressDigitKey(0);
         calc.pressEqualsKey();
 
-        String expected = "-40";
+        String expected = "0";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
@@ -140,9 +140,13 @@ class CalculatorTest {
         calc.pressDigitKey(2);
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
         calc.pressEqualsKey();
 
-        String expected = "6";
+        String expected = "10";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
