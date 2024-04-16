@@ -104,5 +104,36 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display approximate square root of 0.1")
+    void testApproximateSquareRoot() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("√");
+
+        String expected = "0.31622777";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display approximate percentage of 0.1")
+    void testApproximatePercentageResult() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("%");
+
+        String expected = "0.001";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
