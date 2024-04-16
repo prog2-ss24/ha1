@@ -93,57 +93,83 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result after subtracting two negative multi-digit numbers")
-    void testNegativeSubtraction() {
+    void testNegativeAddition() {
         Calculator calc = new Calculator();
 
-        calc.pressNegativeKey();
+
         calc.pressDigitKey(1);
         calc.pressDigitKey(0);
-        calc.pressBinaryOperationKey("-");
         calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(1);
         calc.pressDigitKey(0);
+        calc.pressNegativeKey();
         calc.pressEqualsKey();
 
-        String expected = "0";
+        String expected = "-20";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    @DisplayName("should display result after subtracting two negative multi-digit numbers")
-    void testNegativeSubtraction1() {
+    @DisplayName("should display the right answer when dividing two decimals")
+    void divisionOfTwoDecimal() {
         Calculator calc = new Calculator();
 
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(1);
         calc.pressDigitKey(0);
-        calc.pressBinaryOperationKey("-");
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(1);
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("/");
         calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
         calc.pressEqualsKey();
 
-        String expected = "0";
+
+        String expected = "1";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("should display error")
-    void testError() {
+    @DisplayName("squared root of decimal")
+    void squaredRootOfDecimal() {
         Calculator calc = new Calculator();
-        calc.pressBinaryOperationKey("*");
-        calc.pressBinaryOperationKey("*-");
-        calc.pressDigitKey(4);
-        calc.pressDigitKey(9);
+
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
         calc.pressUnaryOperationKey("√");
 
-    String expected = "Error";
-    String actual = calc.readScreen();
+        String expected = "0.447";
+        String actual = calc.readScreen();
 
-    assertEquals(expected, actual);
+        assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("should display a positiv decimal with two digits after comma")
+    void shouldDisplayEnoughDigits() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "5.05";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+
 }
 
