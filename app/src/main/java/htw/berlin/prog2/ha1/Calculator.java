@@ -14,6 +14,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    private boolean screenCleared = false;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -46,8 +48,13 @@ public class Calculator {
      */
     public void pressClearKey() {
         screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+
+        if (screenCleared) {
+            latestOperation = "";
+            latestValue = 0.0;
+        }
+
+        screenCleared = !screenCleared;
     }
 
     /**
@@ -81,7 +88,7 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
-        if(screen.equals("NaN")) screen = "Error";
+        if(screen.equals("NaN") || (operation.equals("1/x") && screen.equals("Infinity"))) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
     }
