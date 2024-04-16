@@ -129,19 +129,37 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
     @Test
-    @DisplayName("kann Punkt-vor-Strich-Regel")
-    void testPunktvorStrich() {
+    @DisplayName("multiple Numbers")
+    void testMultipleNumbers() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(2);
-        calc.pressBinaryOperationKey("*");
+        calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(2);
         calc.pressEqualsKey();
 
         String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("Dot-before-Dash")
+    void testDotBeforeDash() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "3";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
