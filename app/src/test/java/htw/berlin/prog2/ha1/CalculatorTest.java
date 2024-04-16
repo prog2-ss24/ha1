@@ -1,5 +1,7 @@
 package htw.berlin.prog2.ha1;
 
+//     cd /Users/lucas/Documents/Documents/Studium/Prog2/ha1
+
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -45,12 +47,13 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result after adding two positive numbers and subtract one multi-digit number")
-    void testFailMultiplikationAndSubstraction() {
+    void testFailMultiplicationAndSubstraction() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(7);
         calc.pressBinaryOperationKey("x");
         calc.pressDigitKey(6);
+        calc.calculate();
         calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(8);
         calc.pressDigitKey(0);
@@ -63,17 +66,19 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display result after getting the square root of two and subtracting 3")
-    void testFailSquareSubtraction() {
+    @DisplayName("should display result after multiplying 2 and 1 and then subtracting it from 9")
+    void testFailMultiBeforeSubstraction() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(9);
-        calc.pressBinaryOperationKey("√");
         calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(3);
+        calc.pressDigitKey(1);
+        calc.calculate();
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
         calc.pressEqualsKey();
 
-        String expected = "0";
+        String expected = "7";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
