@@ -130,5 +130,20 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display error")
+    void testError() {
+        Calculator calc = new Calculator();
+        calc.pressBinaryOperationKey("*");
+        calc.pressBinaryOperationKey("*-");
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(9);
+        calc.pressUnaryOperationKey("√");
+
+    String expected = "Error";
+    String actual = calc.readScreen();
+
+    assertEquals(expected, actual);
+    }
 }
 
