@@ -90,5 +90,22 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+
+    @Test
+    void testSubtraction() {
+        Calculator calculator = new Calculator();
+
+        calculator.pressDigitKey(2);
+        calculator.pressDigitKey(5);
+        calculator.pressBinaryOperationKey("-");
+        calculator.pressDigitKey(1);
+        calculator.pressDigitKey(0);
+        calculator.pressEqualsKey();
+
+        assertEquals("15", calculator.readScreen());
+    }
+
+
 }
 
