@@ -116,10 +116,10 @@ class CalculatorTest {
         calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(5);
         calc.pressDigitKey(0);
-        calc.pressUnaryOperationKey("%");
-        calc.pressEqualsKey();
+        calc.pressUnaryOperationKey("%");  //vorher fehlte die Gleichung, um mit Prozenten zu rechnen
+        calc.pressEqualsKey(); 
 
-        String expected = "3";
+        String expected = "3"; // (6 - 50% = 3 )
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
