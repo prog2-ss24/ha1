@@ -1,3 +1,6 @@
+// C:\Users\jkapst\OneDrive\Coden\prog2\ha1
+
+
 package htw.berlin.prog2.ha1;
 
 import org.junit.jupiter.api.DisplayName;
@@ -103,6 +106,30 @@ class CalculatorTest {
         calc.pressEqualsKey();
 
         String expected = "70";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+//Test die rot werden
+    @Test
+    @DisplayName("Punkt vor Strichrechnung Test")
+    void testPunktVorStrich() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "30";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
