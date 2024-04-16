@@ -63,11 +63,15 @@ public class Calculator {
      */
     public void pressBinaryOperationKey(String operation)  {
 
+        if (!(operation.equals("-"))){
+            minusBevorInput = false;
+        }
         if (operation.equals("-") && screen.equals("0")){
             minusBevorInput = true;
         }
         if (minusBevorInput && operation.equals("-")) {
             screen = "-"+ screen;
+            minusBevorInput = false;
         }
 
         latestValue = Double.parseDouble(screen);
