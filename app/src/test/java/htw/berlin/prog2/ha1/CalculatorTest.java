@@ -90,5 +90,22 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after adding two positive multi-digit numbers")
+    void testPositiveAddition1() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+
+        String expected = "42";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
