@@ -109,7 +109,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("")
-    void subWithPercentage() {
+    void subWithPercentage() {  //subtrahieren mit Prozentsatz
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(6);
@@ -124,5 +124,24 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
 
+    }
+
+    @Test
+    @DisplayName("")
+    void divSub() {  //dividieren, dann subtrahieren
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
     }
 }
