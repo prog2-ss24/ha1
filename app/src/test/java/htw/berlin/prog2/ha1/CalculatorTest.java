@@ -88,23 +88,60 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-
-    //TODO hier weitere Tests erstellen
-    @Test
-    @DisplayName("should display result after multiplying two positive numbers")
-    void testPositiveMultiplication() {   //testet, ob das richtige Ergebnis angezeigt wird, wenn 2 zahlen multipliziert werden
+    // TODO hier weitere Tests erstellen
+    @Test // build tool ruft test-methode auf
+    @DisplayName("should display result after multiplying two positive numbers") // DisplayName = Beschreibung
+    void testPositiveMultiplication() { // testet, ob das richtige Ergebnis angezeigt wird, wenn 2 zahlen multipliziert
+                                        // werden
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(4);  //Es wird 4 eingetippt
-        calc.pressBinaryOperationKey("x"); //Operator ist x/*, also Multiplikation
-        calc.pressDigitKey(1);    // 1 eingetippt
-        calc.pressDigitKey(2);    // 2 eingetippt
-        calc.pressEqualsKey();          // = wird eingetippt für das Ergebnis
+        calc.pressDigitKey(4); // Es wird 4 eingetippt
+        calc.pressBinaryOperationKey("x"); // Operator ist x/*, also Multiplikation
+        calc.pressDigitKey(1); // 1 eingetippt
+        calc.pressDigitKey(2); // 2 eingetippt
+        calc.pressEqualsKey(); // = wird eingetippt für das Ergebnis
 
-        String expected = "48";        //48 wird als Ergebis erwartet
+        String expected = "48"; // 48 wird als Ergebis erwartet
         String actual = calc.readScreen(); // Hier wird das Ergebnis angezeigt beim Calculator
 
-        assertEquals(expected, actual);    // Ergbinsse nebeneinander gestellt
+        assertEquals(expected, actual); // Ergbinsse nebeneinander gestellt
+    }
+
+    @Test
+    @DisplayName("")
+    void subWithPercentage() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(6);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("%");
+        calc.pressEqualsKey();
+
+        String expected = "3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    @DisplayName("")
+    void addDiv() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
     }
 }
-
