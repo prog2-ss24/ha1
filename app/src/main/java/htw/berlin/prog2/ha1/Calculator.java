@@ -14,6 +14,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    private boolean firstClear = true;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -45,10 +47,15 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+        if(firstClear) {
+            screen = "0";
+        }else{
+            latestOperation = "";
+            latestValue = 0.0;
+        }
+
     }
+
 
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
