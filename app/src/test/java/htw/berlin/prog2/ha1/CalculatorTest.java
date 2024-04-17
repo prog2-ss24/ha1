@@ -88,6 +88,40 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display the correct result after inverting a non-zero number")
+    void testInversion() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "0.5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display error when trying to add two decimal dots in a number")
+    void testDoubleDecimalDotError() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressDotKey();
+        calc.pressDigitKey(1);
+        calc.pressDotKey();  // Zweites Dezimalzeichen hinzufügen
+        calc.pressDigitKey(5);
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+
+
 
     //TODO hier weitere Tests erstellen
 }
