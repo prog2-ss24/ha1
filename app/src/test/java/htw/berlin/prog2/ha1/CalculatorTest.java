@@ -158,13 +158,13 @@ class CalculatorTest {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
-        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(2);
         calc.pressDigitKey(5);
         calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(2);
-        calc.pressDigitKey(5);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(0);
         calc.pressEqualsKey();
 
         String expected = "75";
@@ -186,10 +186,10 @@ class CalculatorTest {
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(2);
         calc.pressDigitKey(5);
-//        calc.pressBinaryOperationKey("+");
-//        calc.pressDigitKey(1);
-//        calc.pressBinaryOperationKey("+");
-//        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
 
         calc.pressEqualsKey();
 

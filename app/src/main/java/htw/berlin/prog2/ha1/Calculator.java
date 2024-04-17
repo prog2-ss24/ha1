@@ -87,7 +87,7 @@ public class Calculator {
         latestValue = Double.parseDouble(screen);
 
         //fix more than one Operation
-        if ((latestValue != 0) && (!minusBevorInput)){
+        if ((latestValue != 0) && (!minusBevorInput)){   //funktioniert nicht!!!
             operationSelectet = true;
         }
 
