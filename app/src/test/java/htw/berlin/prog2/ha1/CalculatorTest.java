@@ -88,7 +88,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-//Teilaufgabe 1:
+    //Teilaufgabe 1:
     @Test
     @DisplayName("should display result after adding two positive multi-digit numbers")
     void testNegativeAddition() {
@@ -107,3 +107,4 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+}
