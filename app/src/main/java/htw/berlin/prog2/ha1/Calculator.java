@@ -12,6 +12,10 @@ public class Calculator {
 
     private double latestValue;
 
+    private double storage = 0;
+
+    private boolean operationSelectet = false;
+
     private String latestOperation = "";
 
     public boolean minusBevorInput = false;
@@ -63,6 +67,10 @@ public class Calculator {
      */
     public void pressBinaryOperationKey(String operation)  {
 
+        latestOperation = operation;
+
+        // Minus bevor input Fix
+
         if (minusBevorInput && operation.equals("-")) {
             screen = "-" + screen;
             minusBevorInput = false;
@@ -74,9 +82,25 @@ public class Calculator {
         if (operation.equals("-") && screen.equals("0")){
             minusBevorInput = true;
         }
+        //ende fix minus bevor input
 
         latestValue = Double.parseDouble(screen);
-        latestOperation = operation;
+
+        //fix more than one Operation
+        if ((latestValue != 0) && (!minusBevorInput)){
+            operationSelectet = true;
+        }
+
+        if (operationSelectet) {
+            pressEqualsKeyWithoutStorage();
+            storage = Double.parseDouble(screen);
+            latestValue = 0;
+            screen = String.valueOf(latestValue);
+            operationSelectet = false;
+        }
+        //Ende Fix mehrere Operationen hintereinander
+
+
     }
 
     /**
@@ -134,10 +158,23 @@ public class Calculator {
      */
     public void pressEqualsKey() {
         var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
+            case "+" -> latestValue + Double.parseDouble(screen) + storage ;
+            case "-" -> latestValue - Double.parseDouble(screen) + storage;
+            case "x" -> latestValue * Double.parseDouble(screen) + storage;
+            case "/" -> latestValue / Double.parseDouble(screen) + storage;
+            default -> throw new IllegalArgumentException();
+        };
+        screen = Double.toString(result);
+        if(screen.equals("Infinity")) screen = "Error";
+        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
+        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+    }
+    public void pressEqualsKeyWithoutStorage() {
+        var result = switch(latestOperation) {
+            case "+" -> latestValue + Double.parseDouble(screen)  ;
+            case "-" -> latestValue - Double.parseDouble(screen) ;
             case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+            case "/" -> latestValue / Double.parseDouble(screen) ;
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
@@ -146,3 +183,5 @@ public class Calculator {
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
 }
+
+
