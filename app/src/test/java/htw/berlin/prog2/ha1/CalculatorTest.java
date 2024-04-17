@@ -109,5 +109,21 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    //Teilaufgabe 2
+    @Test
+    @DisplayName("should display the same number after pressing equalsKey without pressing any operationKey between")
+    void testNoOperationNoDifference() {
+
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+
+        String expected = "1";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
