@@ -158,7 +158,7 @@ public class Calculator {
      */
     public void pressEqualsKey() {
         var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen) + storage ;
+            case "+" -> latestValue + Double.parseDouble(screen) + storage;
             case "-" -> latestValue - Double.parseDouble(screen) + storage;
             case "x" -> latestValue * Double.parseDouble(screen) + storage;
             case "/" -> latestValue / Double.parseDouble(screen) + storage;
