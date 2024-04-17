@@ -55,7 +55,6 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-    
 
     @Test
     @DisplayName("should display error when drawing the square root of a negative number")
@@ -91,7 +90,7 @@ class CalculatorTest {
 
     //TODO hier weitere Tests erstellen
     @Test
-    @DisplayName("should display result after adding two positive multi-digit numbers")
+    @DisplayName("should display result after subtracting two positive multi-digit numbers")
     void testSubtraction() {
         Calculator calc = new Calculator();
 
