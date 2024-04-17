@@ -105,7 +105,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("One divad by a number")
+    @DisplayName("number will square")
     void testSquare() {
         Calculator calc = new Calculator();
 
