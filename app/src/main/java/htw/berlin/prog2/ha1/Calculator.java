@@ -130,11 +130,14 @@ public class Calculator {
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
+            case "%" -> latestValue % Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
         if (screen.equals("Infinity")) screen = "Error";
         if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
         if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if(screen.endsWith("999999") && screen.length() > 9) screen = screen.substring(0,0) + Math.round(result * 100.0)/100.0;
+
     }
 }
