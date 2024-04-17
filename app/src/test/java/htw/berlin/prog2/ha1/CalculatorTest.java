@@ -92,7 +92,7 @@ class CalculatorTest {
     //TODO hier weitere Tests erstellen
 
     @Test
-    @DisplayName("should be the result after multiplying two multi-digit numbers")
+    @DisplayName("should display result after multiplying two multi-digit numbers")
     void testMultiplication(){
         Calculator calc = new Calculator();
 
@@ -109,6 +109,78 @@ class CalculatorTest {
         assertEquals(expected, actual);
 
 
+    }
+    @Test
+    @DisplayName("should display result after pressing clear key")
+    void testPressClearKey(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressClearKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after pressing negative key")
+    void testPressNegativeKey(){
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after pressing the unary operation key 1/x")
+    void testReciprocalCalculation(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "0.5";
+        String actual =calc.readScreen();
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should be result after pressing the unary operation key %")
+    void testPercentageCalculation(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("%");
+
+        String expected = "5.0";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after pressing the clear key twice")
+    void testShowLatestValue(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        calc.pressClearKey();
+        calc.pressClearKey();
+
+        String expected = "4";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
     }
 }
 
