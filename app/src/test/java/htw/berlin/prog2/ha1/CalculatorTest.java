@@ -88,7 +88,21 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("One divad by a number")
+    void testDividOneByX() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "0.1";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
