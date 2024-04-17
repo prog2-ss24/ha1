@@ -106,7 +106,7 @@ class CalculatorTest {
     }
     @Test
     @DisplayName("One divad by a number")
-    void testQuarter() {
+    void testSquare() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(1);
