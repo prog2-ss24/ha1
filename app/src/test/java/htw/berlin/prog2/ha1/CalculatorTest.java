@@ -174,6 +174,32 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("4 Rechnungen hintereinander ausführen") //fail => es können nicht mehr als eine Rechnung hinter einander ausgeführt werden
+    void test4Operations() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
+//        calc.pressBinaryOperationKey("+");
+//        calc.pressDigitKey(1);
+//        calc.pressBinaryOperationKey("+");
+//        calc.pressDigitKey(1);
+
+        calc.pressEqualsKey();
+
+        String expected = "77";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     @DisplayName("Pressing the minus bevor inputting a number and after (should be a negativ number)")
     void testPressingMinusBevorInputNumberAndAfter() {
         Calculator calc = new Calculator();
@@ -188,6 +214,8 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+
 
 
 
