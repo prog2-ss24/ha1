@@ -150,7 +150,7 @@ public class Calculator {
             case "/" -> {
                 if (strich) {
                     result = latestaddition / Double.parseDouble(screen);
-                    temporarysum = latestValue - latestaddition;
+                    temporarysum = latestValue - latestaddition + temporarysum;
                     strich = false;
                 } else {
                     result = latestValue / Double.parseDouble(screen);
