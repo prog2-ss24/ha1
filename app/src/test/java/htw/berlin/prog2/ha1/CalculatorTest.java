@@ -55,6 +55,7 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    
 
     @Test
     @DisplayName("should display error when drawing the square root of a negative number")
