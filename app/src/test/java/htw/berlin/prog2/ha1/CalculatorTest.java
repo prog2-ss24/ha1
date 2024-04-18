@@ -108,7 +108,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should repeat last operation when pressing equals multiple times")
-    void testRepeatLastOperation() {
+    void testMultipleEqualsPossible() {
         Calculator calculator = new Calculator();
 
         calculator.pressDigitKey(5);
@@ -119,6 +119,22 @@ class CalculatorTest {
 
         String expected = "11";
         String actual = calculator.readScreen(); //currently screen=13
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should repeat last operation when pressing equals multiple times")
+    void testMultipleUnaryOperations() {
+        Calculator calculator = new Calculator();
+
+        calculator.pressDigitKey(1);
+        calculator.pressDigitKey(6);
+        calculator.pressUnaryOperationKey("√");
+        calculator.pressUnaryOperationKey("√");
+
+        String expected = "2";
+        String actual = calculator.readScreen();
 
         assertEquals(expected, actual);
     }
