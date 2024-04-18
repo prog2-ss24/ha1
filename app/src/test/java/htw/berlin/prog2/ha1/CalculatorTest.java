@@ -108,5 +108,21 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    public void testMultiplicationOverflow() {
+        Calculator calculator = new Calculator();
+
+        // Set the screen value to a large number
+        for (int i = 0; i < 20; i++) {
+            calculator.pressDigitKey(9);
+        }
+
+        calculator.pressBinaryOperationKey("x");
+        calculator.pressDigitKey(2);
+        calculator.pressEqualsKey();
+
+        assertEquals("Error", calculator.readScreen());
+    }
 }
 
