@@ -91,8 +91,8 @@ class CalculatorTest {
 
     //TODO hier weitere Tests erstellen
     @Test
-    @DisplayName("should display result after subtracting two positive multi-digit numbers")
-    void testNegativeAddition() {
+    @DisplayName("GreenTest: Should display result after subtracting two positive multi-digit numbers")
+    void testSubtraction() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
@@ -103,6 +103,29 @@ class CalculatorTest {
         calc.pressEqualsKey();
 
         String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    //Roter Test
+    @Test
+    @DisplayName("RedTest1: Should display 9 Numbers in decimal format")
+    void testEqualsLength (){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(6);
+        calc.pressDigitKey(7);
+        calc.pressDigitKey(8);
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "123456789";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
