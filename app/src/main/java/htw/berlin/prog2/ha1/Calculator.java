@@ -7,7 +7,6 @@ package htw.berlin.prog2.ha1;
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
  */
 
-// Das hier ist ein Test für den Commit
 
 public class Calculator {
 
