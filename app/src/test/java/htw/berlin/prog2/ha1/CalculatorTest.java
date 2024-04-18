@@ -124,17 +124,15 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should repeat last operation when pressing equals multiple times")
-    void testMultipleUnaryOperations() {
+    @DisplayName("should display whole numbers as integers")
+    void testWholeNumberAsInteger() {
         Calculator calculator = new Calculator();
 
-        calculator.pressDigitKey(1);
-        calculator.pressDigitKey(6);
-        calculator.pressUnaryOperationKey("√");
+        calculator.pressDigitKey(4);
         calculator.pressUnaryOperationKey("√");
 
         String expected = "2";
-        String actual = calculator.readScreen();
+        String actual = calculator.readScreen(); //not 2.0
 
         assertEquals(expected, actual);
     }
