@@ -103,8 +103,13 @@ public class Calculator {
      * aktualisiert und die Inhalt fortan als negativ interpretiert.
      * Zeigt der Bildschirm bereits einen negativen Wert mit führendem Minus an, dann wird dieses
      * entfernt und der Inhalt fortan als positiv interpretiert.
+     * Zeigt der Bildschirm eine Null an, so wird keine Anpassung vorgenommen, da die Negation von Null immer Null ist.
      */
     public void pressNegativeKey() {
+        if (screen.equals("0")) {
+            // Wenn der Bildschirm "0" anzeigt, ändern wir nichts.
+            return;
+        }
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
     }
 
