@@ -39,24 +39,7 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-    //Teilaufgabe ha1  1.grüner Test Multipliation 2 positive nummer
-    @Test
-    @DisplayName("should display result after multiply two positive multi-digit numbers")
-    void testPositiveMultipliation() {
-        Calculator calc = new Calculator();
 
-        calc.pressDigitKey(1);
-        calc.pressDigitKey(0);
-        calc.pressBinaryOperationKey("x");
-        calc.pressDigitKey(1);
-        calc.pressDigitKey(0);
-        calc.pressEqualsKey();
-
-        String expected = "100";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
     @Test
     @DisplayName("should display error when dividing by zero")
     void testDivisionByZero() {
@@ -107,5 +90,36 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    //Teilaufgabe ha1  1.grüner Test Multipliation 2 positive nummer
+    @Test
+    @DisplayName("should display result after multiply two positive multi-digit numbers")
+    void testPositiveMultipliation() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "100";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    //teilaufgabe2
+    @Test
+    void testInversionByZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
