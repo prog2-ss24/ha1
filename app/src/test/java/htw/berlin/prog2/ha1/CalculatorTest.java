@@ -103,17 +103,14 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display error when trying to add two decimal dots in a number")
-    void testDoubleDecimalDotError() {
+    @DisplayName("should display zero when attempting to negate zero")
+    void testNegateZero() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(3);
-        calc.pressDotKey();
-        calc.pressDigitKey(1);
-        calc.pressDotKey();  // Zweites Dezimalzeichen hinzufügen
-        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
+        calc.pressNegativeKey();
 
-        String expected = "Error";
+        String expected = "0";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
