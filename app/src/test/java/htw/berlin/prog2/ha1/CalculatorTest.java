@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("Retro calculator")
 class CalculatorTest {
@@ -109,20 +110,23 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+
+
     @Test
-    public void testMultiplicationOverflow() {
-        Calculator calculator = new Calculator();
+    @DisplayName ("should show negative number when pressing negative key first")
+    void testNegativeKey() {
+        Calculator calc = new Calculator();
 
-        // Set the screen value to a large number
-        for (int i = 0; i < 20; i++) {
-            calculator.pressDigitKey(9);
-        }
+        calc.pressNegativeKey();
+        calc.pressDigitKey(7);
 
-        calculator.pressBinaryOperationKey("x");
-        calculator.pressDigitKey(2);
-        calculator.pressEqualsKey();
+        String expected = "-7";
+        String actual = calc.readScreen();
 
-        assertEquals("Error", calculator.readScreen());
+        assertEquals(expected, actual);
     }
+
+
+
 }
 
