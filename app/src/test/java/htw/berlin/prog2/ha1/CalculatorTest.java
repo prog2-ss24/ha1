@@ -118,8 +118,9 @@ class CalculatorTest {
         assertEquals("0", calc.readScreen());
     }
 
+    // 1. Fehler
     @Test
-    @DisplayName("should display the subtraction after pressing clear key")
+    @DisplayName("should display the result of the subtraction after pressing clear key")
     void testClearKey() {
         Calculator calc = new Calculator();
         calc.pressDigitKey(1);
@@ -145,6 +146,7 @@ class CalculatorTest {
 
         assertEquals("-14", calc.readScreen());
     }
+
     @Test
     @DisplayName("should display the result after dividing with a negative number")
     void testNegativeDivision() {
@@ -158,7 +160,9 @@ class CalculatorTest {
 
         assertEquals("-6.7142857", calc.readScreen());
     }
-@Test
+
+    // Zweiter Fehler ( aber nicht richtig an die Online Calculator Logik geachtet
+    @Test
     @DisplayName("should display the result after using % operator")
     void testOperator() {
         Calculator calc = new Calculator();
@@ -169,8 +173,56 @@ class CalculatorTest {
 
         assertEquals("0.23", calc.readScreen());
 
-}
-}
+    }
+
+    @Test
+    @DisplayName("should display the result of the inversion operator")
+    void testInversion() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(3);
+        calc.pressUnaryOperationKey("1/x");
+
+        assertEquals("0.04347826", calc.readScreen());
+    }
+
+    @Test
+    @DisplayName("should display the result of 2 negative digits mulitiplicated")
+    void testNegativeMultiplication() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(7);
+        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(7);
+        calc.pressNegativeKey();
+        calc.pressEqualsKey();
+
+        assertEquals("49", calc.readScreen());
+    }
+
+
+    // 3. Fehler
+    @Test
+    @DisplayName("should allow multiple usage of "x" BinaryOperationsKey and display the result of the multiplication")
+    void testBinaryOperation() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+
+        calc.pressEqualsKey();
+
+        assertEquals("200", calc.readScreen());
+    }
+    }
+
+
+
+
 
 
 
