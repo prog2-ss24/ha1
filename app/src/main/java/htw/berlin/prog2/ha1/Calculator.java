@@ -12,9 +12,7 @@ public class Calculator {
 
     private double latestValue;
 
-    private double storage = 0;
-
-    private boolean operationSelectet = false;
+    private Integer operationCounter = 0;
 
     private String latestOperation = "";
 
@@ -54,6 +52,7 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+        operationCounter = 0;
     }
 
     /**
@@ -68,6 +67,7 @@ public class Calculator {
     public void pressBinaryOperationKey(String operation)  {
 
         latestOperation = operation;
+        operationCounter +=1;
 
         // Minus bevor input Fix
 
@@ -81,26 +81,15 @@ public class Calculator {
         }
         if (operation.equals("-") && screen.equals("0")){
             minusBevorInput = true;
+            operationCounter -=1;
         }
         //ende fix minus bevor input
 
-        latestValue = Double.parseDouble(screen);
-
         //fix more than one Operation
-        if ((latestValue != 0) && (!minusBevorInput)){   //funktioniert nicht!!!
-            operationSelectet = true;
-        }
 
-        if (operationSelectet) {
-            pressEqualsKeyWithoutStorage();
-            storage = Double.parseDouble(screen);
-            latestValue = 0;
-            screen = String.valueOf(latestValue);
-            operationSelectet = false;
-        }
-        //Ende Fix mehrere Operationen hintereinander
+        if (operationCounter>1) pressEqualsKey();
 
-
+        latestValue = Double.parseDouble(screen);
     }
 
     /**
@@ -158,10 +147,10 @@ public class Calculator {
      */
     public void pressEqualsKey() {
         var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen) + storage;
-            case "-" -> latestValue - Double.parseDouble(screen) + storage;
-            case "x" -> latestValue * Double.parseDouble(screen) + storage;
-            case "/" -> latestValue / Double.parseDouble(screen) + storage;
+            case "+" -> latestValue + Double.parseDouble(screen) ;
+            case "-" -> latestValue - Double.parseDouble(screen) ;
+            case "x" -> latestValue * Double.parseDouble(screen) ;
+            case "/" -> latestValue / Double.parseDouble(screen) ;
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
