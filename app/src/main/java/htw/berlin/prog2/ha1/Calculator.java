@@ -6,6 +6,9 @@ package htw.berlin.prog2.ha1;
  * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
  */
+
+// Das hier ist ein Test für den Commit
+
 public class Calculator {
 
     private String screen = "0";
