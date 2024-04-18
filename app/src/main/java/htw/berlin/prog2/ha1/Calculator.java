@@ -116,18 +116,30 @@ public class Calculator {
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
+     * Falls vor dem ersten Drücken der "="-Taste keine binäre Operationstaste gedrückt wurde, passiert ebenfalls nichts.
      */
+
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        double currentOperand = Double.parseDouble(screen);
+
+        // Überprüfen, ob das Gleichheitszeichen zweimal hintereinander gedrückt wurde
+        if (latestOperation != null) {
+            var result = switch (latestOperation) {
+                case "+" -> latestValue + currentOperand;
+                case "-" -> latestValue - currentOperand;
+                case "x" -> latestValue * currentOperand;
+                case "/" -> latestValue / currentOperand;
+                default -> throw new IllegalArgumentException();
+            };
+
+            screen = Double.toString(result);
+            if (screen.equals("Infinity")) screen = "Error";
+            if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+            if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        }
+
+        // Speichern des aktuellen Operators und Operanden für den nächsten Gleichheitszeichen-Druck
+        latestOperation = latestOperation;
+        latestValue = currentOperand;
     }
 }
