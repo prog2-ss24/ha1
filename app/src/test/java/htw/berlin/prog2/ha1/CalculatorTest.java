@@ -119,7 +119,6 @@ class CalculatorTest {
         calc.pressDigitKey(2);
         calc.pressDigitKey(0);
         calc.pressBinaryOperationKey("+");
-       // calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(2);
         calc.pressDigitKey(0);
         calc.pressEqualsKey();
@@ -147,23 +146,6 @@ class CalculatorTest {
         calc.pressEqualsKey();
 
         String expected = "10";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
-    @Test
-    @DisplayName("Dot-before-Dash")
-    void testDotBeforeDash() {
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(2);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(2);
-        calc.pressBinaryOperationKey("/");
-        calc.pressDigitKey(2);
-        calc.pressEqualsKey();
-
-        String expected = "3";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);

@@ -19,8 +19,8 @@ public class Calculator {
     private boolean isFinaleResultWanted = true;
     private int BinaryOperationCounter = 0;
 
-    private boolean isOtherBinaryOperationExecutedRightBefore = false;
     private boolean isFirstImput = true;
+
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -73,23 +73,22 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation) {
-        if (isOtherBinaryOperationExecutedRightBefore)
-            if (BinaryOperationCounter >= 1) {
+        // prüfe ob erste Eingabe ein negatives Vorzeichen ist
+        if(isFirstImput && operation == "-"){
+            pressNegativeKey();
+            isFirstImput = false;
+        }
+
+        // prüfe ob mehr als ein Operator gedrückt wurde - zum weiter rechnen
+        if (BinaryOperationCounter >= 1) {
                 isFinaleResultWanted = false;
                 pressEqualsKey();
                 isFinaleResultWanted = true;
                 //showIntermediateResultOnScreen();
-            }
-        latestValue = Double.parseDouble(screen);
-        if (isFirstImput) {
-            if (Objects.equals(operation, "-")) {
-                latestValue = latestValue * (-1);
-            }
-            isFirstImput = false;
-        } else {
-            latestOperation = operation;
-            BinaryOperationCounter++;
         }
+        BinaryOperationCounter++;
+        latestValue = Double.parseDouble(screen);
+        latestOperation = operation;
     }
 
     /**
@@ -147,8 +146,11 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        // wenn ergebnis gewünscht dann wird der Counter wieder auf Null gesetzt um eine neue Rechnung zu starten
+        // isFinalResultWanted damit screen zwischen Stand anzeigt (beim Binary counter)
        if(isFinaleResultWanted){
-        BinaryOperationCounter = 0;}
+           BinaryOperationCounter = 0;
+       }
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
             case "-" -> latestValue - Double.parseDouble(screen);
