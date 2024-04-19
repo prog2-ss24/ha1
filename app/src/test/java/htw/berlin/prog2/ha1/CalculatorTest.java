@@ -112,5 +112,26 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    /**
+     * Testet die Darstellung des Ergebnisses nach der Berechnung der Quadratwurzel einer Zahl ohne Dezimalpunkt.
+     */
+
+    @Test
+    @DisplayName("should display the result after getting the square root of a number but without a decimal point")
+    void testASquareRoot2() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "10";
+        String actual = calc.readScreen();
+
+        assertEquals(expected,actual);
+}
+
 }
 
