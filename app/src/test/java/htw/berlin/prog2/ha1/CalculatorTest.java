@@ -121,7 +121,7 @@ class CalculatorTest {
         String actual = calc.readScreen();
     
         assertEquals(expected, actual);
-    }  
+    }
     
     @Test
     @DisplayName("should display error when attempting to perform an unsupported operation")
