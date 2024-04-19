@@ -133,7 +133,15 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     // Fehler 1: Die Clear-Funktion löscht alle Einträge und setzt alles auf 0 zurück.
-
+// Bugfix :Die Funktion Clear löscht nun den letzten Eintrag ohne die gespeicherten Einträge zu berühren und die Funktion Clear Entry setzt alle Einträge auf 0 zurück.
+    //public void pressClearEntryKey() {
+    //        screen = "0";
+    //        latestOperation = "";
+    //        latestValue = 0.0;
+    //    }
+    //    public void pressClearKey () {
+    //        screen = "0";
+    //    }
 }
 
 
