@@ -123,5 +123,18 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("should display error when pressing equals key without previous binary operation")
+    void testEqualsKeyWithoutPreviousOperation() {
+        Calculator calc = new Calculator();
+
+        calc.pressEqualsKey();
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
