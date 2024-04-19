@@ -66,25 +66,39 @@ public class Calculator {
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
-     * Quadratwurzel, Prozent, Inversion, welche nur einen Operanden benötigen.
-     * Beim Drücken der Taste wird direkt die Operation auf den aktuellen Zahlenwert angewendet und
-     * der Bildschirminhalt mit dem Ergebnis aktualisiert.
+     * Quadratwurzel, Prozent oder Inversion, welche nur einen Operanden benötigen.
+     * Beim Drücken der Taste wird direkt die entsprechende Operation auf den aktuellen Zahlenwert angewendet.
+     * Falls die Operation "1/x" ist und der aktuelle Zahlenwert Null beträgt, wird "Error" angezeigt.
+     * Der Bildschirminhalt wird anschließend mit dem Ergebnis der Operation aktualisiert.
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
-        var result = switch(operation) {
-            case "√" -> Math.sqrt(Double.parseDouble(screen));
-            case "%" -> Double.parseDouble(screen) / 100;
-            case "1/x" -> 1 / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
+        double result;
+        switch(operation) {
+            case "√":
+                result = Math.sqrt(Double.parseDouble(screen));
+                break;
+            case "%":
+                result = Double.parseDouble(screen) / 100;
+                break;
+            case "1/x":
+                double operand = Double.parseDouble(screen);
+                if (operand == 0) {
+                    screen = "Error";
+                    return;
+                }
+                result = 1 / operand;
+                break;
+            default:
+                throw new IllegalArgumentException();
+        }
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-
     }
+
 
     /**
      * Empfängt den Befehl der gedrückten Dezimaltrennzeichentaste, im Englischen üblicherweise "."
