@@ -90,5 +90,27 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    /**
+     * Teilaufgabe 1 GrüneTest
+     * Testet die Subtraktionsoperation mit positiven Zahlen und stellt sicher, dass der Taschenrechner
+     * keine mehrfachen Dezimalpunkte im Ergebnis zulässt.
+     */
+
+    @Test
+    @DisplayName("should not allow multiple decimal dots")
+    void testPositiveMinus() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(4);
+
+        calc.pressEqualsKey();
+
+        String expected = "4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
