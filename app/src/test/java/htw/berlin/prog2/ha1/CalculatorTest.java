@@ -87,6 +87,9 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    // Grüne Testfälle
+
     @Test
     @DisplayName("should display result after subtracting two positive multi-digit numbers")
     void testPositiveSubtraction() {
@@ -104,6 +107,22 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-    
+
+    // Rote Testfälle
+
+    @Test
+    @DisplayName("should display negative number when pressing negative key first")
+    void testNegativeKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "-5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
