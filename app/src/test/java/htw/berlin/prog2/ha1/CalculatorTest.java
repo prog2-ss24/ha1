@@ -88,6 +88,22 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("Das ist ein Test")
+    void testNegativKeyIndex(){
+        Calculator calc = new Calculator();
+
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(1);
+        calc.readScreen();
+
+        String expected = "1";
+        String actual = calc.readScreen();
+
+        assertEquals(expected,actual);
+    }
+
+
 
     //TODO hier weitere Tests erstellen
 }
