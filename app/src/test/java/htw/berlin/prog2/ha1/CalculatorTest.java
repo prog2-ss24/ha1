@@ -124,20 +124,17 @@ class CalculatorTest {
     }  
     
     @Test
-    @DisplayName("should display error when attempting to get square root of a negative value after pressing equals key")
-    void testSquareRootOfNegativeAfterEquals() {
+    @DisplayName("should display error when attempting to perform an unsupported operation")
+    void testUnsupportedOperation() {
         Calculator calc = new Calculator();
     
-        calc.pressDigitKey(9);
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(1);
-        calc.pressEqualsKey();
-        calc.pressUnaryOperationKey("√");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("^"); // Versucht, eine nicht unterstützte Operation durchzuführen
     
-        String expected = "Error";
+        String expected = "Error"; // Erwartet: "Error", da "^" keine unterstützte Operation ist
         String actual = calc.readScreen();
     
         assertEquals(expected, actual);
-    }    
+    }
 }
 
