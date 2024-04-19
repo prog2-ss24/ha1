@@ -107,6 +107,33 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    //Test 2
+    @Test
+    @DisplayName("should display the two functions of the Clear button and Clear Entry button ")
+    void testSaveClear(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        calc.pressClearKey();
+        calc.pressClearEntryKey();
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressClearKey();
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "80";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    // Fehler 1: Die Clear-Funktion löscht alle Einträge und setzt alles auf 0 zurück.
+
 }
 
 
