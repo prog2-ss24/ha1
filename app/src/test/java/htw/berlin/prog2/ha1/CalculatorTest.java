@@ -90,7 +90,9 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-    //Teilaufgabe ha1  1.grüner Test Multipliation 2 positive nummer
+    /**
+     * Teilaufgabe 1 (Grüne Test)Testet die Funktionalität des Calculators für die Multiplikation zweier positiver mehrstelliger Zahlen.
+     */
     @Test
     @DisplayName("should display result after multiply two positive multi-digit numbers")
     void testPositiveMultipliation() {
@@ -108,8 +110,11 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-    //teilaufgabe2
+    /**
+     *  Teilaufgabe2 (RoteTest)Testet die Funktionalität der Calculator-Klasse für die Division durch Null.
+     */
     @Test
+    @DisplayName("should display result after division by zero")
     void testInversionByZero() {
         Calculator calc = new Calculator();
 
@@ -117,6 +122,24 @@ class CalculatorTest {
         calc.pressUnaryOperationKey("1/x");
 
         String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Teilaufgabe2 (RoteTest) Testet die Funktionalität des Calculators für die Quadratwurzel einer positiven mehrstelligen Zahl.
+     */
+    @Test
+    @DisplayName("should display result after taking the square root of a positive multi-digit number")
+    void testASquareRoot() {
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(4);
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "2";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
