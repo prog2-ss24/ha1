@@ -111,15 +111,14 @@ class CalculatorTest {
     // Rote Testfälle
 
     @Test
-    @DisplayName("should display negative number when pressing negative key first")
-    void testNegativeKey() {
+    @DisplayName("should display error when inverting zero")
+    void testInversionOfZero() {
         Calculator calc = new Calculator();
 
-        calc.pressNegativeKey();
-        calc.pressDigitKey(5);
-        calc.pressEqualsKey();
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
 
-        String expected = "-5";
+        String expected = "Error";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
