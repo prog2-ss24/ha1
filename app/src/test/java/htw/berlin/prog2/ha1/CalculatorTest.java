@@ -108,6 +108,23 @@ class CalculatorTest {
     }
 
 
+    @Test
+    @DisplayName("should display result of positive number inversion")
+    void testPositiveInversion() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressUnaryOperationKey("1/x");
+        calc.pressEqualsKey();
+
+        String expected = "0.5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+
 
 
 }
