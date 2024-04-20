@@ -14,6 +14,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    private String memory ="";
+
 
 
     /**
@@ -50,6 +52,18 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+
+    }
+
+    public void pressMemoryAddKey() {
+
+        memory = screen;
+
+    }
+
+    public void pressMemoryKey() {
+
+        screen = memory;
 
     }
 

@@ -152,5 +152,23 @@ class CalculatorTest {
 
     }
 
+    @Test
+    @DisplayName("should test memory function by saving a number")
+    void testMemoryFunction() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
+        calc.pressMemoryAddKey();
+        calc.pressClearKey();
+        calc.pressMemoryKey();
+
+        String expected = "25";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
 }
 
