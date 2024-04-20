@@ -43,7 +43,6 @@ public class Calculator {
      */
     public void pressClearKey() {
         screen = "0";
-        latestOperation = latestOperation;
         latestValue = 0.0;
     }
 

@@ -109,7 +109,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should memorise the binary operation by deleting the second operand after pressing C-button once")
-    void testCTasteMitAddition() {
+    void testCButtonByAddition() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
@@ -121,5 +121,21 @@ class CalculatorTest {
 
 
         assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display 0 after taking a percentage of a negative number")
+    void testPercentageOfNegativeNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressUnaryOperationKey("%");
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
     }
 }
