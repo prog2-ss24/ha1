@@ -124,8 +124,8 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display 0 after taking a percentage of a negative number")
-     void testPercentageOfNegativeNumber() {
+    @DisplayName("should display result of decimal inversion")
+     void testDecimalInversion() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(0);
