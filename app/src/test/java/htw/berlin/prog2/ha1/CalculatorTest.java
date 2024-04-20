@@ -112,7 +112,7 @@ class CalculatorTest {
         calc.pressDigitKey(0);
         calc.pressDotKey();
         calc.pressDigitKey(1);
-        calc.pressBinaryOperationKey("√");
+        calc.pressUnaryOperationKey("√");
 
         String expected = "0.31622777";
         String actual = calc.readScreen();
@@ -120,16 +120,18 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("should display approximate percentage of 0.1")
-    void testApproximatePercentageResult() {
+    @DisplayName("should display result of dividing 0.1 by 1")
+    void testDivideZeroPointOneByOne() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(0);
         calc.pressDotKey();
         calc.pressDigitKey(1);
-        calc.pressBinaryOperationKey("%");
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
 
-        String expected = "0.001";
+        String expected = "0.1";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
