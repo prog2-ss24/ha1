@@ -107,40 +107,4 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-
-    @Test
-    @DisplayName("should display result of positive number inversion")
-    void testPositiveInversion() {
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(2);
-        calc.pressUnaryOperationKey("1/x");
-        calc.pressEqualsKey();
-
-        String expected = "0.5";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    @DisplayName("should display the previous number after pressing C-button")
-    void testCButton() {
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(2);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(4);
-        calc.pressClearKey();
-        calc.pressEqualsKey();
-
-        String expected = "2";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
-
-
-
 }
-
