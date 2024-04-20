@@ -125,14 +125,15 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display 0 after taking a percentage of a negative number")
-    void testPercentageOfNegativeNumber() {
+     void testPercentageOfNegativeNumber() {
         Calculator calc = new Calculator();
 
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(2);
-        calc.pressUnaryOperationKey("%");
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(5);
+        calc.pressUnaryOperationKey("1/x");
 
-        String expected = "0";
+        String expected = "2";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
