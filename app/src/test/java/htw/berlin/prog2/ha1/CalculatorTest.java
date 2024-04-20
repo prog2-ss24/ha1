@@ -107,4 +107,19 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should memorise the binary operation by deleting the second operand after pressing C-button once")
+    void testCTasteMitAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressClearKey();
+
+        String expected = "+";
+        String actual = calc.latestOperation;
+
+
+        assertEquals(expected, actual);
+    }
 }

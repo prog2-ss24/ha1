@@ -12,7 +12,7 @@ public class Calculator {
 
     private double latestValue;
 
-    private String latestOperation = "";
+    public String latestOperation = "";
 
     /**
      * @return den aktuellen Bildschirminhalt als String
