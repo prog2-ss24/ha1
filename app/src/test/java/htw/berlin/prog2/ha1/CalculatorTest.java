@@ -111,6 +111,27 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    
+        @Test
+        @DisplayName("Should be able to perform multi-operator calculations")
+        void testMultiplicationAndAddition() {
+            Calculator calc = new Calculator();
+    
+            calc.pressDigitKey(8);
+            calc.pressBinaryOperationKey("+");
+            calc.pressDigitKey(5);
+            calc.pressBinaryOperationKey("+");
+            calc.pressDigitKey(4);
+            calc.pressBinaryOperationKey("x");
+            calc.pressDigitKey(5);
+            calc.pressEqualsKey();
+            
+    
+            String expected = "33";
+            String actual = calc.readScreen();
+    
+            assertEquals(expected, actual);
+    }
 
 }
 
