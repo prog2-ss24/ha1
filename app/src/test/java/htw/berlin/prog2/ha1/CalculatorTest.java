@@ -106,7 +106,6 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-}
 
     //Teilaufgabe 2
 
@@ -124,4 +123,7 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+}
+
+
 
