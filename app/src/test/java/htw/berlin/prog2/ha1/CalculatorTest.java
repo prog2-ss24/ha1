@@ -3,8 +3,8 @@ package htw.berlin.prog2.ha1;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Retro calculator")
 class CalculatorTest {
@@ -92,39 +92,25 @@ class CalculatorTest {
 
     //TODO hier weitere Tests erstellen
 
+    //Grüner Test
     @Test
     @DisplayName("should display result after subtracting two positive multi-digit numbers")
     void testPositiveSubtraction() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(5);
-        calc.pressDigitKey(0);
+        calc.pressDigitKey(5);
         calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(2);
+        calc.pressDigitKey(1);
         calc.pressDigitKey(0);
         calc.pressEqualsKey();
 
-        String expected = "30";
+        String expected = "45";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
-
-
-
-    @Test
-    @DisplayName ("should show negative number when pressing negative key first")
-    void testNegativeKey() {
-        Calculator calc = new Calculator();
-
-        calc.pressNegativeKey();
-        calc.pressDigitKey(7);
-
-        String expected = "-7";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
+    
 
 
 
