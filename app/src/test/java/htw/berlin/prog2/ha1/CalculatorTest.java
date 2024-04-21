@@ -122,5 +122,19 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display error when pressing equals without second operand")
+    void testEqualsWithoutSecondOperand() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressEqualsKey();
+
+        String expected = "5"; // As per the current implementation
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
