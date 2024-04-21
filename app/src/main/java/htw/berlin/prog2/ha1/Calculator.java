@@ -52,7 +52,7 @@ public class Calculator {
 
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
-     * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen.
+     * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen. Mehrere aufeinanderfolgende Rechenoperationen möglich.
      * Beim ersten Drücken der Taste wird der Bildschirminhalt nicht verändert, sondern nur der
      * Rechner in den passenden Operationsmodus versetzt.
      * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
@@ -135,8 +135,10 @@ public class Calculator {
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
+     @parameter result Zwischenspeicher für Screenwert am Ende
      */
     public void pressEqualsKey() {
+        //Screen bekommt später von result den Wert zugeschrieben
         var result = 0.0;
 
         switch (latestOperation) {
