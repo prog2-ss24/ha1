@@ -111,7 +111,24 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    
+    @Test
+    @DisplayName("Should output a single percent of the associated value and be processed by the underlying calculation")
+    void testPercentageKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressUnaryOperationKey("%");
+        
+
+        String expected = "112";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
         @Test
         @DisplayName("Should be able to perform multi-operator calculations")
         void testMultiplicationAndAddition() {
@@ -123,11 +140,11 @@ class CalculatorTest {
             calc.pressBinaryOperationKey("+");
             calc.pressDigitKey(4);
             calc.pressBinaryOperationKey("x");
-            calc.pressDigitKey(5);
+            calc.pressDigitKey(2);
             calc.pressEqualsKey();
             
     
-            String expected = "33";
+            String expected = "34";
             String actual = calc.readScreen();
     
             assertEquals(expected, actual);

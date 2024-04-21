@@ -60,9 +60,36 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);
-        latestOperation = operation;
+        if (!latestOperation.isEmpty()) {
+            calculateResult();  // Bugfix: Miteinbeziehung des vorherigen Ergebnisses bei der Berechnung einer weiteren Variable 
+        } else {
+            latestValue = Double.parseDouble(screen);  // No pending operation, so store the current screen value (EXISTING LOGIC REUSED)
+        }
+        latestOperation = operation;  // Set the new operation (UNCHANGED)
+        screen = "0";  // Bugfix: Bildschirm wird freigemacht um weiteren Input zu ermöglichen
     }
+
+// Bugfix: Neue Rechenlogik um sequentielle Berechnungen zu ermögilchen
+    private void calculateResult() { 
+        double screenValue = Double.parseDouble(screen);
+        switch(latestOperation) {
+            case "+" -> latestValue += screenValue;
+            case "-" -> latestValue -= screenValue;
+            case "x" -> latestValue *= screenValue;
+            case "/" -> {
+                if (screenValue == 0) { // Sicherstellen, dass ein Wert nicht durch 0 geteilt werden kan
+                    screen = "Error";
+                    return;
+                } else {
+                    latestValue /= screenValue;
+                }
+            }
+            default -> throw new IllegalArgumentException("Unsupported operation: " + latestOperation);
+        }
+        screen = String.format("%s", latestValue);
+        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+    }
+
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
@@ -117,19 +144,15 @@ public class Calculator {
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
+
+
+     // Bugfix: Methode nutzt die neue Rechenlogik für "=" und alle weiteren binären Operatoren, womit Redundanz vorgebeugt wird
+
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        calculateResult();
+        latestOperation = "";  //
     }
+    
     public static void main(String[] args) {
         Calculator calc = new Calculator();
         calc.pressDigitKey(8);
