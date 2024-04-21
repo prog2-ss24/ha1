@@ -112,7 +112,22 @@ class CalculatorTest {
     }
 
     // Erster roter Test (Später grün)
-    
+    @Test
+    @DisplayName("should display the correct result when dividing an odd number by 2")
+    void testDivisionByTwo() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "3.5";
+        String actual = calc.readScreen();
+
+        assertNotEquals(expected, actual); // Das Ergebnis sollte nicht 3.5 sein
+    }
+
 
     // Zweiter roter Test (Später grün)
 
