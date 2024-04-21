@@ -116,6 +116,8 @@ public class Calculator {
      */
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+
+
     }
 
     /**
@@ -145,4 +147,5 @@ public class Calculator {
         intermediateResults.clear();
         latestOperation = "";
     }
+
 }

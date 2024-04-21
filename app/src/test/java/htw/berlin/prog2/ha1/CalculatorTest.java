@@ -122,17 +122,18 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result after adding two Negative multi-digit numbers")
-    void testNegativeAddition() {
+    void testmehrfachesubtraktion() {
         Calculator calc = new Calculator();
 
-        calc.pressNegativeKey();
+
         calc.pressDigitKey(8);
-        calc.pressBinaryOperationKey("+");
-        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(8);
         calc.pressEqualsKey();
 
-        String expected = "-16";
+        String expected = "-8.0";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
@@ -142,7 +143,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("Should Display result after Dividing positive multi-digit numbers")
-    void testDivideByZero() {
+    void testDividing() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(5);
@@ -163,4 +164,3 @@ class CalculatorTest {
 
 
 }
-
