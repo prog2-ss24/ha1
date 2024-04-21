@@ -59,9 +59,27 @@ public class Calculator {
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);
-        latestOperation = operation;
+    public void pressBinaryOperationKey(String operation) {
+        if (latestOperation != null && latestOperation.equals("x")) {
+            latestValue *= Double.parseDouble(screen);
+            screen = "0";
+        } else if (latestOperation != null && latestOperation.equals("/")){
+            latestValue /= Double.parseDouble(screen);
+            latestOperation = operation;
+            screen = "0";
+        } else if (latestOperation != null && latestOperation.equals("-")){
+            latestValue -= Double.parseDouble(screen);
+            latestOperation = operation;
+            screen = "0";
+        } else if (latestOperation != null && latestOperation.equals("+")){
+            latestValue += Double.parseDouble(screen);
+            latestOperation = operation;
+            screen = "0";
+        } else {
+            latestValue = Double.parseDouble(screen);
+            latestOperation = operation;
+            screen = "0";
+        }
     }
 
     /**
@@ -118,6 +136,11 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        if (latestOperation.equals("/") && Double.parseDouble(screen) == 0) {
+            screen = "Error";
+            return;
+        }
+
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
             case "-" -> latestValue - Double.parseDouble(screen);
@@ -125,7 +148,7 @@ public class Calculator {
             case "/" -> latestValue / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
-        screen = Double.toString(result);
+        screen = String.valueOf(result);
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
