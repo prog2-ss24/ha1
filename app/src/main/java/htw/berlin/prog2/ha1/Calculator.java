@@ -1,5 +1,9 @@
 package htw.berlin.prog2.ha1;
 
+
+import java.util.ArrayList;
+
+
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
@@ -13,10 +17,11 @@ public class Calculator {
     private double latestValue;
 
     private String latestOperation = "";
+    private int counterClearKey = 0;
+    private ArrayList<String> term = new ArrayList<>();
+    private ArrayList<String> termFinal = new ArrayList<>();
+    boolean keineFehler = true;
 
-    /**
-     * @return den aktuellen Bildschirminhalt als String
-     */
     public String readScreen() {
         return screen;
     }
@@ -29,11 +34,25 @@ public class Calculator {
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
+        String neu;
+        String vorherigerWert;
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
         screen = screen + digit;
+        if (digit == 0 && !term.isEmpty()){
+            vorherigerWert = term.get(term.size()-1);
+            if (!vorherigerWert.equals("+") && !vorherigerWert.equals("-") && !vorherigerWert.equals("x") && !vorherigerWert.equals("/")) {
+                neu = vorherigerWert + "0";
+                term.set(term.size() - 1, neu);
+            }
+            else{
+                term.add(Integer.toString(digit));
+            }
+        }else {
+            term.add(Integer.toString(digit));
+        }
     }
 
     /**
@@ -45,9 +64,18 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
+        counterClearKey += 1;
         screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+        String lastIndex = term.get(term.size()-1);
+        if (counterClearKey == 2) {
+            latestOperation = "";
+            latestValue = 0.0;
+            counterClearKey = 0;
+            term.clear();
+        }else if (!lastIndex.equals("+") && !lastIndex.equals("-") && !lastIndex.equals("x") && !lastIndex.equals("/")){
+            term.remove(term.size()-1);
+        }
+
     }
 
     /**
@@ -60,8 +88,52 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+        String vorherigerWert;
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        vorherigerWert = term.isEmpty() ? "0" : term.get(term.size()-1);
+        if (!vorherigerWert.equals("+") && !vorherigerWert.equals("-") && !vorherigerWert.equals("x") && !vorherigerWert.equals("/")) {
+            term.add(operation);
+        }
+
+    }
+
+    /**
+     * Filtert aus der ArrayList term Multiplikation- und Divisionsoperationen heraus und berechnet das Ergebnis zweier
+     * Zahlen, zwischen denen diese Operationen stehen. Die Ergebnisse, andere Rechenzeichen sowie Zahlen, mit denen
+     * bisher keine Berechnungen durchgeführt wurden, werden der ArrayList termFinal hinzugefügt.
+     * Auf diese Weise wird sichergestellt, dass die Regel Punkt- vor Strichrechnung bei weiteren Berechnungen eingehalten wird.
+     * Bei einer Division durch null wird auf dem Bildschirm 'Error' angezeigt.
+     */
+    public void analysiereTerm(){
+        String op;
+        for(int i = 0; i < term.size(); i++){
+            if (i == 0){
+                termFinal.add(term.get(i));
+            }
+            else if (term.get(i).equals("x") || term.get(i).equals("/")){
+                op = term.get(i);
+                double partResult;
+                if (op.equals("x")){
+                    partResult = Double.parseDouble(term.get(i-1)) * Double.parseDouble(term.get(i+1));
+                }
+                else{
+                    try{
+                       partResult = Double.parseDouble(term.get(i-1)) / Double.parseDouble(term.get(i+1));
+                    }
+                    catch (ArithmeticException err){
+                        keineFehler = false;
+                        break;
+                    }
+                }
+
+                termFinal.remove(termFinal.size()-1);
+                termFinal.add(Double.toString(partResult));
+            }
+            else if (!(term.get(i-1).equals("x")) && !(term.get(i-1).equals("/"))){
+                termFinal.add(term.get(i));
+            }
+        }
     }
 
     /**
@@ -94,7 +166,12 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen + ".";
+        String neu;
+        if(!screen.contains(".")) {
+            screen = screen + ".";
+            neu = term.get(term.size() - 1) + ".";
+            term.set(term.size() - 1, neu);
+        }
     }
 
     /**
@@ -106,28 +183,41 @@ public class Calculator {
      */
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+        term.set(term.size()-1, screen);
+
     }
 
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.
      * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
      * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
-     * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * Ergebnis der Operation angezeigt. Es ist auch möglich einen längeren Term mit mehreren Operationen und Operanden
+     * auszuwerten. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        analysiereTerm();
+        if (keineFehler == false){
+            screen = "Error";
+        }
+        else {
+            double result = 0;
+            String op;
+            for (int i = 0; i < termFinal.size(); i++) {
+                if (result == 0) {
+                    result = Double.parseDouble(termFinal.get(i));
+                } else if (termFinal.get(i).equals("+")) {
+                    result += Double.parseDouble(termFinal.get(i + 1));
+                } else if (termFinal.get(i).equals("-")) {
+                    result -= Double.parseDouble(termFinal.get(i + 1));
+                }
+            }
+            screen = Double.toString(result);
+            if (screen.equals("Infinity")) screen = "Error";
+            if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+            if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        }
     }
 }
