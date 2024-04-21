@@ -45,9 +45,14 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+        if(screen.length() > 1){
+            screen = screen.substring(0, screen.length() - 1);
+            if(screen.equals("-")) screen = "0";
+        }else{
+            screen = "0";
+            latestOperation = "";
+            latestValue = 0.0;
+        }
     }
 
     /**
@@ -123,6 +128,7 @@ public class Calculator {
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
+            case "" -> Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
