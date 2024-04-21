@@ -108,3 +108,20 @@ class CalculatorTest {
     }
 }
 
+    //Teilaufgabe 2
+
+    @Test
+    @DisplayName("should clear only the last entered digit")
+    void testClearLastDigit(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(8);
+        calc.pressClearKey();
+
+        String expected = "3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
