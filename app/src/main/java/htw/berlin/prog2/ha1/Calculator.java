@@ -130,4 +130,12 @@ public class Calculator {
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+    public static void main(String[] args) {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        System.out.println("Result: " + calc.readScreen());  // Expected output: "Result: 10"
+    }
 }
