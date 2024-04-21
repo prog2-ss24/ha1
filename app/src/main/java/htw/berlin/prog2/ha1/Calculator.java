@@ -73,6 +73,13 @@ public class Calculator {
      */
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
+
+        // Check for unknown operation
+        if (!operation.equals("√") && !operation.equals("%") && !operation.equals("1/x")) {
+            screen = "Error";
+            return;
+        }
+
         latestOperation = operation;
         var result = switch(operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
