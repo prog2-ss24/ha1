@@ -130,6 +130,20 @@ class CalculatorTest {
 
 
     // Zweiter roter Test (Später grün)
+    @Test
+    @DisplayName("should display the correct result when calculating the percentage of a number")
+    void testPercentageOfNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("%");
+
+        String expected = "0.1";
+        String actual = calc.readScreen();
+
+        assertNotEquals(expected, actual);
+    }
 
 
 }
