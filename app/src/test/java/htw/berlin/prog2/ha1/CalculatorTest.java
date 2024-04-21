@@ -106,6 +106,10 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Testet die Funktionalität des Wiederholens der letzten Operation, wenn die '='-Taste wiederholt gedrückt wird.
+     * Überprüft, ob der Taschenrechner die letzte Operation korrekt wiederholt, wenn die '='-Taste mehrmals gedrückt wird.
+     */
     @Test
     @DisplayName("should correctly repeat the last operation when '=' is pressed repeatedly")
     void testRepeatLastOperation() {
@@ -121,16 +125,57 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+
     }
+    /**
+     * Testet, ob die letzte Operation korrekt wiederholt wird, wenn die "="-Taste wiederholt gedrückt wird.
+     * Dabei wird zunächst eine Subtraktion ausgeführt, indem die Ziffern 8 und 2 eingegeben werden und
+     * dann zweimal die "="-Taste gedrückt wird. Das Ergebnis wird überprüft, um sicherzustellen, dass
+     * es korrekt ist. Der erwartete Wert ist "4", da 8 - 2 = 6 ist und das Ergebnis bei wiederholtem
+     * Drücken der "="-Taste erneut um 2 subtrahiert wird.
+     */
 
+    @Test
+    @DisplayName("should correctly repeat the last operation when '=' is pressed repeatedly")
+    void testRepeatLastOperation1() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
 
+        String expected = "4";
+        String actual = calc.readScreen();
 
+        assertEquals(expected, actual);
 
+    }
+    /**
+     * Testet, ob die letzte Operation korrekt wiederholt wird, wenn die "="-Taste wiederholt gedrückt wird.
+     * Dabei wird zunächst eine Multiplikation ausgeführt, indem die Ziffern 4 und 2 eingegeben werden und
+     * dann zweimal die "="-Taste gedrückt wird. Das Ergebnis wird überprüft, um sicherzustellen, dass
+     * es korrekt ist. Der erwartete Wert ist "16", da 4 * 2 = 8 ist und das Ergebnis bei wiederholtem
+     * Drücken der "="-Taste erneut mit 2 multipliziert wird.
+     */
+    @Test
+    @DisplayName("should correctly repeat the last operation when '=' is pressed repeatedly")
+    void testRepeatLastOperation2() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
 
+        String expected = "16";
+        String actual = calc.readScreen();
 
+        assertEquals(expected, actual);
 
+    }
 
 
 }
