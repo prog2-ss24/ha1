@@ -98,17 +98,17 @@ class CalculatorTest {
 
     //roter Test
     @Test
-    @DisplayName("should display result after multiplying multiple positive multi-digit numbers")
+    @DisplayName("should display result after dividing a lower number by a larger one")
     void testSimpleDivide() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(9);
+        calc.pressDigitKey(5);
         calc.pressBinaryOperationKey("/");
-        calc.pressDigitKey(9);
-        calc.pressDigitKey(0);
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
         calc.pressEqualsKey();
 
-        String expected = "0.1";
+        String expected = "0.2";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
@@ -116,7 +116,7 @@ class CalculatorTest {
 
     //grüner Test
     @Test
-    @DisplayName("should display result after multiplying multiple positive multi-digit numbers")
+    @DisplayName("should display result after dividing by zero")
     void testDivideByZero() {
         Calculator calc = new Calculator();
 
@@ -124,6 +124,7 @@ class CalculatorTest {
         calc.pressBinaryOperationKey("/");
         calc.pressDigitKey(0);
         calc.pressEqualsKey();
+
 
         String expected = "Error";
         String actual = calc.readScreen();
@@ -133,7 +134,7 @@ class CalculatorTest {
 
     //roter Test2
     @Test
-    @DisplayName("should display result after multiplying multiple positive multi-digit numbers")
+    @DisplayName("should display result after multiplying multiple positive numbers")
     void testComplexMultiplication() {
         Calculator calc = new Calculator();
 
@@ -154,7 +155,7 @@ class CalculatorTest {
 
     //grüner Test2
     @Test
-    @DisplayName("should display result after multiplying two positive multi-digit numbers")
+    @DisplayName("should display result after multiplying two positive numbers")
     void testSimpleMultiplication() {
         Calculator calc = new Calculator();
 
