@@ -52,16 +52,35 @@ public class Calculator {
 
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
-     * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen.
+     * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen. Mehrere aufeinanderfolgende Rechenoperationen möglich.
      * Beim ersten Drücken der Taste wird der Bildschirminhalt nicht verändert, sondern nur der
      * Rechner in den passenden Operationsmodus versetzt.
      * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);
-        latestOperation = operation;
+    public void pressBinaryOperationKey(String operation) {
+        if (latestOperation.equals("x")) {
+            latestValue *= Double.parseDouble(screen);
+            latestOperation = operation;
+            screen = "0";
+        } else if (latestOperation.equals("/")){
+            latestValue /= Double.parseDouble(screen);
+            latestOperation = operation;
+            screen = "0";
+        } else if (latestOperation.equals("-")){
+            latestValue -= Double.parseDouble(screen);
+            latestOperation = operation;
+            screen = "0";
+        } else if (latestOperation.equals("+")){
+            latestValue += Double.parseDouble(screen);
+            latestOperation = operation;
+            screen = "0";
+        } else {
+            latestValue = Double.parseDouble(screen);
+            latestOperation = operation;
+            screen = "0";
+        }
     }
 
     /**
@@ -116,18 +135,38 @@ public class Calculator {
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
+     @parameter result Zwischenspeicher für Screenwert am Ende
      */
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
+        //Screen bekommt später von result den Wert zugeschrieben
+        var result = 0.0;
+
+        switch (latestOperation) {
+            case "+":
+                result = latestValue + Double.parseDouble(screen);
+                break;
+            case "-":
+                result = latestValue - Double.parseDouble(screen);
+                break;
+            case "x":
+                result = latestValue * Double.parseDouble(screen);
+                break;
+            case "/":
+                if (Double.parseDouble(screen) == 0.0) {
+                    screen = "Error";
+                    return;
+                } else {
+                    result = latestValue / Double.parseDouble(screen);
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid operation: " + latestOperation);
+        }
+
         screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if (screen.equals("Infinity")) screen = "Error";
+        if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
 }

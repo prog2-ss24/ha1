@@ -8,23 +8,28 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @DisplayName("Retro calculator")
 class CalculatorTest {
 
+
     @Test
-    @DisplayName("should display result after adding two positive multi-digit numbers")
-    void testPositiveAddition() {
+    @DisplayName("should display result after multiplying two positive multi-digit numbers")
+    void testSimpleMultiplicationMultipleDigits() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(2);
-        calc.pressDigitKey(0);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(2);
-        calc.pressDigitKey(0);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
         calc.pressEqualsKey();
 
-        String expected = "40";
+        String expected = "121";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
+
+
+
+
 
     @Test
     @DisplayName("should display result after getting the square root of two")
@@ -90,5 +95,79 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-}
 
+    //roter Test
+    @Test
+    @DisplayName("should display result after dividing a lower number by a larger one")
+    void testSimpleDivide() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "0.2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    //grüner Test
+    @Test
+    @DisplayName("should display result after dividing by zero")
+    void testDivideByZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    //roter Test2
+    @Test
+    @DisplayName("should display result after multiplying multiple positive numbers")
+    void testComplexMultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "256";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    //grüner Test2
+    @Test
+    @DisplayName("should display result after multiplying two positive numbers")
+    void testSimpleMultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+}
