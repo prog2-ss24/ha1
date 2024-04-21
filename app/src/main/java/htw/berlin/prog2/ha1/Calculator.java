@@ -68,8 +68,15 @@ public class Calculator {
         latestOperation = operation;  // Set the new operation (UNCHANGED)
         screen = "0";  // Bugfix: Bildschirm wird freigemacht um weiteren Input zu ermöglichen
     }
-
-// Bugfix: Neue Rechenlogik um sequentielle Berechnungen zu ermögilchen
+// Bugfix 1: Methode um zu prüfen, ob der double-Wert als int ausgegeben werden kann
+    private String dTypeFormat(double value) {
+        if ((value == Math.floor(value)) && !Double.isInfinite(value)) {
+            return String.format("%d", (int) value);  // Als int darstellen, falls es keine Dezimalstellen gibt
+        } else {
+            return String.format("%.8f", value);  // Ansonsten als Float mit bis zu 8 Dezimalstellen darstellen (wie im Online-Taschenrechner)
+        }
+    }
+// Bugfix 1: Neue Rechenlogik um sequentielle Berechnungen zu ermöglichen
     private void calculateResult() { 
         double screenValue = Double.parseDouble(screen);
         switch(latestOperation) {
@@ -86,10 +93,9 @@ public class Calculator {
             }
             default -> throw new IllegalArgumentException("Unsupported operation: " + latestOperation);
         }
-        screen = String.format("%s", latestValue);
+        screen = dTypeFormat(latestValue); 
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
-
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
