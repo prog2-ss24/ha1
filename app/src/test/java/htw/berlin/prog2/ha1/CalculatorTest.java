@@ -89,8 +89,8 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName ("should display result after getting the square root of two")
-    void testPositiveSubtraktion(){
+    @DisplayName ("should display result after subtraction two positive multi-digit numbers")
+    void testSubtraktion(){
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(3);
@@ -106,8 +106,47 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    //Teil 2
+    @Test
+    @DisplayName ("should display result after getting adding same positive multi-digit numbers with an other ")
+    void testMoreNumbers() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "18";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual); //Zum Überprüfen, ob der erwartete Wert einer Variable dem tatsächlichen Wert entspricht
+    }
+    @Test
+    @DisplayName("should display result after  multiplying a decimal number with a whole number ")
+    void testDezimalWithGanzzahl() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "200";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
 
     //TODO hier weitere Tests erstellen
+
 }
+
 
