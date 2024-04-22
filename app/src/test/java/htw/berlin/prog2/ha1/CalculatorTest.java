@@ -107,7 +107,24 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-
+    //Teilaufgabe 02 
+    
+    @Test
+    @DisplayName("should repeat last operation on continuous equals presses")
+    void testRepeatLastOperation() {
+        Calculator calc = new Calculator();
+        
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();  
+        
+        String expected = "11";  
+        String actual = calc.readScreen();
+        
+        assertEquals(expected, actual);
+    }
     
 }
 
