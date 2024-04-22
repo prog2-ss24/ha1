@@ -98,6 +98,7 @@ class CalculatorTest {
         calc.pressDigitKey(2);
         calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(1);
+        calc.pressEqualsKey();
 
         String expected = "1";
         String actual = calc.readScreen();
