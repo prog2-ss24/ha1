@@ -89,6 +89,53 @@ class CalculatorTest {
     }
 
 
-    //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after subtracting (negative result)")
+    void testSubtractionNegativeResult() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(8);
+        calc.pressEqualsKey();
+
+        String expected = "-3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("shouldRepeatOperationWhenRepeatingEqual")
+    void testRepeatingEqual() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        String expected = "7";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("shouldDisplayIntermediateResult")
+    void testIntermediateResult() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+
+        String expected = "10";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
