@@ -11,7 +11,6 @@ public class Calculator {
     private String screen = "0";
 
     private double latestValue;
-    private double currentValue;
 
     private String latestOperation = "";
 
@@ -61,6 +60,7 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+        if(!latestOperation.isEmpty()){pressEqualsKey();}
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
@@ -73,6 +73,7 @@ public class Calculator {
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
+        if(!latestOperation.isEmpty()){pressEqualsKey();}
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
         var result = switch(operation) {
@@ -127,25 +128,10 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
 
-        screen = Double.toString(result+currentValue);
+        screen = Double.toString(result);
 
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-    }
-
-    /**
-     * Berechnet Zwischenschritte bei mehr als einem Operator
-     */
-    public void calculate() {
-        var result = switch (latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        currentValue = result;
-        screen = "0";
     }
 }

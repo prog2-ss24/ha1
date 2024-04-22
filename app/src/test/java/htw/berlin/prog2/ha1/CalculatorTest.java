@@ -53,7 +53,6 @@ class CalculatorTest {
         calc.pressDigitKey(7);
         calc.pressBinaryOperationKey("x");
         calc.pressDigitKey(6);
-        calc.calculate();
         calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(8);
         calc.pressDigitKey(0);
