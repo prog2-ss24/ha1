@@ -90,5 +90,28 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+
+   @Test
+   @DisplayName("should display result after adding two decimal numbersber")
+    void testDecimalAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDotKey();
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+
+        String expected = "4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+   }
+
 }
 
