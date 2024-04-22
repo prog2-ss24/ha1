@@ -151,6 +151,7 @@ public class Calculator {
         }
         screen = Double.toString(result); // speichert die berechnungs variable als string für screen damit es angezeigt wird
         if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+        if (screen.endsWith("Infinity")) screen = "Error";
         einlistenergebnis.clear(); // leert die liste, um sie für zukünftige Berechnungen zu löschen
         latestOperation = ""; // setzt es zurück da keine operationen mehr nötig sind
     }
