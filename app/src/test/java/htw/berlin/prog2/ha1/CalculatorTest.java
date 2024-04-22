@@ -110,7 +110,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display error when dividing by zero")
+    @DisplayName("should display 0 when dividing by zero")
     void testMultiplicationByZero() {
         Calculator calc = new Calculator();
 
@@ -124,5 +124,4 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-
 }
