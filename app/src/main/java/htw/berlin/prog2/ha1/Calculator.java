@@ -16,7 +16,7 @@ public class Calculator {
 
     private String latestOperation = "";
 
-    private List<Double> intermediateResults = new ArrayList<>();
+    private List<Double> einlistenergebnis = new ArrayList<>(); // eine private klasse die als speichermedium benutz wird
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -69,8 +69,8 @@ public class Calculator {
     public void pressBinaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
-        intermediateResults.add(latestValue);
-        intermediateResults.add(Double.NaN); // Placeholder for the next number
+        einlistenergebnis.add(latestValue); // fügt latestvalue zur liste hinzu
+        einlistenergebnis.add(Double.NaN); // ist ein platzhalter für die nächste Zahl damit es nicht mit den operatoren verwechselt wird
     }
 
     /**
@@ -130,11 +130,11 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
-        intermediateResults.add(Double.parseDouble(screen));
-        double result = intermediateResults.get(0);
-        for (int i = 1; i < intermediateResults.size(); i += 2) {
-            String operation = intermediateResults.get(i).isNaN() ? latestOperation : "+";
-            double nextValue = intermediateResults.get(i + 1);
+        einlistenergebnis.add(Double.parseDouble(screen)); // Fügt den bildschirminhalt zur einlistenergnis hinzu
+        double result = einlistenergebnis.get(0); // speichert den ersten wert als ergebnis
+        for (int i = 1; i < einlistenergebnis.size(); i += 2) { // durchläuft jedes zweite element in der liste
+            String operation = einlistenergebnis.get(i).isNaN() ? latestOperation : "+"; // Überpruft ob Zahl oder operator ist wenn kein operator da ist wird + benuzt
+            double nextValue = einlistenergebnis.get(i + 1); // Speichert den nächsten Wert der Liste einlistenergebnis als nextValue
             switch (operation) {
                 case "+" -> result += nextValue;
                 case "-" -> result -= nextValue;
@@ -143,9 +143,10 @@ public class Calculator {
                 default -> throw new IllegalArgumentException();
             }
         }
-        screen = Double.toString(result);
-        intermediateResults.clear();
-        latestOperation = "";
+        screen = Double.toString(result); // speichert die berechnungs variable als string für screen damit es angezeigt wird
+        einlistenergebnis.clear(); // leert die liste, um sie für zukünftige Berechnungen zu löschen
+        latestOperation = ""; // setzt es zurück da keine operationen mehr nötig sind
     }
+
 
 }
