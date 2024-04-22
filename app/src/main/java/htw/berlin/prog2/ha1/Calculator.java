@@ -17,6 +17,7 @@ public class Calculator {
     private String latestOperation = "";
 
     private boolean isFinaleResultWanted = true;
+
     private int BinaryOperationCounter = 0;
 
     private boolean isFirstImput = true;

@@ -111,7 +111,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("should display result after adding two negative multi-digit numbers")
+    @DisplayName("should display result after adding a negative number with the operator = '-'")
     void testNAddition() {
         Calculator calc = new Calculator();
 
