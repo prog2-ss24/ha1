@@ -66,19 +66,13 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display result after multiplying 2 and 1 and then subtracting it from 9")
-    void testFailMultiBeforeSubstraction() {
+    @DisplayName("should display a 0 before the dot")
+    void testFailZeroDot() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(9);
-        calc.pressBinaryOperationKey("-");
+        calc.pressDotKey();
         calc.pressDigitKey(1);
-        calc.calculate();
-        calc.pressBinaryOperationKey("x");
-        calc.pressDigitKey(2);
-        calc.pressEqualsKey();
-
-        String expected = "7";
+        String expected = "0.1";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
