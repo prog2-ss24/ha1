@@ -113,22 +113,41 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display result after multyplying two negative numbers")
+    @DisplayName("should display result after multiplying two negative numbers")
     void testNegativeMultiplication() {
         Calculator calc = new Calculator();
 
-        calc.pressNegativeKey(); //First number negative
+
         calc.pressDigitKey(2);
+        calc.pressNegativeKey(); //First number negative
         calc.pressBinaryOperationKey("x");
-        calc.pressNegativeKey(); //2nd number negative
         calc.pressDigitKey(3);
+        calc.pressNegativeKey(); //2nd number negative
         calc.pressEqualsKey();
 
-
-        String expected = "-6";
+        String expected = "6";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
+
+
+
+    @Test
+    @DisplayName("should handle maximum number of digits on screen")
+    void testMaxDigitsOnScreen() {
+        Calculator calc = new Calculator();
+
+        // Pressing more than 10 digits
+        for (int i = 0; i < 12; i++) {
+            calc.pressDigitKey(1);
+        }
+
+        String expected = "1111111111"; // Only 10 digits should be displayed
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 
 }

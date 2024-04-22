@@ -32,8 +32,10 @@ public class Calculator {
     public void pressDigitKey(int digit) {
         if (digit > 9 || digit < 0) throw new IllegalArgumentException();
 
-        if (screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-        screen = screen + digit;
+        if (screen.length() < 10) {
+            if (screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+            screen = screen + digit;
+        }
     }
 
     /**
@@ -61,9 +63,9 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation) {
-            latestValue = Double.parseDouble(screen);
-            latestOperation = operation;
-        }
+        latestValue = Double.parseDouble(screen);
+        latestOperation = operation;
+    }
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
@@ -73,20 +75,19 @@ public class Calculator {
      *
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
-    public void pressUnaryOperationKey(String operation){
-           latestValue = Double.parseDouble(screen);
-           latestOperation = operation;
-           var result = switch(operation) {
-               case "√" -> Math.sqrt(Double.parseDouble(screen));
-               case "%" -> Double.parseDouble(screen) / 100;
-               case "1/x" -> 1 / Double.parseDouble(screen);
-               default -> throw new IllegalArgumentException();
-           };
+    public void pressUnaryOperationKey(String operation) {
+        latestValue = Double.parseDouble(screen);
+        latestOperation = operation;
+        var result = switch (operation) {
+            case "√" -> Math.sqrt(Double.parseDouble(screen));
+            case "%" -> Double.parseDouble(screen) / 100;
+            case "1/x" -> 1 / Double.parseDouble(screen);
+            default -> throw new IllegalArgumentException();
+        };
         screen = Double.toString(result);
-        if(screen.equals("NaN")) screen = "Error";
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if (screen.equals("NaN")) screen = "Error";
+        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
-
 
 
     /**
@@ -119,9 +120,12 @@ public class Calculator {
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
+     * Bei der Anzeige des Ergebnisses werden überzählige Nachkommastallen abgeschnitten, so dass maximal 10 Zeichen angezeigt werden, einschließlich des Dezimalpunktes.
+     * Ganzzahlige Ergebnisse, die mit "0" enden, werden ohne Dezimalstellen und Punkt dargestellt.
      */
-    public void pressEqualsKey() {
-        var result = switch(latestOperation) {
+
+      public void pressEqualsKey() {
+         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
@@ -129,11 +133,16 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+
+        //See if the result exceeds 10 characters /Überprüfung ob das Ergebnis die maximale Länge überschreitet
+          if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 11);
+        else if (!screen.contains(".") && screen.length() > 10) screen = screen.substring(0,10);
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+      }
+
     }
-}
 
 
 
