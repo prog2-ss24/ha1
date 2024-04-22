@@ -89,6 +89,25 @@ class CalculatorTest {
     }
 
 
-    //TODO hier weitere Tests erstellen
+    //Teilaufgabe 01 - zusätzlicher Test
+    @Test
+    @DisplayName("should display result when dividing a positive multi-digit number with another single-digit number")
+    void testDivisionByDecimal() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(9);
+        calc.pressEqualsKey();
+
+        String expected = "5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+    
 }
 
