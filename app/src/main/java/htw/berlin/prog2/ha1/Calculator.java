@@ -94,6 +94,7 @@ public class Calculator {
         if (screen.equals("NaN")) screen = "Error";
         if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
+
     }
 
     /**
@@ -105,6 +106,7 @@ public class Calculator {
      */
     public void pressDotKey() {
         if (!screen.contains(".")) screen = screen + ".";
+
     }
 
     /**
@@ -141,12 +143,16 @@ public class Calculator {
                 case "x" -> result *= nextValue;
                 case "/" -> result /= nextValue;
                 default -> throw new IllegalArgumentException();
+
             }
+
+
+
         }
         screen = Double.toString(result); // speichert die berechnungs variable als string für screen damit es angezeigt wird
+        if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
         einlistenergebnis.clear(); // leert die liste, um sie für zukünftige Berechnungen zu löschen
         latestOperation = ""; // setzt es zurück da keine operationen mehr nötig sind
     }
-
 
 }

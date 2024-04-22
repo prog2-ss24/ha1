@@ -126,14 +126,14 @@ class CalculatorTest {
         Calculator calc = new Calculator();
 
 
-        calc.pressDigitKey(8);
+        calc.pressDigitKey(9);
         calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(8);
+        calc.pressDigitKey(9);
         calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(8);
+        calc.pressDigitKey(9);
         calc.pressEqualsKey();
 
-        String expected = "-8.0";
+        String expected = "-9";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
