@@ -109,7 +109,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Punkt vor Strich")
+    @DisplayName("Hier wird getestet, ob das Programm Punkt vor Strich beachtet")
     void testPunktVorStrich() {
         Calculator calc = new Calculator();
 
@@ -134,8 +134,8 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Punkt vor Strich")
-    void testMehrereAddutionen() {
+    @DisplayName("Hier wird getestet, ob das Programm auch mehrere Rechenoperationen hintereinander ausführen kann")
+    void testMehrereAdditionen() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(3);

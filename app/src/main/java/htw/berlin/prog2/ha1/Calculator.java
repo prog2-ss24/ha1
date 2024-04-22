@@ -16,11 +16,11 @@ public class Calculator {
 
     private boolean strich = false;
 
-    private double latestaddition = 1;
+    private double latestAddition = 1;
 
-    private double temporarysum = 0;
+    private double temporarySum = 0;
 
-    private boolean token = false;
+    private boolean istGleich = false;
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -68,19 +68,19 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
-        if (token) {
+        if (istGleich) {
             pressEqualsKey();
         }
-        token = true;
+        istGleich = true;
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
         if (latestOperation == "+") {
             strich = true;
-            latestaddition = Double.parseDouble(screen);
+            latestAddition = Double.parseDouble(screen);
         }
         if (latestOperation == "-") {
             strich = true;
-            latestaddition = Double.parseDouble(screen);
+            latestAddition = Double.parseDouble(screen);
         }
     }
 
@@ -146,9 +146,9 @@ public class Calculator {
             case "-" -> result = latestValue - Double.parseDouble(screen);
             case "x" -> {
                 if (strich) {
-                    latestValue = latestValue - latestaddition;
+                    latestValue = latestValue - latestAddition;
                     result = latestValue * Double.parseDouble(screen);
-                    temporarysum = latestaddition + temporarysum;
+                    temporarySum = latestAddition + temporarySum;
                     strich = false;
                 } else {
                     result = latestValue * Double.parseDouble(screen);
@@ -156,9 +156,9 @@ public class Calculator {
             }
             case "/" -> {
                 if (strich) {
-                    latestValue = latestValue - latestaddition;
+                    latestValue = latestValue - latestAddition;
                     result = latestValue / Double.parseDouble(screen);
-                    temporarysum = latestaddition + temporarysum;
+                    temporarySum = latestAddition + temporarySum;
                     strich = false;
                 } else {
                     result = latestValue / Double.parseDouble(screen);
@@ -176,7 +176,7 @@ public class Calculator {
 
     public void punktVorStich() {
         double newResult;
-        newResult = Double.parseDouble(screen) + temporarysum;
+        newResult = Double.parseDouble(screen) + temporarySum;
         screen = Double.toString(newResult);
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
