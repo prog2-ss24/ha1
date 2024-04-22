@@ -120,15 +120,37 @@ class CalculatorTest {
         calc.pressBinaryOperationKey("x");
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
-        calc.pressBinaryOperationKey("x");
+        calc.pressBinaryOperationKey("/");
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
         calc.punktVorStich();
         
-        String expected = "33";
+        String expected = "15";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Punkt vor Strich")
+    void testMehrereAddutionen() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        
+        String expected = "9";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);

@@ -140,8 +140,9 @@ public class Calculator {
             case "-" -> result = latestValue - Double.parseDouble(screen);
             case "x" -> {
                 if (strich) {
-                    result = latestaddition * Double.parseDouble(screen);
-                    temporarysum = latestValue - latestaddition;
+                    latestValue = latestValue - latestaddition;
+                    result = latestValue * Double.parseDouble(screen);
+                    temporarysum = latestaddition + temporarysum;
                     strich = false;
                 } else {
                     result = latestValue * Double.parseDouble(screen);
@@ -149,8 +150,9 @@ public class Calculator {
             }
             case "/" -> {
                 if (strich) {
-                    result = latestaddition / Double.parseDouble(screen);
-                    temporarysum = latestValue - latestaddition + temporarysum;
+                    latestValue = latestValue - latestaddition;
+                    result = latestValue / Double.parseDouble(screen);
+                    temporarysum = latestaddition + temporarysum;
                     strich = false;
                 } else {
                     result = latestValue / Double.parseDouble(screen);
