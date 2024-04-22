@@ -145,7 +145,6 @@ class CalculatorTest {
         calc.pressDigitKey(3);
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(3);
-        calc.pressEqualsKey();
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
