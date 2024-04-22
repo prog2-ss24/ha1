@@ -87,8 +87,44 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-
-
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should correctly change the sign of a number")
+    void testChangeSign() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressNegativeKey(); // Erwartet: -5
+        String expected = "-5";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should handle repeated equals after an operation correctly")
+    void testRepeatedEqualsAfterOperation() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey(); // Erstes Ergebnis: 5
+        calc.pressEqualsKey(); // Erwartet: 7 (wieder 2 addieren)
+        String expected = "7";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should handle decimal points correctly after an operation")
+    void testDecimalHandlingAfterOperation() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey(); // Erstes Ergebnis: 10
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(5); // Neue Eingabe: 2.5
+        String expected = "2.5";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
 }
 

@@ -9,9 +9,8 @@ package htw.berlin.prog2.ha1;
 public class Calculator {
 
     private String screen = "0";
-
     private double latestValue;
-
+    private double lastOperand = 0.0; // Neue Variable, um den letzten Operanden zu speichern
     private String latestOperation = "";
 
     /**
@@ -48,6 +47,7 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+        lastOperand = 0.0;
     }
 
     /**
@@ -74,16 +74,14 @@ public class Calculator {
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
-        var result = switch(operation) {
-            case "√" -> Math.sqrt(Double.parseDouble(screen));
-            case "%" -> Double.parseDouble(screen) / 100;
-            case "1/x" -> 1 / Double.parseDouble(screen);
+        double result = switch(operation) {
+            case "√" -> Math.sqrt(latestValue);
+            case "%" -> latestValue / 100;
+            case "1/x" -> 1 / latestValue;
             default -> throw new IllegalArgumentException();
         };
-        screen = Double.toString(result);
+        screen = String.format("%.10f", result).replaceAll("([0-9])\\.0+$|$\\.0+", "$1");
         if(screen.equals("NaN")) screen = "Error";
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-
     }
 
     /**
@@ -94,7 +92,7 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen + ".";
+        if(!screen.contains(".")) screen = screen.isEmpty() ? "0." : screen + ".";
     }
 
     /**
@@ -118,16 +116,33 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        screen = Double.toString(result);
+        if (latestOperation.isEmpty()) return;
+
+        double currentInput = Double.parseDouble(screen);
+        if (latestOperation.equals("=")) {
+            // Wiederhole die letzte Operation mit dem letzten Operanden
+            latestValue = switch (latestOperation) {
+                case "+" -> latestValue + lastOperand;
+                case "-" -> latestValue - lastOperand;
+                case "x" -> latestValue * lastOperand;
+                case "/" -> latestValue / lastOperand;
+                default -> latestValue;
+            };
+        } else {
+            lastOperand = currentInput;  // Aktualisiere den letzten Operanden
+            latestValue = switch (latestOperation) {
+                case "+" -> latestValue + currentInput;
+                case "-" -> latestValue - currentInput;
+                case "x" -> latestValue * currentInput;
+                case "/" -> currentInput == 0 ? Double.POSITIVE_INFINITY : latestValue / currentInput;
+                default -> latestValue;
+            };
+            latestOperation = "="; // Setze die letzte Operation auf "=", um Wiederholungen zu ermöglichen
+        }
+        screen = Double.toString(latestValue);
         if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
+        if(screen.endsWith(".0")) screen = screen.substring(0, screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
 }
