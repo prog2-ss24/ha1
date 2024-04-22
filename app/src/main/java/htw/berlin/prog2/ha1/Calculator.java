@@ -68,6 +68,14 @@ public class Calculator {
     public void pressBinaryOperationKey(String operation)  {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        if (latestOperation == "+") {
+            strich = true;
+            latestaddition = Double.parseDouble(screen);
+        }
+        if (latestOperation == "-") {
+            strich = true;
+            latestaddition = Double.parseDouble(screen);
+        }
     }
 
     /**
@@ -124,14 +132,6 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
-        if (latestOperation == "+") {
-            strich = true;
-            latestaddition = Double.parseDouble(screen);
-        }
-        if (latestOperation == "-") {
-            strich = true;
-            latestaddition = Double.parseDouble(screen);
-        }
 
         double result;  //ChatGPT für die Lösung in den Zeilen 140 und 142 genutzt
 
