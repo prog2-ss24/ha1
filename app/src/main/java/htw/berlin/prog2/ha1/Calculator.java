@@ -32,9 +32,9 @@ public class Calculator {
     public void pressDigitKey(int digit) {
             if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
-            if (screen.equals("0.")) {screen = "0." + digit;}
+            if (screen.equals("0.")) {screen = "0.";}
             else if(screen.equals("0") || latestValue == Double.parseDouble(screen)) {screen = "";}
-            else{screen = screen + digit;}
+            screen = screen + digit;
     }
 
     /**
