@@ -107,7 +107,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Soll mehrere Zahlen von einander Abziehen und Multiplizieren")
+    @DisplayName("Soll mehr als nur zwei Zahlen zusammenrechnen.")
     void testSubtractAndMultiply() {
         Calculator calc = new Calculator();
 
@@ -119,6 +119,23 @@ class CalculatorTest {
         calc.pressEqualsKey();
 
         String expected = "-2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Soll ")
+    void newTest() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "1";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
