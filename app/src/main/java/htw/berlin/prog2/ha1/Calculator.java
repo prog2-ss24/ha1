@@ -77,9 +77,19 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+
+        if (!latestOperation.isEmpty()) {
+            pressEqualsKey();
+            }
+        // Wenn die letzte Operation nicht leer ist, wird die Gleichheitszeichen gedrückt und
+        // latestValue ersetzt. Also, es wird eine erste Operation ausgeführt, bevor die zweite
+        // Operation ausgeführt und der Wert gespeichert wird.
+
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
+
+
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
