@@ -90,5 +90,58 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-}
+//Aufgabe 1
+    @Test
+    @DisplayName("should display result after subtract two positive multi-digit numbers")
+    void testSubtraction() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "10";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+// Aufgabe 2
+    // Erster failed Test
+@Test
+@DisplayName("should display result after multiplying three positive single-digit numbers")
+void testMultiplication() {
+    Calculator calc = new Calculator();
+
+    calc.pressDigitKey(7);
+    calc.pressBinaryOperationKey("x");
+    calc.pressDigitKey(7);
+    calc.pressBinaryOperationKey("x");
+    calc.pressDigitKey(5);
+    calc.pressEqualsKey();
+
+    String expected = "245";
+    String actual = calc.readScreen();
+
+    assertEquals(expected, actual);
+}
+// 2 Failed Test
+    @Test
+    @DisplayName("should display negative result when adding two negative multi digit numbers")
+    void testAddition2() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(-7);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(-3);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "-100";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }}
