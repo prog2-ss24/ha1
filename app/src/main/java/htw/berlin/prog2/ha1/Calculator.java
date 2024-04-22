@@ -35,7 +35,6 @@ public class Calculator {
 
         screen = screen + digit;
     }
-
     /**
      * Empfängt den Befehl der C-Taste (Clear).
      * Einmaliges Drücken der Taste löscht die zuvor eingegebenen Ziffern auf dem Bildschirm
@@ -92,6 +91,8 @@ public class Calculator {
      */
     public void pressDotKey() {
         if(!screen.contains(".")) screen = screen + ".";
+
+
     }
 
     /**
