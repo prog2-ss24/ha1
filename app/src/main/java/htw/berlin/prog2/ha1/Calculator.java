@@ -14,6 +14,12 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    private double[] saveLastValues = new double[15];
+    private String[] saveLastOperation = new String[15];
+
+    private int sLVIndex  = 0;
+    private int sLOIndex  = 0;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -30,9 +36,7 @@ public class Calculator {
      */
     public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
-
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-
+        if(screen.equals("0") || Double.parseDouble(screen) == 0) screen = "";
         screen = screen + digit;
     }
 
@@ -60,8 +64,11 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);
-        latestOperation = operation;
+        saveLastValues[sLVIndex++] = Double.parseDouble(screen);
+        saveLastOperation[sLOIndex++] = operation;
+        screen = "0";
+        // latestValue = Double.parseDouble(screen);
+        // latestOperation = operation;
     }
 
     /**
@@ -74,16 +81,16 @@ public class Calculator {
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
-        var result = switch(operation) {
-            case "√" -> Math.sqrt(Double.parseDouble(screen));
-            case "%" -> Double.parseDouble(screen) / 100;
-            case "1/x" -> 1 / Double.parseDouble(screen);
+        double result = 0.0;
+        switch(operation) {
+            case "√" -> result = Math.sqrt(Double.parseDouble(screen));
+            case "%" -> result = Double.parseDouble(screen) / 100;
+            case "1/x" -> result = 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-
     }
 
     /**
@@ -117,17 +124,40 @@ public class Calculator {
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
+    public double checkOperation() {
+        double result = saveLastValues[0];
+        for(int i = 0; i < sLOIndex; i++){
+            String operation = saveLastOperation[i];
+            double nextValue = saveLastValues[i+1];
+            switch(operation) {
+                case "+": result += nextValue;
+                break;
+                case "-": result -= nextValue;
+                break;
+                case "/": result /= nextValue;
+                if (nextValue == 0) throw new ArithmeticException("Division by zero");
+                break;
+                case "x": result *= nextValue;
+                break;
+                default: throw new IllegalArgumentException();
+            }
+        }
+        if(result % 1 == 0){
+            return (int) result;
+        }else {
+            return result;
+        }
+    }
+
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
+        saveLastValues[sLVIndex++] = Double.parseDouble(screen);
+        double result = checkOperation();
         screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if(result % 1 == 0){
+           screen = Integer.toString((int) result);
+        }else {
+           screen = Double.toString(result);
+        }
+        if (screen.equals("Infinity")) screen = "Error";
     }
 }
