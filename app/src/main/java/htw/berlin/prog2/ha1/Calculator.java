@@ -14,6 +14,14 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    private boolean strich = false;
+
+    private double latestAddition = 1;
+
+    private double temporarySum = 0;
+
+    private boolean istGleich = false;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -60,8 +68,20 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+        if (istGleich) {
+            pressEqualsKey();
+        }
+        istGleich = true;
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        if (latestOperation == "+") {
+            strich = true;
+            latestAddition = Double.parseDouble(screen);
+        }
+        if (latestOperation == "-") {
+            strich = true;
+            latestAddition = Double.parseDouble(screen);
+        }
     }
 
     /**
@@ -118,14 +138,46 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+
+        double result;  //ChatGPT für die Lösung in den Zeilen 140 und 142 genutzt
+
+        switch(latestOperation) {
+            case "+" -> result = latestValue + Double.parseDouble(screen);
+            case "-" -> result = latestValue - Double.parseDouble(screen);
+            case "x" -> {
+                if (strich) {
+                    latestValue = latestValue - latestAddition;
+                    result = latestValue * Double.parseDouble(screen);
+                    temporarySum = latestAddition + temporarySum;
+                    strich = false;
+                } else {
+                    result = latestValue * Double.parseDouble(screen);
+                }
+            }
+            case "/" -> {
+                if (strich) {
+                    latestValue = latestValue - latestAddition;
+                    result = latestValue / Double.parseDouble(screen);
+                    temporarySum = latestAddition + temporarySum;
+                    strich = false;
+                } else {
+                    result = latestValue / Double.parseDouble(screen);
+                }
+            }
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        if(screen.equals("Infinity")) screen = "Error";
+        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
+        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+    }
+
+
+
+    public void punktVorStich() {
+        double newResult;
+        newResult = Double.parseDouble(screen) + temporarySum;
+        screen = Double.toString(newResult);
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
