@@ -80,7 +80,11 @@ public class Calculator {
             case "1/x" -> 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
-        if (result == (int) result) {
+        if (Double.isNaN(result)) {
+            screen = "Error";
+        }
+
+        else if (result == (int) result) {
             // Wenn ja, den Bildschirmtext auf die ganze Zahl setzen
             screen = Integer.toString((int) result);
         } else {
