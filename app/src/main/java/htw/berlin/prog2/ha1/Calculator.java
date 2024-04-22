@@ -67,8 +67,14 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);
-        latestOperation = operation;
+        if(!latestOperation.isEmpty()){
+            pressEqualsKey();
+            latestValue = Double.parseDouble(screen);
+            latestOperation = operation;
+        }else{
+            latestValue = Double.parseDouble(screen);
+            latestOperation = operation;
+        }
     }
 
     /**
@@ -136,5 +142,7 @@ public class Calculator {
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        latestValue = 0.0;
+        latestOperation = "";
     }
 }
