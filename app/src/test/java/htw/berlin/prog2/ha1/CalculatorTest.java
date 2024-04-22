@@ -112,4 +112,23 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display result after multyplying two negative numbers")
+    void testNegativeMultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey(); //First number negative
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressNegativeKey(); //2nd number negative
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+
+        String expected = "-6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
