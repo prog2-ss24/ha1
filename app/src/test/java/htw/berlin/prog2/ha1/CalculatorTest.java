@@ -90,5 +90,20 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-}
+    //Teilaufgabe 1:Testet eine bisher ungetestete, aber funktionierende Funktionalität des Taschenrechners.
 
+    @Test
+    @DisplayName("sollte den Kehrwert einer Zahl ungleich Null anzeigen")
+    void testKehrwert() {
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(5);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "0.2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    }
