@@ -20,6 +20,8 @@ public class Calculator {
 
     private double temporarysum = 0;
 
+    private boolean token = false;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -66,6 +68,10 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+        if (token) {
+            pressEqualsKey();
+        }
+        token = true;
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
         if (latestOperation == "+") {

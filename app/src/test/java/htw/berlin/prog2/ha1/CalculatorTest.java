@@ -116,16 +116,12 @@ class CalculatorTest {
         calc.pressDigitKey(1);
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(4);
-        calc.pressEqualsKey();
         calc.pressBinaryOperationKey("x");
         calc.pressDigitKey(5);
-        calc.pressEqualsKey();
         calc.pressBinaryOperationKey("/");
         calc.pressDigitKey(2);
-        calc.pressEqualsKey();
         calc.pressBinaryOperationKey("x");
         calc.pressDigitKey(8);
-        calc.pressEqualsKey();
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(1);
         calc.pressEqualsKey();
