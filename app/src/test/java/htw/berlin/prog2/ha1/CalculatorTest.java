@@ -117,9 +117,7 @@ class CalculatorTest {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(0);
-        calc.pressUnaryOperationKey("/1/x");
-        calc.pressDigitKey(0);
-
+        calc.pressUnaryOperationKey("1/x");
         String expected = "Error";
         String actual = calc.readScreen();
 
