@@ -106,5 +106,22 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    //Teilaufgabe 2
+    @Test
+    @DisplayName("should display a result after minusing two positive multi-digit numbers, with one of it being cleared and chosen again")
+    void testMinusTwoMultiDigit() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressClearKey();
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected ="-1";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
