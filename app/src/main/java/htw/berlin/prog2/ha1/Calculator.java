@@ -60,8 +60,13 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);
-        latestOperation = operation;
+        if (latestOperation.isEmpty()) {
+            latestValue = Double.parseDouble(screen); //aktuelle Inhalt des Bildschirms in latestValue gespeichert.
+        } else {
+            pressEqualsKey(); //Das aktuelle Zwischenergebnis wird angezeigt
+        }
+        latestOperation = operation; //aktuelle ausgewählte Operation in latestOperation gespeichert,
+
     }
 
     /**
@@ -83,6 +88,9 @@ public class Calculator {
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        // Änderung für Test2
+        //if ("Infinity".equals(screen)) { //Infinity bedeutet Unendlichkeit - bei Inversion(Kehrwert) von  ist mit screen - Error angezeigt
+         //   screen = "Error";
 
     }
 
