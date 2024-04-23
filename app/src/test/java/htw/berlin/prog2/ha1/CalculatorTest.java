@@ -147,7 +147,7 @@ class CalculatorTest {
 
 
     @Test
-    @DisplayName("should display show 0 when pressing a number and then equals key without previous binary operation")
+    @DisplayName("should display show number when pressing a number and then equals key without previous binary operation")
     void testEqualsKeyWithoutPreviousOperation() {
         Calculator calc = new Calculator();
 
@@ -164,7 +164,7 @@ class CalculatorTest {
 
 
     @Test
-    @DisplayName("should display show 0 when pressing equals key without previous binary operation")
+    @DisplayName("should display show number when pressing equals key without previous binary operation")
     void testEqualsKey() {
         Calculator calc = new Calculator();
 

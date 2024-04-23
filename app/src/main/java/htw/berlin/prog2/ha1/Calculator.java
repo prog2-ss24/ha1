@@ -17,7 +17,7 @@ public class Calculator {
 
     private String latestOperation = "";
 
-   // private double previousValue;
+
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -69,7 +69,12 @@ public class Calculator {
      *
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
+
+    //Teil 3
     public void pressBinaryOperationKey(String operation) {
+        if (!latestOperation.isEmpty()) { //Bedingung prüft, ob die letzte Berechnung NICHT leer ist, somit wird mit dem Ergebnis weiter gerechnet
+            pressEqualsKey(); // ermöglicht eine kontinuierliche Berechnung ohne Unterbrechung
+        }
 
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
@@ -139,7 +144,14 @@ public class Calculator {
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
+
+    //Teil 3
     public void pressEqualsKey() {
+        if(latestOperation.isEmpty()) { //Überprüft ober vor dem Drücken der Equaltaste Berechnung durchgeführt wurde
+                                        //wenn nicht, dann wird die Zahl wiedergegeben, die drückt wurde
+                                        // kein Effekt, auf die eingegebene Zahl oder Rechner
+            return;
+        }
 
 
         var result = switch (latestOperation) {
@@ -158,11 +170,3 @@ public class Calculator {
     }
 }
 
-/*
-if (!latestOperation.isEmpty()) { //Bedingung prüft, ob die letzte Berechnung NICHT leer ist, somit wird mit dem Ergebnis weiter gerechnet
-            pressEqualsKey(); // ermöglicht eine kontinuierliche Berechnung ohne Unterbrechung
-        }
-
-        //if(latestOperation.isEmpty()) {
-       // return;
- */
