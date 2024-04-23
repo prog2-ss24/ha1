@@ -122,8 +122,9 @@ class CalculatorTest {
 
         String expected = "9";
         String actual = calc.readScreen();
-
         assertEquals(expected, actual);
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
     @Test

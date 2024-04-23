@@ -1,4 +1,6 @@
 package htw.berlin.prog2.ha1;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
@@ -14,11 +16,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
-    private double[] saveLastValues = new double[15];
-    private String[] saveLastOperation = new String[15];
-
-    private int sLVIndex  = 0;
-    private int sLOIndex  = 0;
+    private ArrayList<Double> saveLastValues = new ArrayList<>();
+    private ArrayList<String> saveLastOperation = new ArrayList<>();
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -64,11 +63,9 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
-        saveLastValues[sLVIndex++] = Double.parseDouble(screen);
-        saveLastOperation[sLOIndex++] = operation;
+        saveLastValues.add(Double.parseDouble(screen));
+        saveLastOperation.add(operation);
         screen = "0";
-        // latestValue = Double.parseDouble(screen);
-        // latestOperation = operation;
     }
 
     /**
@@ -124,11 +121,24 @@ public class Calculator {
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
+
+    public void pressEqualsKey() {
+        saveLastValues.add(Double.parseDouble(screen));
+        double result = checkOperation();
+        if(result % 1 == 0){
+            screen = Integer.toString((int) result);
+        }else {
+            screen = Double.toString(result);
+        }
+        if (screen.equals("Infinity")) screen = "Error";
+
+
+
     public double checkOperation() {
-        double result = saveLastValues[0];
-        for(int i = 0; i < sLOIndex; i++){
-            String operation = saveLastOperation[i];
-            double nextValue = saveLastValues[i+1];
+        double result = saveLastValues.get(0);
+        for(int i = 0; i < saveLastOperation.size(); i++){
+            String operation = saveLastOperation.get(i);
+            double nextValue = saveLastValues.get(i+1);
             switch(operation) {
                 case "+": result += nextValue;
                 break;
@@ -142,22 +152,6 @@ public class Calculator {
                 default: throw new IllegalArgumentException();
             }
         }
-        if(result % 1 == 0){
-            return (int) result;
-        }else {
-            return result;
-        }
-    }
-
-    public void pressEqualsKey() {
-        saveLastValues[sLVIndex++] = Double.parseDouble(screen);
-        double result = checkOperation();
-        screen = Double.toString(result);
-        if(result % 1 == 0){
-           screen = Integer.toString((int) result);
-        }else {
-           screen = Double.toString(result);
-        }
-        if (screen.equals("Infinity")) screen = "Error";
+        return result;
     }
 }
