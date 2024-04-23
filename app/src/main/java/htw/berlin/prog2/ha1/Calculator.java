@@ -64,14 +64,19 @@ public class Calculator {
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
      * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen.
-     * Beim ersten Drücken der Taste wird der Bildschirminhalt nicht verändert, sondern nur der
-     * Rechner in den passenden Operationsmodus versetzt.
-     * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
-     * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * Wenne bereits eine Operation aktiv ist, wird zunächst das aktuelle Zwischenergebnis unter Verwendung
+     * der zuvor gespeicherten OPeration und des Operanden berechnet.
+     * Nachdem das Zwischenergebns erechent wurde oder wenn keine vorherige Operation aktiv war, wird der Rechner
+     * in den passenden neuen OPerationsmodus versetzt. Das Aktuelle Ergebnis wird als ´latestValue` gespeichert,
+     * um damit dann weiter rechnen zu können.
      *
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation) {
+        if (!latestOperation.isEmpty()) {
+            // Berechnet das aktuelle Ergebnis, bevor die neue Operation erfolgt
+            pressEqualsKey();
+        }
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
 
