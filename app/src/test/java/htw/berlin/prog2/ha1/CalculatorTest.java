@@ -90,5 +90,51 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should be able to multiply")
+    void testMultiplication(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should repeat last operation when pressing equals multiple times")
+    void testMultipleEqualsPossible() {
+        Calculator calculator = new Calculator();
+
+        calculator.pressDigitKey(5);
+        calculator.pressBinaryOperationKey("+");
+        calculator.pressDigitKey(3);
+        calculator.pressEqualsKey(); // 5 + 3 = 8
+        calculator.pressEqualsKey(); // Repeat last operation: 8 + 3 = 11
+
+        String expected = "11";
+        String actual = calculator.readScreen(); //currently screen=13
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display whole numbers as integers")
+    void testWholeNumberAsInteger() {
+        Calculator calculator = new Calculator();
+
+        calculator.pressDigitKey(4);
+        calculator.pressUnaryOperationKey("√");
+
+        String expected = "2";
+        String actual = calculator.readScreen(); //not 2.0
+
+        assertEquals(expected, actual);
+    }
 }
 
