@@ -104,6 +104,20 @@ class CalculatorTest {
     }
 
 
+    @Test
+    @DisplayName(" Prüft ob man Zahlen < 9 und Zahlen > 0 eingeben kann  ")
+    void testScreenEingabe(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(22);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "24";
+        String actual   = calc.readScreen();
+
+
+    }
 
     @Test
     @DisplayName(" Prüft ob man Zahlen < 9 und Zahlen > 0 eingeben kann  ")
@@ -125,7 +139,7 @@ class CalculatorTest {
     void testOfClearKey(){
 
         Calculator calc = new Calculator();
-
+        //calc.pressNegativeKey();
         calc.pressDigitKey(6);
         calc.pressBinaryOperationKey("x");
         calc.pressDigitKey(6);
@@ -136,8 +150,6 @@ class CalculatorTest {
 
         String expected = "30";
         String actual = calc.readScreen();
-
-
 
 
     }
