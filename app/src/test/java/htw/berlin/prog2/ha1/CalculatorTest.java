@@ -90,5 +90,21 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    //Teilaufgabe 1
+    @Test
+    @DisplayName("should display result after minusing two positive multi-digit numbers ")
+    void testMinusTwoPositiveMultiDigit() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected ="18";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
