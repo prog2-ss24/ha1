@@ -125,8 +125,21 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display decimal point after pressing clear")
+    void testDecimalPoint() {
+        Calculator calc = new Calculator();
+
+        calc.pressClearKey();
+        calc.pressDotKey();
+        calc.pressDigitKey(3);
 
 
+        String expected = "0.3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
 }
 
