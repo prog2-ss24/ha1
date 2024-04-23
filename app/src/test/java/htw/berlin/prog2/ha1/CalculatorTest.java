@@ -87,8 +87,49 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display result after substracting a positive number with a positive number")
+    void testPositiveSubstracting(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display intermediate result after adding two digits and using binary operation key")
+    void intermediateResultAddition() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+
+        String expected = "10";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
+    }
+    @Test
+    @DisplayName("should display error for an inadequate digit ('NaN') after unary operation")
+    void InadequateDigitUnaryOperation() {
+        Calculator calculator = new Calculator();
+        calculator.pressDigitKey(0);
+        calculator.pressUnaryOperationKey("1/x");
+        String expected = "Error";
+        String actual = calculator.readScreen();
+        assertEquals(expected, actual);
+    }
 
 
-    //TODO hier weitere Tests erstellen
+
+
+    //TODO hier weitere Tests erstellen tes
 }
 
