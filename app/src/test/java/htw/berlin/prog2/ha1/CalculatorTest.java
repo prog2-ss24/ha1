@@ -128,7 +128,7 @@ class CalculatorTest {
 
     //Teil 2
     @Test
-    @DisplayName("should display result after getting adding same positive multi-digit numbers with an other ")
+    @DisplayName("should display result after getting adding positive multi-digit numbers with an other ")
     void testMoreNumbers() {
         Calculator calc = new Calculator();
         calc.pressDigitKey(8);
@@ -147,7 +147,7 @@ class CalculatorTest {
 
 
     @Test
-    @DisplayName("should display error when pressing equals key without previous binary operation")
+    @DisplayName("should display show 0 when pressing a number and then equals key without previous binary operation")
     void testEqualsKeyWithoutPreviousOperation() {
         Calculator calc = new Calculator();
 
@@ -164,7 +164,7 @@ class CalculatorTest {
 
 
     @Test
-    @DisplayName("should display error when pressing equals key without previous binary operation")
+    @DisplayName("should display show 0 when pressing equals key without previous binary operation")
     void testEqualsKey() {
         Calculator calc = new Calculator();
 
