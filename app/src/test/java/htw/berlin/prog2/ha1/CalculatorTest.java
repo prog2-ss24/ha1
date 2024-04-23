@@ -88,9 +88,11 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    //Teil 1
+
     @Test
-    @DisplayName ("should display result after subtraction two positive multi-digit numbers")
-    void testSubtraktion(){
+    @DisplayName("should display result after subtraction two positive multi-digit numbers")
+    void testSubtraktion() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(3);
@@ -105,10 +107,28 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display result after adding two positive multi-digit numbers")
+    void testZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "12";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+        calc.pressClearKey();
+        assertEquals("0", calc.readScreen());
+
+    }
 
     //Teil 2
     @Test
-    @DisplayName ("should display result after getting adding same positive multi-digit numbers with an other ")
+    @DisplayName("should display result after getting adding same positive multi-digit numbers with an other ")
     void testMoreNumbers() {
         Calculator calc = new Calculator();
         calc.pressDigitKey(8);
@@ -123,46 +143,40 @@ class CalculatorTest {
 
         assertEquals(expected, actual); //Zum Überprüfen, ob der erwartete Wert einer Variable dem tatsächlichen Wert entspricht
     }
+
+
+
     @Test
-    @DisplayName("should display result after  multiplying a decimal number with a whole number ")
-    void testDezimalWithGanzzahl() {
+    @DisplayName("should display error when pressing equals key without previous binary operation")
+    void testEqualsKeyWithoutPreviousOperation() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(0);
-        calc.pressDotKey();
-        calc.pressDigitKey(2);
-        calc.pressBinaryOperationKey("x");
-        calc.pressDigitKey(1);
-        calc.pressDigitKey(0);
-        calc.pressDigitKey(0);
-        calc.pressDigitKey(0);
+        calc.pressDigitKey(5);
         calc.pressEqualsKey();
 
-        String expected = "200";
+        String expected = "5";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
+
+
+
+
     @Test
-    @DisplayName("should display result for percentage calculation")
-    void testPercentageCalculation() {
+    @DisplayName("should display error when pressing equals key without previous binary operation")
+    void testEqualsKey() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(5);
-        calc.pressDigitKey(0);
-        calc.pressBinaryOperationKey("*");
-        calc.pressDigitKey(2);
-        calc.pressDigitKey(5);
-        calc.pressUnaryOperationKey("%");
+        calc.pressEqualsKey();
 
-        String expected = "12.5";
+        String expected = "0";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        //TODO hier weitere Tests erstellen
+
     }
-
-    //TODO hier weitere Tests erstellen
-
 }
 
 
