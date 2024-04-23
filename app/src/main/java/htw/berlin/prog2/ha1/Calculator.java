@@ -39,6 +39,11 @@ public class Calculator {
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
+        if (latestValue == 0 && latestOperation.equals("-"))
+        {
+            digit = -digit;
+        }
+
         screen = screen + digit;
     }
 
