@@ -86,6 +86,11 @@ public class Calculator {
      * Beim Drücken der Taste wird direkt die Operation auf den aktuellen Zahlenwert angewendet und
      * der Bildschirminhalt mit dem Ergebnis aktualisiert.
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
+     *
+     * Wenn das Ergebnis der Operation den Wert "Infinity" ergibt, wird der Bildschirmtext ebenfalls auf "Error" gesetzt,
+     * um anzuzeigen, dass eine Division durch Null durchgeführt wurde.
+     * Wenn das Ergebnis der Operation mit einer Dezimalstelle ".0" endet, wird diese Dezimalstelle entfernt, um
+     * eine überschüssige Darstellung zu vermeiden.
      */
     public void pressUnaryOperationKey(String operation) {
         pressBinaryOperationKey(operation);
@@ -98,6 +103,7 @@ public class Calculator {
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
 
     }
 
@@ -143,7 +149,7 @@ public class Calculator {
 
         switch(latestOperation) {
             case "+" -> {
-                result = latestValue + Double.parseDouble(screen);
+                result = this.latestValue + Double.parseDouble(screen);
                 pressBinaryOperationKey("+");
             }
             case "-" -> {

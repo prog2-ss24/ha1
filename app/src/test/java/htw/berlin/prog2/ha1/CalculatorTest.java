@@ -3,7 +3,7 @@ package htw.berlin.prog2.ha1;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @DisplayName("Retro calculator")
 class CalculatorTest {
@@ -177,6 +177,102 @@ class CalculatorTest {
 
     }
 
+    @Test
+    @DisplayName("should reset the calculator state when clear key is pressed")
+    void testClearKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        calc.pressClearKey();
+
+    }
+
+
+    @Test
+    @DisplayName("should handle decimals correctly and not exceed screen limit")
+    void testDecimalHandling() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDotKey();
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "3.3"; // Hier darf das Ergebnis nicht mehr als eine Dezimalstelle enthalten.
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual.substring(0, 3));
+    }
+
+
+    @Test
+    @DisplayName("should perform square root operation correctly")
+    void testSquareRootOperation() {
+
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(9);
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should handle percentage operation correctly")
+    void testPercentageOperation() {
+
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(50);
+        calc.pressUnaryOperationKey("%");
+
+
+        String expected = "0.5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should perform inversion operation correctly")
+    void testInversionOperation() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "0.25";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should handle division by zero correctly in inversion operation")
+    void testDivisionByZeroInversion() {
+
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
 }
 
