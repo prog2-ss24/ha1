@@ -125,7 +125,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result of decimal inversion")
-     void testDecimalInversion() {
+    void testDecimalInversion() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(0);
@@ -139,4 +139,24 @@ class CalculatorTest {
         assertEquals(expected, actual);
 
     }
+
+    @Test
+    @DisplayName("iufjnfkcvjenfkf")
+    void fefjkwfwkj() {
+        Calculator calc = new Calculator ();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "15";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
 }

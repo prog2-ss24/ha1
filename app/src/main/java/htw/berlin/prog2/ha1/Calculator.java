@@ -1,5 +1,7 @@
 package htw.berlin.prog2.ha1;
 
+import java.util.ArrayList;
+
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
@@ -13,6 +15,8 @@ public class Calculator {
     private double latestValue;
 
     public String latestOperation = "";
+
+    private ArrayList<String> list = new ArrayList<>(); // в digitkey, pressdotkey, binaryoperations
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -42,6 +46,17 @@ public class Calculator {
      */
     public void pressClearKey() {
         screen = "0";
+        latestValue = 0.0;
+    }
+
+    /**
+     * Empfängt den Befehl der CE-Taste (Clear-Enter).
+     * Drücken CE-Taste löscht zuvor eingegebene und zwischengespeicherte Werte sowie
+     * den aktuellen Operationsmodus, so dass der Rechner wieder im Ursprungszustand ist.
+     */
+    public void pressClearEnterKey() {
+        screen = "0";
+        latestOperation = "";
         latestValue = 0.0;
     }
 
