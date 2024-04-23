@@ -92,16 +92,17 @@ class CalculatorTest {
     void testPositiveMultiplication() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(5);
+        calc.pressDigitKey(7);
         calc.pressBinaryOperationKey("x");
-        calc.pressDigitKey(6);
+        calc.pressDigitKey(9);
         calc.pressEqualsKey();
 
-        String expected = "30";
+        String expected = "63";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
+
 
     //TODO hier weitere Tests erstellen
 }
