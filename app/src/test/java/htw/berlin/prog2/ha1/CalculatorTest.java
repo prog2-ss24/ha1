@@ -123,5 +123,19 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("should display a result after adding two negative multi-digit numbers, first negative number using Minusoperator")
+    void testMinusTwoNegativeDigit(){
+        Calculator calc = new Calculator();
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+        String exptected ="-6";
+        String actual = calc.readScreen();
+        assertEquals(exptected, actual);
+    }
 }
 
