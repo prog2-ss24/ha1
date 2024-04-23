@@ -138,12 +138,12 @@ class CalculatorTest {
     void testMaxDigitsOnScreen() {
         Calculator calc = new Calculator();
 
-        // Pressing more than 10 digits
-        for (int i = 0; i < 12; i++) {
+
+        for (int i = 0; i < 12; i++) {// Pressing more than 9 numbers on screen
             calc.pressDigitKey(1);
         }
 
-        String expected = "111111111"; // Only 10 digits should be displayed
+        String expected = "111111111"; // Only 9 numbers or 10 digits should be displayed
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);

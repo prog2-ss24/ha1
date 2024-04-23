@@ -3,7 +3,7 @@ package htw.berlin.prog2.ha1;
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
- * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
+ * und dessen Bildschirm bis zu 9 Ziffern plus einem Dezimaltrennzeichen darstellen kann.
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
  */
 public class Calculator {
@@ -24,16 +24,22 @@ public class Calculator {
     /**
      * Empfängt den Wert einer gedrückten Zifferntaste. Da man nur eine Taste auf einmal
      * drücken kann muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
-     * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
-     * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
+     * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt wird,
+     * sofern die maximale Bildschirmlänge nicht überschritten wird. es dürfen nicht mehr als 9 Ziffern und 1 Dezimalzeichen
+     * angezeigt werden.
+     * Ist der Bildschirm gleich null oder entspricht er dem zuletzt gespeicherten Wert, wird er zunächst gelöscht,
+     * bevor die neue Ziffer angehängt wird.
      *
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
         if (digit > 9 || digit < 0) throw new IllegalArgumentException();
+//Veränderung für 1.Rote Test testMaxDigitsOnScreen
+        if ((screen.contains(".") && screen.length() < 10) || (!screen.contains(".") && screen.length() < 9)) {
 
-        if (screen.length() < 10) {
-            if (screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+            if (screen.equals("0") || latestValue == Double.parseDouble(screen)) {
+                screen = "";
+            }
             screen = screen + digit;
         }
     }
@@ -98,7 +104,9 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if (!screen.contains(".")) screen = screen + ".";
+        if (!screen.contains(".") && screen.length() < 10) { //1.Rote Test. verhindert dass ein Dezimalpunkt hinzugefügt wird, wenn dies die Anzahl der zulässigen Zeichen überschreitet
+            screen = screen + ".";
+        }
     }
 
     /**
@@ -134,9 +142,12 @@ public class Calculator {
         };
         screen = Double.toString(result);
 
-        //See if the result exceeds 10 characters /Überprüfung ob das Ergebnis die maximale Länge überschreitet
-          if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 11);
-        else if (!screen.contains(".") && screen.length() > 10) screen = screen.substring(0,10);
+
+          if(screen.contains(".") && screen.length() > 10) { //1.Rote Test .See if the result exceeds 10 characters /Überprüfung ob das Ergebnis die maximale Länge überschreitet
+              screen = screen.substring(0, 10);
+          } else if (!screen.contains(".") && screen.length() > 9)  {
+              screen = screen.substring(0,9);
+          }
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
 
