@@ -33,7 +33,9 @@ public class Calculator {
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
+        if (screen.length() < 10) { //limit to 10 digits
         screen = screen + digit;
+        }
     }
 
     /**
