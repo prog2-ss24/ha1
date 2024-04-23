@@ -1,6 +1,10 @@
 package htw.berlin.prog2.ha1;
 
 /**
+ * commit 1
+ */
+
+/**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
  * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
@@ -27,14 +31,17 @@ public class Calculator {
      * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
      * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
      * @param digit Die Ziffer, deren Taste gedrückt wurde
+     * Eigene Anmerkung: Man kann zwar nur eine Taste drücken aber der Wert MUSS nicht positiv sein
      */
     public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
-
+        if(screen.equals("-0") ) {screen = (digit * (-1)+"");}
+        else {
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
+
         screen = screen + digit;
-    }
+    }}
 
     /**
      * Empfängt den Befehl der C- bzw. CE-Taste (Clear bzw. Clear Entry).
@@ -80,9 +87,13 @@ public class Calculator {
             case "1/x" -> 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
-        screen = Double.toString(result);
+        int integerResult;
+        if (result % 1.0 == 0) {integerResult = (int) result ; screen = Integer.toString(integerResult); }
+        else {
+        screen = Double.toString(result);}
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
 
     }
 
@@ -106,6 +117,10 @@ public class Calculator {
      */
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+
+
+
+
     }
 
     /**
@@ -116,6 +131,7 @@ public class Calculator {
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
+     * EIGENE: beim "="
      */
     public void pressEqualsKey() {
         var result = switch(latestOperation) {
@@ -123,6 +139,7 @@ public class Calculator {
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
+            case "=" -> Double.parseDouble(screen) ;
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
