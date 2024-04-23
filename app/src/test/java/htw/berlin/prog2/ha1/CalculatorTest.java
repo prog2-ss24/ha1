@@ -107,6 +107,7 @@ void testPositiveMinus() {
     String actual = calc.readScreen();
 
     assertEquals(expected, actual);
+
 }
 }
 
