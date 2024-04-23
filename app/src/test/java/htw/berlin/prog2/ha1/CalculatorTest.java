@@ -112,7 +112,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    @Test
+    @Test //1.Grüner Test
     @DisplayName("should display result after multiplying two negative numbers")
     void testNegativeMultiplication() {
         Calculator calc = new Calculator();
@@ -132,9 +132,9 @@ class CalculatorTest {
     }
 
 
-
     @Test
-    @DisplayName("should handle maximum number of digits on screen") // 1.Roter Test
+    @DisplayName("should handle maximum number of digits on screen")
+        // 1.Roter Test
     void testMaxDigitsOnScreen() {
         Calculator calc = new Calculator();
 
@@ -149,4 +149,21 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-}
+    @Test
+    @DisplayName("should correctly calculate the result of sequential substraction operations")
+    void testSequentialSubstractions() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "-4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    }

@@ -12,7 +12,9 @@ public class Calculator {
 
     private double latestValue;
 
+
     private String latestOperation = "";
+
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -20,6 +22,7 @@ public class Calculator {
     public String readScreen() {
         return screen;
     }
+
 
     /**
      * Empfängt den Wert einer gedrückten Zifferntaste. Da man nur eine Taste auf einmal
@@ -71,6 +74,7 @@ public class Calculator {
     public void pressBinaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+
     }
 
     /**
@@ -132,28 +136,27 @@ public class Calculator {
      * Ganzzahlige Ergebnisse, die mit "0" enden, werden ohne Dezimalstellen und Punkt dargestellt.
      */
 
-      public void pressEqualsKey() {
-         var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        screen = Double.toString(result);
 
 
-          if(screen.contains(".") && screen.length() > 10) { //1.Rote Test .See if the result exceeds 10 characters /Überprüfung ob das Ergebnis die maximale Länge überschreitet
-              screen = screen.substring(0, 10);
-          } else if (!screen.contains(".") && screen.length() > 9)  {
-              screen = screen.substring(0,9);
-          }
+
+    public void pressEqualsKey() {
+        var result = switch (latestOperation) {
+                case "+" -> latestValue + Double.parseDouble(screen);
+                case "-" -> latestValue - Double.parseDouble(screen);
+                case "x" -> latestValue * Double.parseDouble(screen);
+                case "/" -> latestValue / Double.parseDouble(screen);
+                default -> throw new IllegalArgumentException();
+            };
+            screen = Double.toString(result);
+
+        if(screen.contains(".") && screen.length() > 10) { //1.Rote Test .See if the result exceeds 10 characters /Überprüfung ob das Ergebnis die maximale Länge überschreitet
+            screen = screen.substring(0, 10);
+        } else if (!screen.contains(".") && screen.length() > 9)  {
+            screen = screen.substring(0,9);
+        }
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
 
-      }
 
     }
-
-
-
+    }
