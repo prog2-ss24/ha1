@@ -97,13 +97,7 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if (!screen.contains(".")) {
-            if (screen.equals("0") || screen.isEmpty()) {
-                screen = "0."; // Fügt "0." hinzu, wenn der Bildschirm leer ist oder "0" anzeigt
-            } else {
-                screen += ".";
-            }
-        }
+        if(!screen.contains(".")) screen = screen + ".";
     }
 
     /**
