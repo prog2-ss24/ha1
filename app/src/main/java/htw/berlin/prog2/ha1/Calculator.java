@@ -78,12 +78,12 @@ public class Calculator {
      */
     public void pressBinaryOperationKey(String operation)  {
 
-        if (!latestOperation.isEmpty()) {
-            pressEqualsKey();
-            }
         // Wenn die letzte Operation nicht leer ist, wird die Gleichheitszeichen gedrückt und
         // latestValue ersetzt. Also, es wird eine erste Operation ausgeführt, bevor die zweite
         // Operation ausgeführt und der Wert gespeichert wird.
+        if (!latestOperation.isEmpty()) {
+            pressEqualsKey();
+            }
 
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;

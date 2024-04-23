@@ -171,5 +171,23 @@ class CalculatorTest {
 
     }
 
+    @Test
+    @DisplayName("should test a unary operation followed by a binary operation")
+    void testUnaryBinary() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(6);
+        calc.pressUnaryOperationKey("√");
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "16";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
