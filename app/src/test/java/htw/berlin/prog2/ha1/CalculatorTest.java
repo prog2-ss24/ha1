@@ -109,15 +109,15 @@ class CalculatorTest {
 
     @Test
     @DisplayName("")
-    void subWithPercentage() {  //subtrahieren mit Prozentsatz
+    void subWithPercentage() { // subtrahieren mit Prozentsatz
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(6);
         calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(5);
         calc.pressDigitKey(0);
-        calc.pressUnaryOperationKey("%");  //vorher fehlte die Gleichung, um mit Prozenten zu rechnen
-        calc.pressEqualsKey(); 
+        calc.pressUnaryOperationKey("%"); // vorher fehlte die Gleichung, um mit Prozenten zu rechnen
+        calc.pressEqualsKey();
 
         String expected = "3"; // (6 - 50% = 3 )
         String actual = calc.readScreen();
@@ -128,21 +128,19 @@ class CalculatorTest {
 
     @Test
     @DisplayName("")
-    void divSub() {  //dividieren, dann subtrahieren
+    void addKehrwert() { // subtrahieren mit Prozentsatz
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(1);
-        calc.pressDigitKey(0);
-        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(6);
+        calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(2);
-        //calc.pressBinaryOperationKey("-"); // wird durch calc.pressEqualsKeyThenBinaryOperationKey ersetzt, damit der Wert von (10/2=5) "5" nicht mit 2 überschrieben wird. 
-        calc.pressEqualsKeyThenBinaryOperationKey("-");
-        calc.pressDigitKey(3);
-        calc.pressEqualsKey();
+        calc.pressUnaryOperationKey("1/x");
+        calc.pressEqualsKey(); //Error, weil pressEqualsKey hat keine Operation für 1/x
 
-        String expected = "2"; // ((10 / 2) - 3 = 2)
+        String expected = "6.5"; 
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+
     }
 }

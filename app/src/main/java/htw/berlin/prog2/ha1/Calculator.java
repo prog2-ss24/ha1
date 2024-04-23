@@ -84,19 +84,17 @@ public class Calculator {
      *                  Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation) {
-        latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        latestValue = Double.parseDouble(screen);
     }
 
-    /* pressEqualsKeyThenBinaryOperationKey(String operation) hat noch am
-       anfang die pressEqualsKey() Funktion, um den Zwischenwert zu speichern, vor einer weiteren Operation, damit die Zahl auf dem "SCREEN" nicht in latestValue überschrieben wird
-       Ansonsten ist es identisch zu der Funktion pressBinaryOperationKey() */    
-    public void pressEqualsKeyThenBinaryOperationKey(String operation) {
-    pressEqualsKey();
-    latestValue = Double.parseDouble(screen);
-    latestOperation = operation;
-    }
-     
+    /*
+     * pressEqualsKeyThenBinaryOperationKey(String operation) hat noch am
+     * anfang die pressEqualsKey() Funktion, um den Zwischenwert zu speichern, vor
+     * einer weiteren Operation, damit die Zahl auf dem "SCREEN" nicht in
+     * latestValue überschrieben wird
+     * Ansonsten ist es identisch zu der Funktion pressBinaryOperationKey()
+     */
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei
@@ -109,8 +107,9 @@ public class Calculator {
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
-      //latestValue = Double.parseDouble(screen);  Der latestValue soll nicht überschrieben werden
-        Double.parseDouble(screen); //aber die eingetippte neue Zahl soll im "screen" angezeigt werden
+        // latestValue = Double.parseDouble(screen); //Der latestValue soll nicht
+        // überschrieben werden
+        Double.parseDouble(screen); // aber die eingetippte neue Zahl soll im "screen" angezeigt werden
         latestOperation = operation;
         var result = switch (operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
@@ -173,7 +172,9 @@ public class Calculator {
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
-            case "%" -> latestValue * Double.parseDouble(screen);  //neue Gleichung für die Prozent-Rechnung
+            case "%" -> latestValue * Double.parseDouble(screen); // neue Gleichung für die Prozent-Rechnung
+           // case "1/x" -> latestValue + Double.parseDouble(screen);
+
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
