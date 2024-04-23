@@ -137,7 +137,7 @@ class CalculatorTest {
         calc.pressUnaryOperationKey("1/x");
         calc.pressEqualsKey(); //Error, weil pressEqualsKey hat keine Operation für 1/x
 
-        String expected = "6.5"; 
+        String expected = "6.5";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);

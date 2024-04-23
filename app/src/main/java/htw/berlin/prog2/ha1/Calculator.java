@@ -172,8 +172,8 @@ public class Calculator {
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
-            case "%" -> latestValue * Double.parseDouble(screen); // neue Gleichung für die Prozent-Rechnung
-           // case "1/x" -> latestValue + Double.parseDouble(screen);
+            case "%" -> latestValue * Double.parseDouble(screen); // neue Operator für die Prozent-Rechnung mit pressEqualsKey
+            case "1/x" -> latestValue + Double.parseDouble(screen); // neuer Operator für 1/x Rechnung mit pressEqualsKey
 
             default -> throw new IllegalArgumentException();
         };
