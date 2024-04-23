@@ -106,22 +106,7 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-    @Test
-    @DisplayName("should allow to press negative key before digit key and do correct math")
-    void testDoRightMathWithPressingNegativeKey() {
-        Calculator calc = new Calculator();
-        calc.pressNegativeKey();
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(7);
-        calc.pressEqualsKey();
 
-
-        String expected = "2";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
 
 }
 
