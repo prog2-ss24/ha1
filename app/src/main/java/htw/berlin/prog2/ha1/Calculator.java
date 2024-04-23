@@ -45,9 +45,8 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        if(screen.length() > 1){
-            screen = screen.substring(0, screen.length() - 1);
-            if(screen.equals("-")) screen = "0";
+        if(!latestOperation.isEmpty() && !screen.equals("0")){
+            screen = "0";
         }else{
             screen = "0";
             latestOperation = "";

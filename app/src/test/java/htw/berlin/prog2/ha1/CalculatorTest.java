@@ -110,15 +110,17 @@ class CalculatorTest {
     //Teilaufgabe 2
 
     @Test
-    @DisplayName("should clear only the last entered digit")
+    @DisplayName("should save value befor last entered operation")
     void testClearLastDigit(){
         Calculator calc = new Calculator();
-
+        calc.pressDigitKey(6);
         calc.pressDigitKey(3);
-        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
         calc.pressClearKey();
+        calc.pressEqualsKey();
 
-        String expected = "3";
+        String expected = "63";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
@@ -140,6 +142,3 @@ class CalculatorTest {
     }
 
 }
-
-
-
