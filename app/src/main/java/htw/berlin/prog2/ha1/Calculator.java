@@ -33,7 +33,7 @@ public class Calculator {
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
-        if (screen.length() < 10) { //limit to 10 digits
+        if (screen.length() < 10) { //Durch Hinzufügen der Bedingung if (screen.length() < 10) stellen wir sicher, dass Ziffern nur dann dem Bildschirm hinzugefügt werden, wenn die maximale Länge noch nicht erreicht ist.
         screen = screen + digit;
         }
     }
@@ -76,6 +76,8 @@ public class Calculator {
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        if (latestValue == 0 && operation.equals("1/x")) { //Hinzufügen der Bedingung if (latestValue == 0 && operation.equals("1/x")) überprüfen wir, ob der zu invertierende Wert Null ist. In diesem Fall setzen wir den Bildschirm auf "Error".
+            screen = "Error";
         var result = switch(operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
             case "%" -> Double.parseDouble(screen) / 100;
