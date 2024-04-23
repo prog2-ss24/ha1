@@ -102,6 +102,31 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display intermediate result after adding two digits and using binary operation key")
+    void intermediateResultAddition() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+
+        String expected = "10";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
+    }
+    @Test
+    @DisplayName("should display error for an inadequate digit ('NaN') after unary operation")
+    void InadequateDigitUnaryOperation() {
+        Calculator calculator = new Calculator();
+        calculator.pressDigitKey(0);
+        calculator.pressUnaryOperationKey("1/x");
+        String expected = "Error";
+        String actual = calculator.readScreen();
+        assertEquals(expected, actual);
+    }
+
 
 
     //TODO hier weitere Tests erstellen
