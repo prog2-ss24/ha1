@@ -81,7 +81,10 @@ public class Calculator {
         // Wenn die letzte Operation nicht leer ist, wird die Gleichheitszeichen gedrückt und
         // latestValue ersetzt. Also, es wird eine erste Operation ausgeführt, bevor die zweite
         // Operation ausgeführt und der Wert gespeichert wird.
-        if (!latestOperation.isEmpty()) {
+
+        // Jetzt wird geprüft, ob die vorherige Operation eine binäre Operation war, bevor das
+        // Gleichheitszeichen gedrückt werden muss.
+        if (!latestOperation.isEmpty() && (latestOperation.equals("+") || latestOperation.equals("-") || latestOperation.equals("*") || latestOperation.equals("/"))) {
             pressEqualsKey();
             }
 
