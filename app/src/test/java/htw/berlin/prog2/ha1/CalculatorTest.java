@@ -134,7 +134,7 @@ class CalculatorTest {
 
 
     @Test
-    @DisplayName("should handle maximum number of digits on screen")
+    @DisplayName("should handle maximum number of digits on screen") // 1.Roter Test
     void testMaxDigitsOnScreen() {
         Calculator calc = new Calculator();
 
@@ -143,11 +143,10 @@ class CalculatorTest {
             calc.pressDigitKey(1);
         }
 
-        String expected = "1111111111"; // Only 10 digits should be displayed
+        String expected = "111111111"; // Only 10 digits should be displayed
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
-
 
 }
