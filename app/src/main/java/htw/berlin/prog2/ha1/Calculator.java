@@ -31,8 +31,10 @@ public class Calculator {
     public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        // Teilaufgabe 3
+        if(screen.equals("-0")) screen = "-";
 
+        else if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
         screen = screen + digit;
     }
 
@@ -59,7 +61,12 @@ public class Calculator {
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
+
+    // Teilaufgabe 3
     public void pressBinaryOperationKey(String operation)  {
+        if (!latestOperation.isEmpty()) {
+            pressEqualsKey();
+        }
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
