@@ -117,27 +117,29 @@ class CalculatorTest {
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(4);
         calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(6);
+        calc.pressDigitKey(4);
         calc.pressEqualsKey();
 
-        String expected = "11";
+        String expected = "9";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    @DisplayName("Soll ")
+    @DisplayName("Soll punkt vor Strich ausrechnen")
     void newTest() {
         Calculator calc = new Calculator();
 
         calc.pressNegativeKey();
-        calc.pressDigitKey(2);
+        calc.pressDigitKey(9);
         calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
         calc.pressEqualsKey();
 
-        String expected = "1";
+        String expected = "3";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
