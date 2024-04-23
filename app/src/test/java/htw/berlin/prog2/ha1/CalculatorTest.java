@@ -128,16 +128,18 @@ class CalculatorTest {
 
     @Test
     @DisplayName("")
-    void addKehrwert() { // subtrahieren mit Prozentsatz
+    void divSub() { // dividieren und subtrahieren
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(6);
-        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("/");
         calc.pressDigitKey(2);
-        calc.pressUnaryOperationKey("1/x");
-        calc.pressEqualsKey(); //Error, weil pressEqualsKey hat keine Operation für 1/x
+        calc.pressBinaryOperationKey("-");  //hier wird erstmal EqualsKey gemacht, dann BinaryOperationKey
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey(); 
 
-        String expected = "6.5";
+        String expected = "2";  // ((10 / 2) - 3 = 2)
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);

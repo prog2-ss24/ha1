@@ -83,10 +83,15 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für
      *                  Multiplikation, "/" für Division
      */
+
     public void pressBinaryOperationKey(String operation) {
+        if (!latestOperation.equals("")) {  //wenn latestOperation schon eine operation hat, dann soll erstmal EqualsKey angewendet werden, danach die neue operation usw.
+            pressEqualsKey();
+        }
         latestOperation = operation;
         latestValue = Double.parseDouble(screen);
     }
+    
 
     /*
      * pressEqualsKeyThenBinaryOperationKey(String operation) hat noch am
@@ -173,7 +178,6 @@ public class Calculator {
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
             case "%" -> latestValue * Double.parseDouble(screen); // neue Operator für die Prozent-Rechnung mit pressEqualsKey
-            case "1/x" -> latestValue + Double.parseDouble(screen); // neuer Operator für 1/x Rechnung mit pressEqualsKey
 
             default -> throw new IllegalArgumentException();
         };
