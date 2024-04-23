@@ -5,6 +5,14 @@ package htw.berlin.prog2.ha1;
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
  * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
+ *
+ * Teilaufgabe 2: Schreiben Sie zwei weitere zusätzliche Tests, die zwei unterschiedliche
+ * Fehlerkategorien aufdecken (d.h. deren Fehlerursachen in unterschiedlichen Methoden liegen) und somit fehlschlagen.
+ *
+ * Teilaufgabe 3: Schreiben Sie zwei Bugfixes (also Änderungen der Implementierungsklasse Calculator),
+ * sodass die zwei zuvor hinzugefügten Tests erfolgreich durchlaufen. Falls Sie dabei das Verhalten so erweitern,
+ * dass es über das im JavaDoc spezifizierte hinausgeht (aber zum Verhalten des Online Calculator passt),
+ * dann erweitern Sie bitte auch das JavaDoc entsprechend.
  */
 public class Calculator {
 
@@ -23,7 +31,7 @@ public class Calculator {
 
     /**
      * Empfängt den Wert einer gedrückten Zifferntaste. Da man nur eine Taste auf einmal
-     * drücken kann muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
+     * drücken kann, muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
      * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
      * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
      * @param digit Die Ziffer, deren Taste gedrückt wurde
@@ -41,10 +49,10 @@ public class Calculator {
 
     /**
      * Empfängt den Befehl der C- bzw. CE-Taste (Clear bzw. Clear Entry).
-     * Einmaliges Drücken der Taste löscht die zuvor eingegebenen Ziffern auf dem Bildschirm
-     * so dass "0" angezeigt wird, jedoch ohne zuvor zwischengespeicherte Werte zu löschen.
+     * Einmaliges Drücken der Taste löscht die zuvor eingegebenen Ziffern auf dem Bildschirm,
+     * sodass "0" angezeigt wird, jedoch ohne zuvor zwischengespeicherte Werte zu löschen.
      * Wird daraufhin noch einmal die Taste gedrückt, dann werden auch zwischengespeicherte
-     * Werte sowie der aktuelle Operationsmodus zurückgesetzt, so dass der Rechner wieder
+     * Werte sowie der aktuelle Operationsmodus zurückgesetzt, sodass der Rechner wieder
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
@@ -103,7 +111,7 @@ public class Calculator {
     /**
      * Empfängt den Befehl der gedrückten Vorzeichenumkehrstaste ("+/-").
      * Zeigt der Bildschirm einen positiven Wert an, so wird ein "-" links angehängt, der Bildschirm
-     * aktualisiert und die Inhalt fortan als negativ interpretiert.
+     * aktualisier und der Inhalt fortan als negativ interpretiert.
      * Zeigt der Bildschirm bereits einen negativen Wert mit führendem Minus an, dann wird dieses
      * entfernt und der Inhalt fortan als positiv interpretiert.
      */
@@ -133,4 +141,5 @@ public class Calculator {
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
 }

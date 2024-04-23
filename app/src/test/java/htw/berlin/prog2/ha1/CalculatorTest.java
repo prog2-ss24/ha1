@@ -89,7 +89,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Das ist ein Test")
+    @DisplayName("Prüft ob die Negation auf der richtigen Stelle ist")
     void testNegativKeyIndex(){
         Calculator calc = new Calculator();
 
@@ -102,6 +102,46 @@ class CalculatorTest {
 
         assertEquals(expected,actual);
     }
+
+
+
+    @Test
+    @DisplayName(" Prüft ob man Zahlen < 9 und Zahlen > 0 eingeben kann  ")
+    void testDevide(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(22);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "24";
+        String actual   = calc.readScreen();
+
+
+    }
+
+    @Test
+    @DisplayName("Nach dem Drücken von ClearKey darf LastOperation nicht zurückgesetzt werden ")
+    void testOfClearKey(){
+
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(6);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(6);
+        calc.pressClearKey();
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+        calc.readScreen();
+
+        String expected = "30";
+        String actual = calc.readScreen();
+
+
+
+
+    }
+
 
 
 
