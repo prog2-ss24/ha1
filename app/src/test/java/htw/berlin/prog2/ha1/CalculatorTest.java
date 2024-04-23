@@ -89,6 +89,20 @@ class CalculatorTest {
     }
 
 
-    //TODO hier weitere Tests erstellen
+//Teilaufgabe 1
+    @Test
+    @DisplayName("should display result after pressing the clear key once")
+    void testPressClearKeyOnce() {
+        Calculator calc = new Calculator();
+    
+        calc.pressDigitKey(5);
+        calc.pressClearKey();
+    
+        String expected = "0";
+        String actual = calc.readScreen();
+    
+        assertEquals(expected, actual);
+    }
+
 }
 
