@@ -89,6 +89,7 @@ class CalculatorTest {
     }
 
     //TODO hier weitere Tests erstellen
+    //Teilaufgabe 1
     @Test
     @DisplayName("should display result after subtracting two positive multi-digit numbers")
     void testSubtraction() {
@@ -105,6 +106,23 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        }
+
+        //Teilaufgabe 2
+
+    @Test
+    @DisplayName("should display same number after pressing equalsKey without pressing any operationKey between")
+    void testNoDifference() {
+
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey(); //im Code wird immer noch von einer zweiten Eingabe gesprochen (0 oder Zahl), dadurch kommt es zu Problemen
+
+        String expected = "1";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);//es läuft rot, weil nur mit einer Rechnung oder einem Error gerechnet wird, nicht mit derselben Zahl wie die eingegeben wurde
         }
     }
 
