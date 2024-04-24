@@ -76,6 +76,7 @@ class CalculatorTest {
     void testMultipleDecimalDots() {
         Calculator calc = new Calculator();
 
+
         calc.pressDigitKey(1);
         calc.pressDotKey();
         calc.pressDigitKey(7);
@@ -90,5 +91,6 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
 }
 
