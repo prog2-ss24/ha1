@@ -106,6 +106,32 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("should display result after adding two positive single-digit numbers")
+    void test() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDotKey();
+
+
+        String expected = "333333333";
+        String actual = calc.readScreen();
+
+
+        assertEquals(expected, actual);
+    }
+
+
 }
 
 
