@@ -106,9 +106,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
-        }
+    }
 
-        //Teilaufgabe 2
+    //Teilaufgabe 2
 
     @Test
     @DisplayName("should display same number after pressing equalsKey without pressing any operationKey between")
@@ -123,6 +123,24 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);//es läuft rot, weil nur mit einer Rechnung oder einem Error gerechnet wird, nicht mit derselben Zahl wie die eingegeben wurde
+    }
+
+    @Test
+    @DisplayName("should display result after adding four positive one-digit numbers")
+    void testMultiplePositiveAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "6"; // es kommt 4, weil nur die letzten zwei Zahlen addiert werden
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
         }
     }
 
