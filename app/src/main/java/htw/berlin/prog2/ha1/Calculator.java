@@ -26,6 +26,7 @@ public class Calculator {
         return screen;
     }
 
+
     /**
      * Empfängt den Wert einer gedrückten Zifferntaste. Da man nur eine Taste auf einmal
      * drücken kann muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
@@ -41,7 +42,6 @@ public class Calculator {
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
 
-
         if(screen.contains(".") && !list.isEmpty()) {
             number = list.get(list.size() - 1);
            list.set(list.size() - 1, number + digit);
@@ -52,6 +52,8 @@ public class Calculator {
 
         screen = screen + digit;
     }
+
+
     /**
      * Empfängt den Befehl der C-Taste (Clear).
      * Einmaliges Drücken der Taste löscht die zuvor eingegebenen Ziffern auf dem Bildschirm
@@ -61,6 +63,7 @@ public class Calculator {
         screen = "0";
         latestValue = 0.0;
     }
+
 
     /**
      * Empfängt den Befehl der CE-Taste (Clear-Enter).
@@ -72,6 +75,7 @@ public class Calculator {
         latestOperation = "";
         latestValue = 0.0;
     }
+
 
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
@@ -86,8 +90,6 @@ public class Calculator {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
-
-
 
 
     /**
@@ -113,7 +115,6 @@ public class Calculator {
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-
     }
 
 
@@ -130,9 +131,8 @@ public class Calculator {
 
             list.set(list.size() - 1, screen);
         }
-
-
     }
+
 
     /**
      * Empfängt den Befehl der gedrückten Vorzeichenumkehrstaste ("+/-").
@@ -144,6 +144,7 @@ public class Calculator {
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : list.set(list.size() - 1, "-" + screen);
     }
+
 
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.
@@ -168,4 +169,6 @@ public class Calculator {
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
+
 }
