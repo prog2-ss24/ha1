@@ -108,12 +108,57 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-   /*  @Test
-    @DisplayName("")
-    void test...() {
+    @Test
+    @DisplayName("should display positive number after multiplying two negative numbers")
+    void testNegativeMultiplication() {
         Calculator calc = new Calculator();
 
+        calc.pressDigitKey(3);
+        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(3);
+        calc.pressNegativeKey();
+        calc.pressEqualsKey();
 
-    } */
+        String expected = "9";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    } 
+
+    @Test
+    @DisplayName("should display number in decimal, if its a procent number")
+    void testProcent() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressUnaryOperationKey("%");   
+
+        String expected = "0.03";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display the same number, if equals is pressed")
+    void testShowSameNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        
+        String expected = "3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+   /*  @Test
+    @DisplayName("")
+    void test() {
+        Calculator calc = new Calculator();
+ */
 }
 
