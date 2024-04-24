@@ -16,7 +16,8 @@ public class Calculator {
 
     public String latestOperation = "";
 
-    private ArrayList<String> list = new ArrayList<>(); // в digitkey, pressdotkey, binaryoperations
+    private ArrayList<String> list = new ArrayList<>();
+
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -33,9 +34,21 @@ public class Calculator {
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
+        String number;
+
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+
+
+
+        if(screen.contains(".") && !list.isEmpty()) {
+            number = list.get(list.size() - 1);
+           list.set(list.size() - 1, number + digit);
+        }
+        else {
+            list.add(Integer.toString(digit));
+        }
 
         screen = screen + digit;
     }
@@ -65,14 +78,17 @@ public class Calculator {
      * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen.
      * Beim ersten Drücken der Taste wird der Bildschirminhalt nicht verändert, sondern nur der
      * Rechner in den passenden Operationsmodus versetzt.
-     * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
-     * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * !Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
+     * auf dem Bildschirm angezeigt.! Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
+
+
+
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
@@ -82,12 +98,16 @@ public class Calculator {
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
-        latestValue = Double.parseDouble(screen);
+        //latestValue = Double.parseDouble(screen);
+        double value;
         latestOperation = operation;
+
+        value=Double.parseDouble(list.get(list.size() -1));
+
         var result = switch(operation) {
-            case "√" -> Math.sqrt(Double.parseDouble(screen));
-            case "%" -> Double.parseDouble(screen) / 100;
-            case "1/x" -> 1 / Double.parseDouble(screen);
+            case "√" -> Math.sqrt(value);
+            case "%" -> value / 100;
+            case "1/x" -> 1 / value;
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
@@ -105,7 +125,11 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen + ".";
+        if(!screen.contains(".")) {
+            screen = screen + ".";
+
+            list.set(list.size() - 1, screen);
+        }
 
 
     }
@@ -118,7 +142,7 @@ public class Calculator {
      * entfernt und der Inhalt fortan als positiv interpretiert.
      */
     public void pressNegativeKey() {
-        screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+        screen = screen.startsWith("-") ? screen.substring(1) : list.set(list.size() - 1, "-" + screen);
     }
 
     /**

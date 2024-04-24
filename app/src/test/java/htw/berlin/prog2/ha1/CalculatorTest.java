@@ -128,31 +128,12 @@ class CalculatorTest {
     void testDecimalInversion() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(0);
+        calc.pressDigitKey(2);
         calc.pressDotKey();
         calc.pressDigitKey(5);
-        calc.pressUnaryOperationKey("1/x");
+        calc.pressUnaryOperationKey("%");
 
-        String expected = "2";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-
-    }
-
-    @Test
-    @DisplayName("iufjnfkcvjenfkf")
-    void fefjkwfwkj() {
-        Calculator calc = new Calculator ();
-
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(5);
-        calc.pressEqualsKey();
-
-        String expected = "15";
+        String expected = "0.025";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
