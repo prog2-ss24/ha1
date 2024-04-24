@@ -109,4 +109,55 @@ class CalculatorTest {
 
         assertEquals(expected, actual, "The calculator should correctly calculate the result of consecutive addition and subtraction.");
     }
+    @Test
+    @DisplayName("should correctly add numbers with multiple decimal places")
+    void testDecimalAdditionPrecision() {
+        Calculator calc = new Calculator();
+
+        // Input: 10.75 + 2.005
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(7);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        // Expected result should be "12.755" but rounded/displayed as "12.76" if screen limit is 10 characters
+        String expected = "12.76";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+
+    @Test
+    @DisplayName("should correctly handle changing operations mid-sequence")
+    void testChangingOperationsMidSequence() {
+        Calculator calc = new Calculator();
+
+        // Starting with 5 + 3
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+
+        // Change to subtraction before pressing equals
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        // Expected to compute 5 - 2 = 3
+        String expected = "3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
+
