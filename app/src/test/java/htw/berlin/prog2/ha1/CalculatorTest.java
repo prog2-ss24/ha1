@@ -90,5 +90,80 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-}
 
+    @Test
+    @DisplayName("should display result after adding two decimal numbersber")
+    void testDecimalAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDotKey();
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+
+        String expected = "4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test //1.Grüner Test
+    @DisplayName("should display result after multiplying two negative numbers")
+    void testNegativeMultiplication() {
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(2);
+        calc.pressNegativeKey(); //First number negative
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(3);
+        calc.pressNegativeKey(); //2nd number negative
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    @DisplayName("should handle maximum number of digits on screen")
+        // 1.Roter Test
+    void testMaxDigitsOnScreen() {
+        Calculator calc = new Calculator();
+
+
+        for (int i = 0; i < 12; i++) {// Pressing more than 9 numbers on screen
+            calc.pressDigitKey(1);
+        }
+
+        String expected = "111111111"; // Only 9 numbers or 10 digits should be displayed
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should correctly calculate the result of sequential substraction operations")
+    void testSequentialSubstractions() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "-4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    }

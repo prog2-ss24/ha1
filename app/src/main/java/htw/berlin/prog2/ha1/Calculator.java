@@ -3,7 +3,7 @@ package htw.berlin.prog2.ha1;
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
- * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
+ * und dessen Bildschirm bis zu 9 Ziffern plus einem Dezimaltrennzeichen darstellen kann.
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
  */
 public class Calculator {
@@ -12,7 +12,9 @@ public class Calculator {
 
     private double latestValue;
 
+
     private String latestOperation = "";
+
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -21,19 +23,28 @@ public class Calculator {
         return screen;
     }
 
+
     /**
      * Empfängt den Wert einer gedrückten Zifferntaste. Da man nur eine Taste auf einmal
      * drücken kann muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
-     * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
-     * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
+     * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt wird,
+     * sofern die maximale Bildschirmlänge nicht überschritten wird. es dürfen nicht mehr als 9 Ziffern und 1 Dezimalzeichen
+     * angezeigt werden.
+     * Ist der Bildschirm gleich null oder entspricht er dem zuletzt gespeicherten Wert, wird er zunächst gelöscht,
+     * bevor die neue Ziffer angehängt wird.
+     *
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
-        if(digit > 9 || digit < 0) throw new IllegalArgumentException();
+        if (digit > 9 || digit < 0) throw new IllegalArgumentException();
+//Veränderung für 1.Rote Test testMaxDigitsOnScreen
+        if ((screen.contains(".") && screen.length() < 10) || (!screen.contains(".") && screen.length() < 9)) {
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-
-        screen = screen + digit;
+            if (screen.equals("0") || latestValue == Double.parseDouble(screen)) {
+                screen = "";
+            }
+            screen = screen + digit;
+        }
     }
 
     /**
@@ -53,15 +64,22 @@ public class Calculator {
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
      * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen.
-     * Beim ersten Drücken der Taste wird der Bildschirminhalt nicht verändert, sondern nur der
-     * Rechner in den passenden Operationsmodus versetzt.
-     * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
-     * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * Wenne bereits eine Operation aktiv ist, wird zunächst das aktuelle Zwischenergebnis unter Verwendung
+     * der zuvor gespeicherten OPeration und des Operanden berechnet.
+     * Nachdem das Zwischenergebns erechent wurde oder wenn keine vorherige Operation aktiv war, wird der Rechner
+     * in den passenden neuen OPerationsmodus versetzt. Das Aktuelle Ergebnis wird als ´latestValue` gespeichert,
+     * um damit dann weiter rechnen zu können.
+     *
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
+    public void pressBinaryOperationKey(String operation) {
+        if (!latestOperation.isEmpty()) {
+            // Berechnet das aktuelle Ergebnis, bevor die neue Operation erfolgt
+            pressEqualsKey();
+        }
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+
     }
 
     /**
@@ -69,22 +87,23 @@ public class Calculator {
      * Quadratwurzel, Prozent, Inversion, welche nur einen Operanden benötigen.
      * Beim Drücken der Taste wird direkt die Operation auf den aktuellen Zahlenwert angewendet und
      * der Bildschirminhalt mit dem Ergebnis aktualisiert.
+     *
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
-        var result = switch(operation) {
+        var result = switch (operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
             case "%" -> Double.parseDouble(screen) / 100;
             case "1/x" -> 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
-        if(screen.equals("NaN")) screen = "Error";
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-
+        if (screen.equals("NaN")) screen = "Error";
+        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
 
     /**
      * Empfängt den Befehl der gedrückten Dezimaltrennzeichentaste, im Englischen üblicherweise "."
@@ -94,7 +113,9 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen + ".";
+        if (!screen.contains(".") && screen.length() < 10) { //1.Rote Test. verhindert dass ein Dezimalpunkt hinzugefügt wird, wenn dies die Anzahl der zulässigen Zeichen überschreitet
+            screen = screen + ".";
+        }
     }
 
     /**
@@ -116,18 +137,31 @@ public class Calculator {
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
+     * Bei der Anzeige des Ergebnisses werden überzählige Nachkommastallen abgeschnitten, so dass maximal 10 Zeichen angezeigt werden, einschließlich des Dezimalpunktes.
+     * Ganzzahlige Ergebnisse, die mit "0" enden, werden ohne Dezimalstellen und Punkt dargestellt.
      */
+
+
+
+
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        screen = Double.toString(result);
+        var result = switch (latestOperation) {
+                case "+" -> latestValue + Double.parseDouble(screen);
+                case "-" -> latestValue - Double.parseDouble(screen);
+                case "x" -> latestValue * Double.parseDouble(screen);
+                case "/" -> latestValue / Double.parseDouble(screen);
+                default -> throw new IllegalArgumentException();
+            };
+            screen = Double.toString(result);
+
+        if(screen.contains(".") && screen.length() > 10) { //1.Rote Test .See if the result exceeds 10 characters /Überprüfung ob das Ergebnis die maximale Länge überschreitet
+            screen = screen.substring(0, 10);
+        } else if (!screen.contains(".") && screen.length() > 9)  {
+            screen = screen.substring(0,9);
+        }
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+
     }
-}
+    }
