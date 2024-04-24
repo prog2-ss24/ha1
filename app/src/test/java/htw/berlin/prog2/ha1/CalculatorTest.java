@@ -87,7 +87,8 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-    @Test
+
+    @Test //Test: Multiplikation 7x9=63
     @DisplayName("should display result after multiplying two positive numbers")
     void testPositiveMultiplication() {
         Calculator calc = new Calculator();
@@ -103,6 +104,23 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test //Punkt vor Strich
+    @DisplayName("should do multiplication and division first, then addition and subtraction")
+    void testMathRule() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "17";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
     //TODO hier weitere Tests erstellen
 }
