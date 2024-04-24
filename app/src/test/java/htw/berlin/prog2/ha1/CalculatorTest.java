@@ -90,6 +90,7 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    // TEST
     @Test
     @DisplayName("sollte sich zuruecksetzen, wenn man clear betaetigt")
     void testClearKey() {
