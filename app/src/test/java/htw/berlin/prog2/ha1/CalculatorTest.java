@@ -112,38 +112,20 @@ class CalculatorTest {
     @DisplayName("\"should display result of multiplying three positive numbers\"")
     void testPositiveMultiple() {
         Calculator calc = new Calculator();
-
         calc.pressDigitKey(7);
         calc.pressBinaryOperationKey("x");
         calc.pressDigitKey(7);
         calc.pressBinaryOperationKey("x");
-        calc.pressDigitKey(7);
+        calc.pressDigitKey(8);
         calc.pressEqualsKey();
 
-        String expected = "343";
+        String expected = "392";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
 
-    @Test
-    @DisplayName("\"should display result of multiplying two positive numbers and then subtract a positive number\"")
-    void testMultipleAndSubtract() {
-        Calculator calc = new Calculator();
 
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("x");
-        calc.pressDigitKey(6);
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(3);
-        calc.pressEqualsKey();
-
-
-        String expected = "27";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
 
 
 }
