@@ -115,13 +115,13 @@ class CalculatorTest {
     @Test
     void testDivisonBy0(){
         Calculator calculator = new Calculator();
-        calculator.pressDigitKey(10);
+        calculator.pressDigitKey(8);
         calculator.pressBinaryOperationKey("/");
         calculator.pressDigitKey(0);
+        calculator.pressEqualsKey();
 
         assertEquals("Error", calculator.readScreen());
     }
-
 
 }
 
