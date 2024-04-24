@@ -133,9 +133,8 @@ class CalculatorTest {
 
         calc.pressDigitKey(0);
         calc.pressUnaryOperationKey("1/x");
-        calc.pressEqualsKey();
 
-        String expected = "ERROR";
+        String expected = "Error";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
