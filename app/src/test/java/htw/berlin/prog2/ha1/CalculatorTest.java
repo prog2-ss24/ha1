@@ -103,6 +103,7 @@ class CalculatorTest {
         String expected = "10";
         String actual = calc.readScreen();
 
+
         assertEquals(expected, actual);
     }
 }
