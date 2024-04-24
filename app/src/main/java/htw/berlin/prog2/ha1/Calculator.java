@@ -1,5 +1,9 @@
 package htw.berlin.prog2.ha1;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
@@ -110,24 +114,45 @@ public class Calculator {
 
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.
-     * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
-     * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
-     * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
-     * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
-     * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
-     * und das Ergebnis direkt angezeigt.
+     * Wenn zuvor keine binäre Operationstaste gedrückt wurde, passiert nichts.
+     * Wenn zuvor eine binäre Operationstaste gedrückt wurde und zwei Operanden eingegeben wurden, wird das
+     * Ergebnis der Operation berechnet und angezeigt.
+     * Falls bei der Berechnung eine Division durch Null auftritt, wird "Error" auf dem Bildschirm angezeigt.
+     * Wird die "="-Taste weitere Male gedrückt, ohne dass dazwischen andere Tasten gedrückt werden,
+     * wird die letzte Operation erneut mit dem aktuellen Bildschirminhalt als Operand ausgeführt und
+     * das Ergebnis direkt angezeigt.
+     * Die Berechnungen werden mit hoher Präzision durchgeführt, indem BigDecimal verwendet wird, und das
+     * Ergebnis wird auf zwei Dezimalstellen gerundet. Wenn das Ergebnis länger als 10 Zeichen ist, wird es
+     * auf die ersten 10 Zeichen gekürzt.
      */
+
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        BigDecimal result = BigDecimal.valueOf(latestValue);
+        BigDecimal currentScreenValue = new BigDecimal(screen);
+        switch(latestOperation) {
+            case "+":
+                result = result.add(currentScreenValue);
+                break;
+            case "-":
+                result = result.subtract(currentScreenValue);
+                break;
+            case "x":
+                result = result.multiply(currentScreenValue);
+                break;
+            case "/":
+                if (currentScreenValue.compareTo(BigDecimal.ZERO) == 0) {
+                    screen = "Error";
+                    return;
+                }
+                result = result.divide(currentScreenValue, 10, RoundingMode.HALF_UP);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid operation");
+        }
+        screen = result.setScale(2, RoundingMode.HALF_UP).toString();
+        if (screen.length() > 10) {
+            screen = screen.substring(0, 10);
+        }
     }
+
 }

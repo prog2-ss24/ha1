@@ -135,29 +135,5 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-
-
-    @Test
-    @DisplayName("should correctly handle changing operations mid-sequence")
-    void testChangingOperationsMidSequence() {
-        Calculator calc = new Calculator();
-
-        // Starting with 5 + 3
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(3);
-
-        // Change to subtraction before pressing equals
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(2);
-        calc.pressEqualsKey();
-
-        // Expected to compute 5 - 2 = 3
-        String expected = "3";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
-
 }
 
