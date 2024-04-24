@@ -90,6 +90,19 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-    // test commit
+    @Test
+    void testAddition(){
+        Calculator calculator = new Calculator();
+        calculator.pressDigitKey(2);
+        calculator.pressDigitKey(0);
+        calculator.pressBinaryOperationKey("+");
+        calculator.pressDigitKey(1);
+        calculator.pressDigitKey(0);
+        calculator.pressEqualsKey();
+
+        assertEquals("30", calculator.readScreen());
+    }
+
+
 }
 
