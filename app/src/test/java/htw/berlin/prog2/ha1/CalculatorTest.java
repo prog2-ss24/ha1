@@ -90,5 +90,25 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after adding two positive numbers with decimal dots")
+    void testPositiveAdditionDecimalDots() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressDotKey();
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(7);
+        calc.pressDotKey();
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+        String expected = "15.4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
