@@ -90,7 +90,7 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-    // TEST
+    // Teilaufgabe 1
     @Test
     @DisplayName("sollte sich zuruecksetzen, wenn man clear betaetigt")
     void testClearKey() {
@@ -107,5 +107,35 @@ class CalculatorTest {
         assertEquals(expected, actual);
 
     }
+
+    //Teilaufgabe 2 (Testfall 1)
+    @Test
+    @DisplayName ("Sollte einen Fehler anzeigen, weil eine Division durch 0 nicht funktioniert.")
+    void testDivisionByZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    //Teilaufgabe 2 (Testfall 2)
+    @Test
+    void testInvalidSquareRootWithoutNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    //Teilaufgabe 3
 }
 
