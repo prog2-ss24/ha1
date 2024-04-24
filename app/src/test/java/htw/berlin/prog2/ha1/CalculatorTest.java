@@ -103,6 +103,25 @@ class CalculatorTest {
         assertEquals("30", calculator.readScreen());
     }
 
+    @Test
+    void testInversionOf0(){
+        Calculator calculator = new Calculator();
+        calculator.pressDigitKey(0);
+        calculator.pressUnaryOperationKey("1/x");
+
+        assertEquals("Error", calculator.readScreen());
+    }
+
+    @Test
+    void testDivisonBy0(){
+        Calculator calculator = new Calculator();
+        calculator.pressDigitKey(10);
+        calculator.pressBinaryOperationKey("/");
+        calculator.pressDigitKey(0);
+
+        assertEquals("Error", calculator.readScreen());
+    }
+
 
 }
 
