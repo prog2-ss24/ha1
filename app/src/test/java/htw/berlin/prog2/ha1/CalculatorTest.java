@@ -90,5 +90,68 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+
+    @Test
+    @DisplayName("should display correct answer when using sine function")
+    void testSineFunction() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressUnaryOperationKey("1/x");
+
+
+        String expected = "0.5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display 6 after adding 1, 2 and 3")
+    void testTwoOperations() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display 7 after adding 1 to the multiplication of 2 and 3, Order is important")
+    void testOperationOrder() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "7";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    //Bonustest
+    @Test
+    @DisplayName("should display Error after using the Sine Function on Zero")
+    void testSineFunctionWithZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
