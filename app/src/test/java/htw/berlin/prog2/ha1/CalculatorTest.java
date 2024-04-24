@@ -92,7 +92,7 @@ class CalculatorTest {
     //TODO hier weitere Tests erstellen
 
     @Test
-    @DisplayName("should display result after adding two positive multi-digit numbers")
+    @DisplayName("should display result after multiplying two positive numbers")
     void testPositiveMultiplication() {
         Calculator calc = new Calculator();
 
@@ -106,6 +106,41 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("should display result after adding three positive numbers")
+    void testMehrereZahlen() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    @DisplayName("should display error after trying to use 1/x with 0")
+    void testNichtDurchNullTeilen() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+        calc.pressEqualsKey();
+
+        String expected = "ERROR";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 
 }
 
