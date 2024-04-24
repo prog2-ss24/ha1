@@ -88,7 +88,95 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    //Teil 1
 
-    //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after subtraction two positive multi-digit numbers")
+    void testSubtraktion() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "11";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display result after adding two positive multi-digit numbers")
+    void testZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "12";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+        calc.pressClearKey();
+        assertEquals("0", calc.readScreen());
+
+    }
+
+    //Teil 2
+    @Test
+    @DisplayName("should display result after getting adding positive multi-digit numbers with an other ")
+    void testMoreNumbers() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "18";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual); //Zum Überprüfen, ob der erwartete Wert einer Variable dem tatsächlichen Wert entspricht
+    }
+
+
+
+    @Test
+    @DisplayName("should display show number when pressing a number and then equals key without previous binary operation")
+    void testEqualsKeyWithoutPreviousOperation() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+
+
+    @Test
+    @DisplayName("should display show number when pressing equals key without previous binary operation")
+    void testEqualsKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+        //TODO hier weitere Tests erstellen
+
+    }
 }
+
 
