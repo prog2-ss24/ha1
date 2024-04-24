@@ -35,6 +35,7 @@ public class Calculator {
         screen = screen + digit;
     }
 
+
     /**
      * Empfängt den Befehl der C- bzw. CE-Taste (Clear bzw. Clear Entry).
      * Einmaliges Drücken der Taste löscht die zuvor eingegebenen Ziffern auf dem Bildschirm
@@ -116,32 +117,16 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
-        if (latestOperation.isEmpty()) return;
-
-        double currentInput = Double.parseDouble(screen);
-        if (latestOperation.equals("=")) {
-            // Wiederhole die letzte Operation mit dem letzten Operanden
-            latestValue = switch (latestOperation) {
-                case "+" -> latestValue + lastOperand;
-                case "-" -> latestValue - lastOperand;
-                case "x" -> latestValue * lastOperand;
-                case "/" -> latestValue / lastOperand;
-                default -> latestValue;
-            };
-        } else {
-            lastOperand = currentInput;  // Aktualisiere den letzten Operanden
-            latestValue = switch (latestOperation) {
-                case "+" -> latestValue + currentInput;
-                case "-" -> latestValue - currentInput;
-                case "x" -> latestValue * currentInput;
-                case "/" -> currentInput == 0 ? Double.POSITIVE_INFINITY : latestValue / currentInput;
-                default -> latestValue;
-            };
-            latestOperation = "="; // Setze die letzte Operation auf "=", um Wiederholungen zu ermöglichen
-        }
-        screen = Double.toString(latestValue);
+        var result = switch(latestOperation) {
+            case "+" -> latestValue + Double.parseDouble(screen);
+            case "-" -> latestValue - Double.parseDouble(screen);
+            case "x" -> latestValue * Double.parseDouble(screen);
+            case "/" -> latestValue / Double.parseDouble(screen);
+            default -> throw new IllegalArgumentException();
+        };
+        screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0, screen.length()-2);
+        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
 

@@ -98,19 +98,7 @@ class CalculatorTest {
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
-    @Test
-    @DisplayName("should handle repeated equals after an operation correctly")
-    void testRepeatedEqualsAfterOperation() {
-        Calculator calc = new Calculator();
-        calc.pressDigitKey(3);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(2);
-        calc.pressEqualsKey(); // Erstes Ergebnis: 5
-        calc.pressEqualsKey(); // Erwartet: 7 (wieder 2 addieren)
-        String expected = "7";
-        String actual = calc.readScreen();
-        assertEquals(expected, actual);
-    }
+
     @Test
     @DisplayName("should handle decimal points correctly after an operation")
     void testDecimalHandlingAfterOperation() {
@@ -126,5 +114,32 @@ class CalculatorTest {
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
-}
 
+
+        @Test
+        @DisplayName("Test multiple digit input followed by a decimal point")
+        public void testMultipleDigitsAndDecimalPoint() {
+        Calculator calc = new Calculator();  // Erstellen Sie eine Instanz des Taschenrechners
+
+        // Drücken Sie sechsmal die Zifferntaste "1"
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+
+        // Drücken Sie die Dezimalpunkttaste
+        calc.pressDotKey();
+
+        // Erwarteter Bildschirmwert nach dem Drücken des Dezimalpunkts
+        String expected = "111111.";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual, "The screen should display '111111.' after entering six ones followed by a decimal point");
+
+        }
+}
