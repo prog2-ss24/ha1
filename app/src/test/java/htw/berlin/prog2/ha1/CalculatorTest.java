@@ -130,9 +130,38 @@ class CalculatorTest {
     String actual = calc.readScreen();
     assertEquals(expected, actual);
 
-    //string expected /assertEqual mit den beiden anderen werten latest value latest operation
-    
+    //string expected /assertEqual mit den beiden anderen werten latest value latest operation 
 }
+    @Test
+    @DisplayName("should correctly add 3 positive numbers")
+    void testMultipleAdditions () {
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(9);
+    calc.pressBinaryOperationKey("+");
+    calc.pressDigitKey(9);
+    calc.pressEqualsKey();
+    calc.pressBinaryOperationKey("+");
+    calc.pressDigitKey(9);
+    calc.pressEqualsKey();
+
+    String expected = "27";
+    String actual = calc.readScreen();
+    assertEquals(expected, actual);
+}
+    @Test
+    @DisplayName("max amount of one period allowed")
+    void testPeriods(){
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(9);
+    calc.pressDotKey();
+    calc.pressDotKey();
+    calc.pressDotKey();
+    calc.pressDotKey();
+
+    String expected = "9.";
+    String actual = calc.readScreen();
+    assertEquals(expected, actual);
+    }
 }
 
 //klammern hinzufügen um übersichtlicher zu machen?
