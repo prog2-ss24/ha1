@@ -45,9 +45,14 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
+        if(screen.equals ("0")){
+            latestValue = 0.0;
+            latestOperation = "";
+        }
         screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+    }
+    public String giveLatestValue(){
+        return Double.toString(latestValue);
     }
 
     /**
@@ -83,7 +88,7 @@ public class Calculator {
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-
+        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
     }
 
     /**
