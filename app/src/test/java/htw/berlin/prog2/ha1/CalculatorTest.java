@@ -90,5 +90,21 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("sollte sich zuruecksetzen, wenn man clear betaetigt")
+    void testClearKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressClearKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
 }
 
