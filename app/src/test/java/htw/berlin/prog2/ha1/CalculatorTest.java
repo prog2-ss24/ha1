@@ -88,9 +88,9 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    //Teilaufgabe 1:
+//Teilaufgabe 1:
     @Test
-    @DisplayName("should display result after adding two positive multi-digit numbers")
+    @DisplayName("should display result after subtracting two positive multi-digit numbers")
     void testNegativeAddition() {
         Calculator calc = new Calculator();
 
@@ -106,5 +106,36 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+//Teilaufgabe 2 - Test 1:
+    @Test
+    @DisplayName("tests if the calculator uses the latest result to continue calculating")
+    void testMultipleAddition() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+
+        String expected = "13";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+//Teilaufgabe 2 - Test 2:
+    @Test
+    @DisplayName("tests if 0 is displayed after pressing the equal key when not pressed a digit before")
+    void testEqualsKey() {
+        Calculator calc = new Calculator();
+        calc.pressEqualsKey();
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+}
+
+
 
 }
