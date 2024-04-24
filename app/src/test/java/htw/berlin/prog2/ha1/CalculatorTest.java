@@ -3,7 +3,7 @@ package htw.berlin.prog2.ha1;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;  //compares if exactly and really equal
 
 @DisplayName("Retro calculator")
 class CalculatorTest {
@@ -117,7 +117,22 @@ class CalculatorTest {
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should correctly clear cache after pressing clear key")
+    void testClearKeyAll() {
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(9);
+    calc.pressNegativeKey();
+    calc.pressClearKey();
+    calc.pressClearKey(); // Zweites Mal drücken
 
+    String expected = "0";
+    String actual = calc.readScreen();
+    assertEquals(expected, actual);
+
+    //string expected /assertEqual mit den beiden anderen werten latest value latest operation
+    
+}
 }
 
 //klammern hinzufügen um übersichtlicher zu machen?

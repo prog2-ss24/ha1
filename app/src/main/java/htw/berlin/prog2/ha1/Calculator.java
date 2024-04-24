@@ -12,8 +12,27 @@ public class Calculator {
 
     private double latestValue;
 
+    public double getLatestValue() {
+        return latestValue;
+    }
+
+    public void setLatestValue(double latestValue) {
+        this.latestValue = latestValue;
+    }
+
     private String latestOperation = "";
 
+    public String getLatestOperation() {
+        return latestOperation;
+    }
+
+    public void setLatestOperation(String latestOperation) {
+        this.latestOperation = latestOperation;
+    }
+    
+   
+   
+   
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -38,17 +57,24 @@ public class Calculator {
 
     /**
      * Empfängt den Befehl der C- bzw. CE-Taste (Clear bzw. Clear Entry).
-     * Einmaliges Drücken der Taste löscht die zuvor eingegebenen Ziffern auf dem Bildschirm //einmaliges drücken + zweimaliges gleich bei onlinerechner // 1 mal und man kann nach operation auf = drücken und schritt sehen z.B 96 - 3 = 93 -> C -> = = -3
+     * Einmaliges Drücken der Taste löscht die zuvor eingegebenen Ziffern auf dem Bildschirm      //einmaliges drücken + zweimaliges gleich bei onlinerechner // 1 mal und man kann nach operation auf = drücken und schritt sehen z.B 96 - 3 = 93 -> C -> = = -3
      * so dass "0" angezeigt wird, jedoch ohne zuvor zwischengespeicherte Werte zu löschen.
      * Wird daraufhin noch einmal die Taste gedrückt, dann werden auch zwischengespeicherte
      * Werte sowie der aktuelle Operationsmodus zurückgesetzt, so dass der Rechner wieder
      * im Ursprungszustand ist.                                                                 //fehlt hier was?
      */
     public void pressClearKey() {
-        screen = "0";
+         screen = "0";
+        
+    }   
+    public void pressClearKeyTwice(){
         latestOperation = "";
         latestValue = 0.0;
     }
+    
+            
+
+        
 
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
