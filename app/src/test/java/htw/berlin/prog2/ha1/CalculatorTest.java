@@ -108,15 +108,15 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result after adding two positive multi-digit numbers")
-    void test() {
+    void DivisionByZero() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(3);
-        calc.pressBinaryOperationKey("x");
-        calc.pressDigitKey(3);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
         calc.pressEqualsKey();
 
-        String expected = "9";
+        String expected = "Error";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
