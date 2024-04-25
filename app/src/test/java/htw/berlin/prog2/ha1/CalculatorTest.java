@@ -140,7 +140,7 @@ void testMultiplication() {
        calc.pressBinaryOperationKey("+");
        calc.pressDigitKey(0);
        calc.pressDotKey();
-       //calc.pressDigitKey(0);
+       /*calc.pressDigitKey(0);*/
        calc.pressDigitKey(5);
        calc.pressEqualsKey();
 
