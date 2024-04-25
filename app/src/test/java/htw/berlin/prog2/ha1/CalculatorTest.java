@@ -104,5 +104,38 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     //TODO hier weitere Tests erstelle
+
+
+    @Test
+    @DisplayName("should display result after adding three positive  numbers")
+    void testMultipleAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "9";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display result after substracting positive from postive number")
+    void testSubstractionFromlargerNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(6);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(7);
+
+        String expected = "-1";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
