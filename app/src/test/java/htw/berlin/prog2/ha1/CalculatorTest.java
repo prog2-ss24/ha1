@@ -113,6 +113,7 @@ class CalculatorTest {
     // 2 Tests, die erst rot waren und nach Korrektur grün wurden
     @Test
     @DisplayName("should display result after adding multiple positive multi-digit numbers")
+    //123
     void testPositiveAdditionWithMultipleDigits() {
         Calculator calc = new Calculator();
 
@@ -134,6 +135,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("if a number is entered and the equals key ist pressed, the entered number should be displayed.")
+    //63
     void testEqualsKey() {
         Calculator calc = new Calculator();
 
