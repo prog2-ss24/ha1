@@ -116,9 +116,9 @@ class CalculatorTest {
     }
 
 
-        @Test
-        @DisplayName("Test multiple digit input followed by a decimal point")
-        public void testMultipleDigitsAndDecimalPoint() {
+    @Test
+    @DisplayName("Test multiple digit input followed by a decimal point")
+    public void testMultipleDigitsAndDecimalPoint() {
         Calculator calc = new Calculator();  // Erstellen Sie eine Instanz des Taschenrechners
 
         // Drücken Sie sechsmal die Zifferntaste "1"
@@ -132,14 +132,15 @@ class CalculatorTest {
         calc.pressDigitKey(1);
         calc.pressDigitKey(1);
 
+
         // Drücken Sie die Dezimalpunkttaste
         calc.pressDotKey();
 
         // Erwarteter Bildschirmwert nach dem Drücken des Dezimalpunkts
-        String expected = "111111.";
+        String expected = "111111111.";
         String actual = calc.readScreen();
 
-        assertEquals(expected, actual, "The screen should display '111111.' after entering six ones followed by a decimal point");
+        assertEquals(expected, actual, "The screen should display '111111111.' after entering six ones followed by a decimal point");
+    }
 
-        }
 }

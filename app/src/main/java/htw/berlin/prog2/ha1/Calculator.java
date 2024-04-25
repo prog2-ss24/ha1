@@ -1,17 +1,11 @@
 package htw.berlin.prog2.ha1;
 
-/**
- * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
- * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
- * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
- * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
- */
 public class Calculator {
 
     private String screen = "0";
     private double latestValue;
-    private double lastOperand = 0.0; // Neue Variable, um den letzten Operanden zu speichern
     private String latestOperation = "";
+    private boolean newInput = false; // Neuer Zustand, um nach einer Operation eine neue Eingabe zu erkennen
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -28,13 +22,15 @@ public class Calculator {
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
-        if(digit > 9 || digit < 0) throw new IllegalArgumentException();
+        if (digit > 9 || digit < 0) throw new IllegalArgumentException("Invalid digit");
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        if (screen.equals("0") || newInput) {
+            screen = ""; // Setze den Bildschirm für eine neue Eingabe zurück
+            newInput = false;
+        }
 
-        screen = screen + digit;
+        screen += digit;
     }
-
 
     /**
      * Empfängt den Befehl der C- bzw. CE-Taste (Clear bzw. Clear Entry).
@@ -48,7 +44,7 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
-        lastOperand = 0.0;
+        newInput = false;
     }
 
     /**
@@ -57,12 +53,13 @@ public class Calculator {
      * Beim ersten Drücken der Taste wird der Bildschirminhalt nicht verändert, sondern nur der
      * Rechner in den passenden Operationsmodus versetzt.
      * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
-     * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * auf dem Bildschirm angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
+    public void pressBinaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        newInput = true; // Bereite auf neue Zahleneingabe vor
     }
 
     /**
@@ -74,15 +71,15 @@ public class Calculator {
      */
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
-        latestOperation = operation;
-        double result = switch(operation) {
+        var result = switch(operation) {
             case "√" -> Math.sqrt(latestValue);
             case "%" -> latestValue / 100;
             case "1/x" -> 1 / latestValue;
-            default -> throw new IllegalArgumentException();
+            default -> throw new IllegalArgumentException("Unsupported operation");
         };
-        screen = String.format("%.10f", result).replaceAll("([0-9])\\.0+$|$\\.0+", "$1");
-        if(screen.equals("NaN")) screen = "Error";
+        screen = String.format("%.10f", result).replaceAll("([0-9]*\\.0*)|(0+)$", "$1");
+        if (screen.equals("NaN")) screen = "Error";
+        newInput = true; // Bereite auf neue Zahleneingabe vor
     }
 
     /**
@@ -93,7 +90,10 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen.isEmpty() ? "0." : screen + ".";
+        if (!screen.contains(".")) {
+            screen += ".";
+        }
+        newInput = false;
     }
 
     /**
@@ -117,17 +117,20 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        if (latestOperation.isEmpty()) return; // Wenn keine Operation gesetzt, tue nichts
+
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
+            default -> throw new IllegalArgumentException("Unsupported operation");
         };
+        latestValue = result; // Speichere das Ergebnis für mögliche zukünftige Operationen
         screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if (screen.equals("Infinity") || screen.equals("NaN")) screen = "Error";
+        if (screen.contains(".") && screen.length() > 10) screen = screen.substring(0, 10);
+        newInput = true; // Setze Zustand für neue Eingabe
     }
-
 }
+
