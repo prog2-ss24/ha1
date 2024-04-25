@@ -59,7 +59,11 @@ public class Calculator {
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
+    public void pressBinaryOperationKey(String operation) {
+        if (!latestOperation.isEmpty()) {
+            pressEqualsKey(); // Berechnet das Ergebnis der vorherigen Operation und aktualisiert screen
+        }
+
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
@@ -123,7 +127,9 @@ public class Calculator {
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
+            case "" -> Double.parseDouble(screen);
+           // default -> throw new IllegalArgumentException();
+            default -> throw new IllegalStateException("Unexpected value: " + latestOperation);
         };
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
