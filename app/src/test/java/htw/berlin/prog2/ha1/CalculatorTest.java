@@ -124,7 +124,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    //Teilaufgabe 2 (Testfall 2)
+    //Teilaufgabe 2 (Testfall 2) (working)
     @Test
     @DisplayName("should display error when drawing the square root of a negative number")
     void testSquareRootNegative() {
