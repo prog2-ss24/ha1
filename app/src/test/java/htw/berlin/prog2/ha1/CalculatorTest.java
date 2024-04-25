@@ -108,14 +108,30 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display result after clearing and performing new operation")
+    void testClearKey() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressClearKey();
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+
+        String expected = "3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
     @Test
     @DisplayName("should display 0 when dividing by zero")
     void testMultiplicationByZero() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(7);
-        calc.pressBinaryOperationKey("*");
+        calc.pressBinaryOperationKey("x");
         calc.pressDigitKey(0);
         calc.pressEqualsKey();
 
@@ -125,3 +141,4 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 }
+
