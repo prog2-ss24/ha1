@@ -50,19 +50,37 @@ public class Calculator {
         latestValue = 0.0;
     }
 
+
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
      * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen.
      * Beim ersten Drücken der Taste wird der Bildschirminhalt nicht verändert, sondern nur der
      * Rechner in den passenden Operationsmodus versetzt.
-     * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
-     * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * Falls bereits eine Operation aktiv ist, berechnet diese Methode zuerst das Ergebnis der vorherigen
+     * Operation mit dem aktuellen Bildschirminhalt und aktualisiert den Bildschirm mit diesem Ergebnis,
+     * bevor sie den Rechner für die neue Operation vorbereitet.
+     * Ungültige Operationen lösen eine IllegalArgumentException aus.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
+     * @throws IllegalArgumentException wenn eine ungültige Operation übergeben wird.
      */
     public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);
+        if (!latestOperation.isEmpty()) {   // überprüft ob Operation in 'latestOperation' gespeichert ist.
+            double currentValue = Double.parseDouble(screen); // Inhalt von screen wird in 'currentValue' gespeichert
+            latestValue = switch (latestOperation) { // Berechnung basierend auf 'latestOperation'. Ergebnis in 'latestValue' gespeichert
+                case "+" -> latestValue + currentValue;
+                case "-" -> latestValue - currentValue;
+                case "x" -> latestValue * currentValue;
+                case "/" -> latestValue / currentValue;
+                default -> throw new IllegalArgumentException(); // Ungültige Operation
+            };
+
+            screen = String.valueOf(latestValue);
+        }
+
+        latestValue = Double.parseDouble(screen); // 'latestValue' enthält aktuellen Wert vor der nächsten Operation
         latestOperation = operation;
     }
+
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
@@ -131,3 +149,4 @@ public class Calculator {
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
 }
+
