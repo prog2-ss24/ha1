@@ -129,18 +129,22 @@ void testMultiplication() {
 }
 // 2 Failed Test
     @Test
-    @DisplayName("should display negative result when adding two negative multi digit numbers")
-    void testAddition2() {
+    @DisplayName("should display result after adding two comma positive numbers")
+    void testAdditionComma() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(-7);
-        calc.pressDigitKey(0);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(-3);
-        calc.pressDigitKey(0);
-        calc.pressEqualsKey();
+       calc.pressDigitKey(0);
+       calc.pressDotKey();
+       calc.pressDigitKey(0);
+       calc.pressDigitKey(1);
+       calc.pressBinaryOperationKey("+");
+       calc.pressDigitKey(0);
+       calc.pressDotKey();
+       //calc.pressDigitKey(0);
+       calc.pressDigitKey(5);
+       calc.pressEqualsKey();
 
-        String expected = "-100";
+        String expected = "0.51";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);

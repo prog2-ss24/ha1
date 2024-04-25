@@ -29,9 +29,9 @@ public class Calculator {
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
-        if(digit > 9 || digit < -9) throw new IllegalArgumentException(); //Wertebereich vergrößert anstatt 0 -->-9
+        if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        if(screen.equals("0") || (latestValue == Double.parseDouble(screen)&& latestValue != 0.0)) screen = "";
 
         screen = screen + digit;
     }
@@ -61,7 +61,7 @@ public class Calculator {
      */
     public void pressBinaryOperationKey(String operation) {
         if (!latestOperation.isEmpty()) {
-            pressEqualsKey(); // Berechne das Zwischenergebnis
+            pressEqualsKey(); // Berechnet das Zwischenergebnis
         }
 
         latestValue = Double.parseDouble(screen);
@@ -98,7 +98,7 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen + ".";
+        if(!screen.endsWith(".")) screen = screen + ".";
     }
 
     /**
