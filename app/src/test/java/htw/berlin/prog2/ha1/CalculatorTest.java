@@ -97,7 +97,6 @@ class CalculatorTest {
     void testNegativeMultiplication() {
         Calculator calc = new Calculator();
 
-
         calc.pressDigitKey(7);
         calc.pressNegativeKey();
         calc.pressBinaryOperationKey("x");
