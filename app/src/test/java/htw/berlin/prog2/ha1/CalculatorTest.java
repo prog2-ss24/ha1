@@ -126,6 +126,7 @@ class CalculatorTest {
     }
     //Teilaufgabe 2 (Testfall 2)
     @Test
+    @DisplayName ("Sollte einen Feler anzeigen, weil eine WUrzel one eine Zal ausgewaelt wurde.")
     void testInvalidSquareRootWithoutNumber() {
         Calculator calc = new Calculator();
 
@@ -137,5 +138,6 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     //Teilaufgabe 3
+    
 }
 
