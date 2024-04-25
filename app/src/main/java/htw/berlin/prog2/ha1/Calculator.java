@@ -2,7 +2,7 @@ package htw.berlin.prog2.ha1;
 
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
- * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
+ * <a href="https://www.online-calculator.com/">...</a> aufgerufen werden kann (ohne die Memory-Funktionen)
  * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
  */
@@ -11,6 +11,7 @@ public class Calculator {
     private String screen = "0";
 
     private double latestValue;
+    private double ghostValue;
 
     private String latestOperation = "";
 
@@ -26,12 +27,13 @@ public class Calculator {
      * drücken kann muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
      * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
      * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
+     *
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
-        if(digit > 9 || digit < 0) throw new IllegalArgumentException();
+        if (digit > 9 || digit < 0) throw new IllegalArgumentException();
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        if (screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
         screen = screen + digit;
     }
@@ -45,9 +47,13 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+        if (screen.equals("0")) {
+            latestOperation = "";
+            latestValue = 0.0;
+            ghostValue = 0.0;
+        } else {
+            screen = "0";
+        }
     }
 
     /**
@@ -57,9 +63,10 @@ public class Calculator {
      * Rechner in den passenden Operationsmodus versetzt.
      * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     *
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
+    public void pressBinaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
@@ -69,20 +76,21 @@ public class Calculator {
      * Quadratwurzel, Prozent, Inversion, welche nur einen Operanden benötigen.
      * Beim Drücken der Taste wird direkt die Operation auf den aktuellen Zahlenwert angewendet und
      * der Bildschirminhalt mit dem Ergebnis aktualisiert.
+     *
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
-        var result = switch(operation) {
+        var result = switch (operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
             case "%" -> Double.parseDouble(screen) / 100;
             case "1/x" -> 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
-        if(screen.equals("NaN")) screen = "Error";
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if (screen.equals("NaN")) screen = "Error";
+        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
     }
 
@@ -92,12 +100,14 @@ public class Calculator {
      * Seite hinzu und aktualisiert den Bildschirm. Daraufhin eingegebene Zahlen werden rechts vom
      * Trennzeichen angegeben und daher als Dezimalziffern interpretiert.
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
+     * <p>
+     * Falls jedoch ein Operand gewählt wurde, erscheint "0." als aktuelle Bildschirminhalt
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen + ".";
+        if (!screen.contains(".")) screen = screen + ".";
         /* Fix ("should display result after adding decimal zero") */
-        if(!latestOperation.isEmpty()) {
-            screen = "0.0";
+        if (!latestOperation.isEmpty()) {
+            screen = "0.";
         }
     }
 
@@ -120,18 +130,46 @@ public class Calculator {
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
+     *
      */
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+        // Fix ("should display result after pressing equals key two times in a row")
+        ghostValue = latestValue;
+        var result = switch (latestOperation) {
+            case "+" -> {
+                if (ghostValue == latestValue) {
+                    yield Double.parseDouble(screen) + latestValue;
+                } else {
+                    yield latestValue + Double.parseDouble(screen);
+                }
+            }
+            case "-" -> {
+                if (ghostValue == latestValue) {
+                    yield Double.parseDouble(screen) - latestValue;
+                } else {
+                    yield latestValue - Double.parseDouble(screen);
+                }
+            }
+            case "x" -> {
+                if (ghostValue == latestValue) {
+                    yield Double.parseDouble(screen) * latestValue;
+                } else {
+                    yield latestValue * Double.parseDouble(screen);
+                }
+            }
+            case "/" -> {
+                if (ghostValue == latestValue) {
+                    yield Double.parseDouble(screen) / latestValue;
+                } else {
+                    yield latestValue / Double.parseDouble(screen);
+                }
+            }
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if (screen.equals("Infinity")) screen = "Error";
+        if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
     }
 }

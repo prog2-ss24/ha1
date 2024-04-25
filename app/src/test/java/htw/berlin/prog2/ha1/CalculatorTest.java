@@ -115,7 +115,7 @@ class CalculatorTest {
     //Teilaufgabe 2
     @Test
     @DisplayName("should display result after adding decimal zero")
-     void testss(){
+     void testOperatingWithDecimalZero(){
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
@@ -130,7 +130,7 @@ class CalculatorTest {
     }
     @Test
     @DisplayName("should display result after pressing equals key two times in a row")
-    void testsas(){
+    void testTwiceEqualsKey(){
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
