@@ -31,8 +31,8 @@ public class Calculator {
     public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-
+        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";     //parseDouble wandelt String in einen Double-Wert um
+        // 0 beim Start || das Ergebnis wird ersetzt mit der neu eingegebenen Zahl
         screen = screen + digit;
     }
 
@@ -72,7 +72,7 @@ public class Calculator {
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
-        latestValue = Double.parseDouble(screen);
+        latestValue = Double.parseDouble(screen);           // wandelt String in einen Double-Wert um
         latestOperation = operation;
         var result = switch(operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
@@ -80,11 +80,13 @@ public class Calculator {
             case "1/x" -> 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
+        // lastestValue wird nicht in Switch-Case-Statement verwendet, speichert aber ein Ergebnis von dem Befehl
+        // lastestValue wird möglicherweise weiter für andere Zwecke verwendet.
+
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.equals("NaN")) screen = "Error";
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-
+        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10); // substring(int startIndex, int endIndex)
     }
 
     /**
@@ -107,6 +109,7 @@ public class Calculator {
      */
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+        // wenn screen "-" z.B. "-1" enthält und "+/-" gedrückt wird, wird das 2. Zeichen("1")zurückgegeben.
     }
 
     /**
