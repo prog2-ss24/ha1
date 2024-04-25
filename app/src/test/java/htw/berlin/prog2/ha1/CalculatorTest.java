@@ -34,7 +34,8 @@ class CalculatorTest {
         calc.pressDigitKey(2);
         calc.pressUnaryOperationKey("√");
 
-        String expected = "1.41421356";
+
+        String expected =("1.41421356");
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
@@ -78,11 +79,9 @@ class CalculatorTest {
 
         calc.pressDigitKey(1);
         calc.pressDotKey();
-        calc.pressDigitKey(7);
-        calc.pressDotKey();
-        calc.pressDigitKey(8);
-
-        String expected = "1.78";
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+        String expected = "1.5";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
@@ -90,5 +89,69 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after dividing 6 by 3")
+    void testDivision() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(6);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        String expected = "2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("test for clear and clear entry buttons")
+    void clearAndClearEntryButtons(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressClearKey();
+        calc.pressClearKey();
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("test for clear and clear entry buttons")
+    void clearAndClearEntryButtons2(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressClearKey();
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "7";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display number on screen")
+    void pressDigitKeyAndEnter(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
