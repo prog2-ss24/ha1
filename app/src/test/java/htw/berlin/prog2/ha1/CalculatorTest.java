@@ -90,7 +90,7 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-    // Teilaufgabe 1
+    // Teilaufgabe 1 (funktioniert)
     @Test
     @DisplayName("sollte sich zuruecksetzen, wenn man clear betaetigt")
     void testClearKey() {
