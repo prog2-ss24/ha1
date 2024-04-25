@@ -103,9 +103,27 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
     @Test
     @DisplayName("test for clear and clear entry buttons")
     void clearAndClearEntryButtons(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressClearKey();
+        calc.pressClearKey();
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("test for clear and clear entry buttons")
+    void clearAndClearEntryButtons2(){
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
@@ -120,5 +138,20 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("should display number on screen")
+    void pressDigitKeyAndEnter(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
