@@ -110,6 +110,23 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display result of a reciprocal of a negative number")
+    void testNegativeReciprocal() {
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(5);
+        calc.pressNegativeKey();
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "-0.2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
 
 }
 
