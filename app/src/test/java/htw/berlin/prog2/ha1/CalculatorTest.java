@@ -119,5 +119,21 @@ class CalculatorTest {
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("should display error when dividing a negative number by zero ")
+    void testDivisionByZeroWithNegative() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(6);
+        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
 }
 
