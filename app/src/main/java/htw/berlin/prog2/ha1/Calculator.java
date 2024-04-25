@@ -95,6 +95,10 @@ public class Calculator {
      */
     public void pressDotKey() {
         if(!screen.contains(".")) screen = screen + ".";
+        /* Fix ("should display result after adding decimal zero") */
+        if(!latestOperation.isEmpty()) {
+            screen = "0.0";
+        }
     }
 
     /**
