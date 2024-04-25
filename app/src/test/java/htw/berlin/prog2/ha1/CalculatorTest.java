@@ -92,29 +92,28 @@ class CalculatorTest {
     //TODO hier weitere Tests erstellen
     // Teilaufgabe 1 (funktioniert)
     @Test
-    @DisplayName("sollte sich zuruecksetzen, wenn man clear betaetigt")
-    void testClearKey() {
+    @DisplayName("should display result after adding two small positive numbers")
+    void testSmallPositiveAddition() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(5);
+        calc.pressDigitKey(2);
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(3);
-        calc.pressClearKey();
+        calc.pressEqualsKey();
 
-        String expected = "0";
+        String expected = "5";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
-
     }
 
     //Teilaufgabe 2 (Testfall 1)
     @Test
-    @DisplayName ("Sollte einen Fehler anzeigen, weil eine Division durch 0 nicht funktioniert.")
-    void testDivisionByZero() {
+    @DisplayName("should display error when dividing by zero")
+    void testDivisionZero() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(5);
+        calc.pressDigitKey(7);
         calc.pressBinaryOperationKey("/");
         calc.pressDigitKey(0);
         calc.pressEqualsKey();
@@ -124,12 +123,15 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
     //Teilaufgabe 2 (Testfall 2)
     @Test
-    @DisplayName ("Sollte einen Feler anzeigen, weil eine WUrzel one eine Zal ausgewaelt wurde.")
-    void testInvalidSquareRootWithoutNumber() {
+    @DisplayName("should display error when drawing the square root of a negative number")
+    void testSquareRootNegative() {
         Calculator calc = new Calculator();
 
+        calc.pressDigitKey(7);
+        calc.pressNegativeKey();
         calc.pressUnaryOperationKey("√");
 
         String expected = "Error";
