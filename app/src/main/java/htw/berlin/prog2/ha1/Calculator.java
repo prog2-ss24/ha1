@@ -128,8 +128,8 @@ public class Calculator {
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
             case "" -> Double.parseDouble(screen);
-           // default -> throw new IllegalArgumentException();
-            default -> throw new IllegalStateException("Unexpected value: " + latestOperation);
+            default -> throw new IllegalArgumentException();
+           // default -> throw new IllegalStateException("Unexpected value: " + latestOperation);
         };
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
