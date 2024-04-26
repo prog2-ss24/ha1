@@ -123,7 +123,7 @@ class CalculatorTest {
     }
 
     @Test //test 9 equals 9
-    @DisplayName("should do multiplication and division first, then addition and subtraction")
+    @DisplayName("should show that a number is equal the same number")
     void testEqualNumber() {
         Calculator calc = new Calculator();
 
