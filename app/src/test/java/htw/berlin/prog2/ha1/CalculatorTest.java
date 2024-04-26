@@ -91,23 +91,23 @@ class CalculatorTest {
 
     //TODO hier weitere Tests erstellen
 
-@Test
-@DisplayName("should display result after subtract two positive multi-digit numbers")
-void testsubtraction() {
-    Calculator calc = new Calculator();
+    @Test
+    @DisplayName("should display result after subtract two positive multi-digit numbers")
+    void testsubtraction() {
+        Calculator calc = new Calculator();
 
-    calc.pressDigitKey(3);
-    calc.pressDigitKey(0);
-    calc.pressBinaryOperationKey("-");
-    calc.pressDigitKey(3);
-    calc.pressDigitKey(0);
-    calc.pressEqualsKey();
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
 
-    String expected = "0";
-    String actual = calc.readScreen();
+        String expected = "0";
+        String actual = calc.readScreen();
 
-    assertEquals(expected, actual);
+        assertEquals(expected, actual);
 
-}
+    }
 }
 
