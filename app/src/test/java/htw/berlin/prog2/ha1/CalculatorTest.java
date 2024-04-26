@@ -129,21 +129,24 @@ class CalculatorTest {
 
     @Test
     @DisplayName("Soll punkt vor Strich ausrechnen")
-    void newTest() {
+    void punktVorStrichTest() {
         Calculator calc = new Calculator();
 
         calc.pressNegativeKey();
-        calc.pressDigitKey(9);
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
         calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(3);
         calc.pressBinaryOperationKey("x");
-        calc.pressDigitKey(2);
+        calc.pressDigitKey(4);
         calc.pressEqualsKey();
 
-        String expected = "3";
+        String expected = "8";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
 }
