@@ -119,6 +119,21 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("the latest value should not be deleted after pressing the Clear Key once")
+    void testCeKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressClearKey();
+
+        String expected = "1.0";
+        String actual = calc.giveLatestValue();
+
+        assertEquals(expected, actual);
+    }
 
 
 }

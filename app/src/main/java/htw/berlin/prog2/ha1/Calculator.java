@@ -51,9 +51,9 @@ public class Calculator {
         //}
         screen = "0";
     }
-    //public String giveLatestValue(){
-     //   return Double.toString(latestValue);
-   // }
+    public String giveLatestValue(){
+        return Double.toString(latestValue);
+    }
 
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
