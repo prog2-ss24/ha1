@@ -90,5 +90,50 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-}
 
+    @Test
+    @DisplayName("should display result after adding 2 negative numbers")
+    void testNegativeAddition() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(7);
+        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+        String expected = "-14";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display result after getting the scare root of 4")
+    void testSquareRootOfFour() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("the latest value should not be deleted after pressing the Clear Key once")
+    void testCeKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressClearKey();
+
+        String expected = "1.0";
+        String actual = calc.giveLatestValue();
+
+        assertEquals(expected, actual);
+    }
+
+
+}
