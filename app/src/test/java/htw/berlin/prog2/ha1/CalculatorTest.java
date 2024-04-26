@@ -87,8 +87,26 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should correctly handle consecutive binary operations like addition and subtraction")
+    void testConsecutiveBinaryOperations() {
+        Calculator calc = new Calculator();
 
+        // Additionsoperation führt durch
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
 
-    //TODO hier weitere Tests erstellen
+        // Weiter Subtraktions-Operation
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        // Wünschergbnis ist 5 + 3 - 2 = 6
+        String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual, "The calculator should correctly calculate the result of consecutive addition and subtraction.");
+    }
 }
-
