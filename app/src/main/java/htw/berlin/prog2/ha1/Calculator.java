@@ -72,8 +72,7 @@ public class Calculator {
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
-        latestValue = Double.parseDouble(screen);
-        latestOperation = operation;
+        //latestValue = Double.parseDouble(screen); runter verschoben
         var result = switch(operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
             case "%" -> Double.parseDouble(screen) / 100;
@@ -81,6 +80,9 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        if (latestOperation.isEmpty()){
+            latestValue = Double.parseDouble(screen);
+        }
         if(screen.equals("NaN")) screen = "Error";
         // we don't allow infinity as a result
         if(screen.equals("Infinity")) screen = "Error";
