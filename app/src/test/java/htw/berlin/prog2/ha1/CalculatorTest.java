@@ -127,5 +127,30 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("should display result after diving two numbers with percentages")
+    void testDivisionWithPercentages(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("%");
+
+        calc.pressBinaryOperationKey("/");
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("%");
+
+        calc.pressEqualsKey();
+
+        String actual = calc.readScreen();
+        String expected = "0.1";
+
+        assertEquals(expected, actual);
+
+    }
 }
 
