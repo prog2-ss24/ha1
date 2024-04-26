@@ -106,6 +106,23 @@ class CalculatorTest {
         assertEquals(expected, actual);
 
 
+    }
+
+
+    @Test
+    @DisplayName("wurzel von negativer zahl") // Test 1
+    void testWurzelVonNegativerZahl() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(7);
+        calc.pressUnaryOperationKey("√"); // hier wird die Wurzel einer negativen Zahl gezogen
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
 
 
 
@@ -116,9 +133,20 @@ class CalculatorTest {
 
 
 
+    }
 
 
+        @Test
+        @DisplayName("Dezimalstelle bevor eine Zahl eingegeben wurde") // Test 2
+        void testDezimalstelleVorZiffer() {
+            Calculator calc = new Calculator();
 
+            calc.pressDotKey(); // Eine Dezimalstelle bevor eine Zahl eingegeben wurde
+
+            String expected = "Error";
+            String actual = calc.readScreen();
+
+            assertEquals(expected, actual);
     }
 
 
@@ -136,6 +164,24 @@ class CalculatorTest {
 
 
 
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
