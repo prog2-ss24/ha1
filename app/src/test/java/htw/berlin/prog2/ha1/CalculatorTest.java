@@ -90,5 +90,23 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("negativ numbers and positive numbers should cancel each other if they have the same digits")
+    void positiveNumberCancelNegativeNumber(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressNegativeKey();
+
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
