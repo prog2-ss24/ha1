@@ -35,7 +35,7 @@ public class Calculator {
             if (screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
         }
         screen = screen + digit;
-    }
+   }
 
     /**
      * Empfängt den Befehl der C- bzw. CE-Taste (Clear bzw. Clear Entry).
@@ -63,6 +63,10 @@ public class Calculator {
     public void pressBinaryOperationKey(String operation)  {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+
+        if (!screen.equals("0")) {
+            screen = "0";
+        }
     }
 
     /**

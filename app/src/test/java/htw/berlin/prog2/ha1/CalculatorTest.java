@@ -108,7 +108,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result after after subtracting a negative number from a positive")
-    void testnegativeNumberFirstSubstraction() {
+    void testNegativeNumberFirstSubstraction() {
         Calculator calc = new Calculator();
         calc.pressNegativeKey();
         calc.pressDigitKey(4);
@@ -117,6 +117,23 @@ class CalculatorTest {
         calc.pressEqualsKey();
 
         String expected = "-9";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after multipliying 2 negative numbers")
+    void testDoubleNegativeMultiplication() {
+        Calculator calc = new Calculator();
+        calc.pressNegativeKey();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressNegativeKey();
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "25";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
