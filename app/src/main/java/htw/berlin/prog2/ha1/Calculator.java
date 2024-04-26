@@ -60,8 +60,32 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);
-        latestOperation = operation;
+        switch(latestOperation){
+            case "+":
+                latestValue += Double.parseDouble(screen);
+                latestOperation = operation;
+                screen = "0";
+                break;
+            case "-":
+                latestValue -= Double.parseDouble(screen);
+                latestOperation = operation;
+                screen = "0";
+                break;
+            case "x":
+                latestValue *= Double.parseDouble(screen);
+                latestOperation = operation;
+                screen = "0";
+                break;
+            case "/":
+                latestValue /= Double.parseDouble(screen);
+                latestOperation = operation;
+                screen = "0";
+                break;
+            default: latestValue = Double.parseDouble(screen);
+                latestOperation = operation;
+                screen = "0";
+                break;
+        }
     }
 
     /**
@@ -81,7 +105,7 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
-        if(screen.equals("NaN")) screen = "Error";
+        if(screen.equals("NaN") || screen.equals("Infinity")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
     }
