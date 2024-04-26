@@ -45,10 +45,10 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        //if(screen.equals ("0")){
+        if(screen.equals ("0")){
             latestValue = 0.0;
             latestOperation = "";
-        //}
+        }
         screen = "0";
     }
     public String giveLatestValue(){
