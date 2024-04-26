@@ -104,7 +104,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    @Test //Punkt vor Strich
+    @Test //Punkt vor Strich Bug
     @DisplayName("should do multiplication and division first, then addition and subtraction")
     void testMathRule() {
         Calculator calc = new Calculator();
@@ -122,6 +122,19 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    //TODO hier weitere Tests erstellen
+    @Test //test 9 equals 9
+    @DisplayName("should do multiplication and division first, then addition and subtraction")
+    void testEqualNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressEqualsKey();
+
+        String expected = "9";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
