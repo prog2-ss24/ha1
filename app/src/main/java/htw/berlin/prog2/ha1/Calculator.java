@@ -119,8 +119,9 @@ public class Calculator {
      */
 
     public void pressEqualsKey() {
+        double currentOperand = Double.parseDouble(screen);
         if (latestOperation.equals("/") && screen.equals("0")) {
-            screen = "Error"; // Division durch Null, zeige "Error" an
+            screen = "Error";
         } else {
             var result = switch(latestOperation) {
                 case "+" -> latestValue + Double.parseDouble(screen);
@@ -134,6 +135,7 @@ public class Calculator {
             if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
             if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
         }
+        latestOperation = latestOperation;
+        latestValue = currentOperand;
     }
-
 }
