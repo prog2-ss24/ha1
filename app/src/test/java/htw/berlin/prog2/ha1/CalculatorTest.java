@@ -108,5 +108,24 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("correctly divide by zero")
+    void testDivZero(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+        String actual = calc.readScreen();
+
+        calc.pressClearKey();
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+        String expected = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
