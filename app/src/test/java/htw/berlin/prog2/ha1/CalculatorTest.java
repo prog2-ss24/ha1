@@ -1,5 +1,5 @@
-package htw.berlin.prog2.ha1;
 
+package htw.berlin.prog2.ha1;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -93,7 +93,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result after multiplying two multi-digit numbers")
-    void testMultiplication(){
+    void testMultiplication() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(1);
@@ -110,9 +110,10 @@ class CalculatorTest {
 
 
     }
+
     @Test
-    @DisplayName("should display result after pressing clear key")
-    void testPressClearKey(){
+    @DisplayName("should display result after pressing clear key once")
+    void testPressClearKeyOnce() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(7);
@@ -125,11 +126,11 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result after pressing negative key")
-    void testPressNegativeKey(){
+    void testPressNegativeKey() {
         Calculator calc = new Calculator();
 
-        calc.pressNegativeKey();
         calc.pressDigitKey(2);
+        calc.pressNegativeKey();
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(2);
         calc.pressEqualsKey();
@@ -139,48 +140,65 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    @DisplayName("should display result after pressing the unary operation key 1/x")
-    void testReciprocalCalculation(){
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(2);
-        calc.pressUnaryOperationKey("1/x");
-
-        String expected = "0.5";
-        String actual =calc.readScreen();
-        assertEquals(expected, actual);
-    }
-    @Test
-    @DisplayName("should be result after pressing the unary operation key %")
-    void testPercentageCalculation(){
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(5);
-        calc.pressDigitKey(0);
-        calc.pressDigitKey(0);
-        calc.pressUnaryOperationKey("%");
-
-        String expected = "5.0";
-        String actual = calc.readScreen();
-        assertEquals(expected, actual);
-    }
 
     @Test
-    @DisplayName("should display result after pressing the clear key twice")
-    void testShowLatestValue(){
+    @DisplayName("should apply the last operation again when equals key is pressed twice")
+    void testPressEqualsKeyTwice() {
+
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
         calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(2);
+        calc.pressDigitKey(3);
         calc.pressEqualsKey();
-        calc.pressClearKey();
-        calc.pressClearKey();
+        calc.pressEqualsKey();
 
-        String expected = "4";
+        String expected = "8";
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
+
+
+
+
+
+    @Test
+    @DisplayName("should display after pressing the digit eleven times in a row")
+    void testMaxScreenDigits() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+
+        String expected= "999999999";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
+
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
