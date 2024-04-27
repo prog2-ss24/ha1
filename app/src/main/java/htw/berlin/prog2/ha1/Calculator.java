@@ -1,9 +1,5 @@
 package htw.berlin.prog2.ha1;
 
-import java.math.BigDecimal;
-import java.math.RoundingMode;
-
-
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
@@ -15,6 +11,8 @@ public class Calculator {
     private String screen = "0";
 
     private double latestValue;
+
+    private double lastInputValue;// Neues Feld zum Speichern des zuletzt eingegebenen Werts
 
     private String latestOperation = "";
 
@@ -113,67 +111,38 @@ public class Calculator {
     }
 
     /**
-     * Verarbeitet die "=" Taste des Taschenrechners.
-     * Diese Methode versucht, die zuvor eingestellte binäre Operatoraktion auszuführen, wenn die "=" Taste gedrückt wird. Wenn zuvor kein Operator ausgewählt wurde, erfolgt keine Aktion.
-     * Wenn zwei Operanden eingegeben wurden und ein gültiger Operator ausgewählt wurde, wird das Ergebnis berechnet und angezeigt:
-     * - Für Addition, Subtraktion und Multiplikation wird die Berechnung direkt ausgeführt.
-     * - Bei der Division, wenn der Nenner null ist, wird "Error" angezeigt.
-     * Wenn die "=" Taste erneut gedrückt wird, wird die letzte Operation mit dem aktuellen Anzeigeergebnis und dem vorherigen Operator wiederholt.
-     * Das Ergebnis wird mit BigDecimal berechnet, um hohe Genauigkeit zu gewährleisten, und vor der Anzeige wird es als String formatiert, der maximal zwei Dezimalstellen hat. Wenn die Länge des Ergebnisstrings mehr als 10 Zeichen beträgt, wird sie auf die ersten 10 Zeichen gekürzt.
-     * Hinweis: Wenn während der Berechnung Fehler wie Division durch Null auftreten, wird eine Fehlermeldung angezeigt und es kann eine IllegalArgumentException oder ArithmeticException ausgelöst werden.
+     * Empfängt den Befehl der gedrückten "=" Taste. Diese Methode verarbeitet die Berechnung basierend auf der zuletzt ausgeführten Operation und dem zuletzt eingegebenen Wert.
+     * Wenn keine Operations-Taste vor der "=" Taste gedrückt wurde, passiert nichts.
+     * Bei der ersten Ausführung nach der Eingabe eines Operators und eines zweiten Operanden wird das Ergebnis der Operation angezeigt.
+     * Tritt bei der Operation, wie zum Beispiel der Division, ein Fehler auf (z. B. Division durch Null), wird "Error" angezeigt.
+     * Wenn die "=" Taste weitere Male gedrückt wird, ohne dass zwischendurch andere Tasten gedrückt werden, wiederholt der Rechner die letzte Operation mit dem zuletzt verwendeten zweiten Operanden und aktualisiert das Ergebnis auf dem Bildschirm.
      *
-     * @throws IllegalArgumentException wenn die durchgeführte Operation ungültig ist
-     * @throws ArithmeticException wenn das Ergebnis nicht genau in eine Ganzzahl umgewandelt werden kann
+     * @throws IllegalArgumentException wenn eine ungültige Operation übergeben wird
      */
     public void pressEqualsKey() {
-        if (latestOperation.isEmpty()) {
-            return; // Wenn keine Operatoren vorhanden sind, wird direkt zurückgegeben
-        }
+        if (latestOperation.isEmpty()) return;  // Wenn es keinen vorherigen Vorgang gibt, einfach zurückgeben
 
-        BigDecimal result;
-        boolean isDecimalOperation = screen.contains(".") || String.valueOf(latestValue).contains(".");
-
-        BigDecimal currentScreenValue = new BigDecimal(screen);
-        BigDecimal latestBigDecimalValue = new BigDecimal(String.valueOf(latestValue));
-
-        switch (latestOperation) {
-            case "+":
-                result = latestBigDecimalValue.add(currentScreenValue);
-                break;
-            case "-":
-                result = latestBigDecimalValue.subtract(currentScreenValue);
-                break;
-            case "x":
-                result = latestBigDecimalValue.multiply(currentScreenValue);
-                break;
-            case "/":
-                if (currentScreenValue.compareTo(BigDecimal.ZERO) == 0) {
-                    screen = "Error";
-                    return;
-                }
-                result = latestBigDecimalValue.divide(currentScreenValue, 10, RoundingMode.HALF_UP);
-                break;
-            default:
-                throw new IllegalArgumentException("Invalid operation");
-        }
-
-        if (isDecimalOperation) {
-            // Umgang mit Ergebnissen von Operationen mit Dezimalzahlen
-            screen = result.stripTrailingZeros().toPlainString();
+        double currentInput = Double.parseDouble(screen);
+        if (latestValue == currentInput) {
+            // Wenn die auf dem Bildschirm angezeigte Zahl der zuletzt verwendeten Zahl entspricht, wird lastInputValue für die Berechnung verwendet
+            currentInput = lastInputValue;
         } else {
-            // Keine Dezimalstellen, möglichst als ganze Zahl anzeigen
-            try {
-                screen = result.toBigIntegerExact().toString();
-            } catch (ArithmeticException e) {
-                // Wenn eine exakte Umwandlung in eine ganze Zahl nicht möglich ist (z. B. weil das Ergebnis eine Dezimalzahl ist), werden zwei Dezimalstellen reserviert.
-                screen = result.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString();
-            }
+            // Aktualisiere lastInputValue auf die Zahl, die vor dieser Operation auf dem Bildschirm stand
+            lastInputValue = currentInput;
         }
 
-        if (screen.length() > 10) {
-            screen = screen.substring(0, 10); // Kontrolle der Ausgabelänge
-        }
+        var result = switch (latestOperation) {
+            case "+" -> latestValue + currentInput;
+            case "-" -> latestValue - currentInput;
+            case "x" -> latestValue * currentInput;
+            case "/" -> latestValue / currentInput;
+            default -> throw new IllegalArgumentException();
+        };
 
-        latestValue = new BigDecimal(screen).doubleValue(); // Aktualisieren Sie den letzten Wert für nachfolgende Operationen
+        latestValue = result;  // Aktualisiere latestValue auf das aktuelle Berechnungsergebnis für die nächste Verwendung
+        screen = Double.toString(result);
+        if (screen.equals("Infinity")) screen = "Error";
+        if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
 }
