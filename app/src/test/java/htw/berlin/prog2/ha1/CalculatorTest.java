@@ -90,5 +90,111 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after adding multiple positive multi-digit numbers")
+    void testMultiPositiveAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+
+        String expected = "19";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after multiplying first and than added positive numbers")
+    void testMultiplicationWithAddition() {
+        Calculator calc = new Calculator();
+
+        // Führe eine Multiplikation von 4 und 3 durch
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(6);
+        calc.pressEqualsKey();
+
+        // Das Ergebnis sollte 12 sein
+        String expected = "18";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after getting the percentage of nine")
+    void testPercentage() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressUnaryOperationKey("%");
+
+
+        String expected = "0.09";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after Multiplicating one negative number to one positiv.")
+    void testNegativeMultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+
+        String expected = "-18";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after repeating the equalskey")
+    void testMultipleEqualskey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should repeat last operation when pressing equals multiple times")
+    void testMultipleUnaryOperations() {
+        Calculator calculator = new Calculator();
+
+        calculator.pressDigitKey(1);
+        calculator.pressDigitKey(6);
+        calculator.pressUnaryOperationKey("√");
+        calculator.pressUnaryOperationKey("√");
+
+        String expected = "2";
+        String actual = calculator.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
