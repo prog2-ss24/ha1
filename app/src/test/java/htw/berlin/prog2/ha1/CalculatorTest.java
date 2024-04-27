@@ -96,8 +96,13 @@ class CalculatorTest {
         calc.pressDotKey();
         calc.pressDigitKey(3);
 
-        assertEquals("5.3", calc.readScreen());
+        String expected = "53.7";
+        String actual = calc.readScreen(); // Aktuellen Bildschirminhalt des Taschenrechners lesen
+
+        assertEquals(expected, actual); // Überprüfen, ob der aktuelle Bildschirminhalt "53.7" entspricht
     }
+
     //TODO hier weitere Tests erstellen
+
 }
 
