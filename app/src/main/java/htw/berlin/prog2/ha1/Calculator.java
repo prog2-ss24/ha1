@@ -3,6 +3,8 @@ package htw.berlin.prog2.ha1;
 /**
  * commit 1
  * commit 2
+ * commit 3
+ * (Die Tests und Bugfixes hatte ich alle in einer Sitzung gemacht und hatte vergessen alle einzeln zu committen)
  */
 
 /**
