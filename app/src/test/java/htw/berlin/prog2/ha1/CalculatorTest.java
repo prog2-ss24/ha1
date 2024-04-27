@@ -99,7 +99,7 @@ class CalculatorTest {
         String expected = "5.3";
         String actual = calc.readScreen(); // Aktuellen Bildschirminhalt des Taschenrechners lesen
 
-        assertEquals(expected, actual); // Überprüfen, ob der aktuelle Bildschirminhalt "53.7" entspricht
+        assertEquals(expected, actual); // Überprüfen, ob der aktuelle Bildschirminhalt "5.3" entspricht
     }
 
     //TODO hier weitere Tests erstellen
