@@ -2,6 +2,7 @@ package htw.berlin.prog2.ha1;
 
 /**
  * commit 1
+ * commit 2
  */
 
 /**
