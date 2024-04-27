@@ -88,7 +88,25 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("Should change screen value to a positive one under the condition that this value was negative before")
+    void testConversionFromNegativeToPositive() {
+        Calculator calc = new Calculator();
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(1);
+        calc.pressNegativeKey();
+
+
+        String expected = "-1";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
+    }
+
 }
+
+
+
 
