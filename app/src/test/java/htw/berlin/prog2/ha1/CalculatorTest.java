@@ -145,6 +145,7 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
     @Test
     @DisplayName("should display result after Multiplicating one negative number to one positiv.")
     void testNegativeMultiplication() {
@@ -163,6 +164,37 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display result after repeating the equalskey")
+    void testMultipleEqualskey() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should repeat last operation when pressing equals multiple times")
+    void testMultipleUnaryOperations() {
+        Calculator calculator = new Calculator();
+
+        calculator.pressDigitKey(1);
+        calculator.pressDigitKey(6);
+        calculator.pressUnaryOperationKey("√");
+        calculator.pressUnaryOperationKey("√");
+
+        String expected = "2";
+        String actual = calculator.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
