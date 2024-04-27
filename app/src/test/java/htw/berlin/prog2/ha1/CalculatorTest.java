@@ -87,8 +87,21 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+@Test
+@DisplayName("should subtract one positive number from another")
+    void testPositiveSubtraction() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
 
-    //TODO hier weitere Tests erstellen
+        String expected = "-5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+        //TODO hier weitere Tests erstellen
+    }
 }
 
