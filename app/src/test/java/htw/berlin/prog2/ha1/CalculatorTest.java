@@ -145,5 +145,43 @@ class CalculatorTest {
 }
 
 
+    @Test
+    @DisplayName("should be able to give a rounded result")
+    void testRoundOffError() {
+    
+        Calculator calculator = new Calculator();
+
+       
+        calculator.pressDigitKey(1);
+        calculator.pressDotKey(.); 
+        calculator.pressDigitKey(0);
+        calculator.pressDigitKey(0); 
+        calculator.pressBinaryOperationKey("/"); 
+        calculator.pressDigitKey(3); 
+        calculator.pressEqualsKey(); 
+
+        
+        assertEquals("0.3333333333", calculator.readScreen()); 
+        assertEquals(expected, actual); 
+}
+
+
+import java.text.DecimalFormat;
+
+  class Calculator {
+    
+    
+    public void pressEqualsKey() {
+        double result = switch(latestOperation) {
+           
+            default -> throw new IllegalArgumentException();
+        };
+        
+      
+        DecimalFormat df = new DecimalFormat("#.##########");
+        screen = df.format(result);
+    }
+}
+
  
     
