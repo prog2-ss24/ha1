@@ -149,5 +149,40 @@ class CalculatorTest {
         assertEquals(expected, actual); 
 }
 
+//Bug fix testInputValidationError
+     
+    public void pressDigitKey(int digit) {
+        if (digit < 0 || digit > 9) {
+         
+            System.out.println("Invalid Input");
+            return; 
+        }
+        
+        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        screen = screen + digit;
+    }
+}
+
+
+//Bug fix testRoundOffError
+
+import java.text.DecimalFormat;
+
+  class Calculator {
+    
+    
+    public void pressEqualsKey() {
+        double result = switch(latestOperation) {
+           
+            default -> throw new IllegalArgumentException();
+        };
+        
+      
+        DecimalFormat df = new DecimalFormat("#.##########");
+        screen = df.format(result);
+    }
+}
+
+    
 
 
