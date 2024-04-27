@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("Retro calculator")
 class CalculatorTest {
@@ -92,12 +93,10 @@ class CalculatorTest {
 
     @Test
     @DisplayName("Digit entered should be converted to a negative one")
-    void testConversionFromNegativeToPositive() {
+    void testConversionFromNegative() {
         Calculator calc = new Calculator();
-        calc.pressBinaryOperationKey("-");
         calc.pressDigitKey(1);
         calc.pressNegativeKey();
-
 
         String expected = "-1";
         String actual = calc.readScreen();
@@ -106,14 +105,35 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Values should be deleted from the calculator")
-    void testMethodForClearingValues {
+    @DisplayName("The binary operator should not be deleted upon pressing the pressClearKey in cases where there was an operand")
+    void testMethodForClearingValues() {
         Calculator calc = new Calculator();
         calc.pressDigitKey(1);
-        calc.pressDigitKey("+");
+        calc.pressBinaryOperationKey("+");
+        calc.pressClearKey();
 
-
+        String expected = "+";
+        String actual = calc.readLatestOperation();
+        assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("Illegalargument should be thrown")
+    void testIllegalArgument () {
+        Calculator calc = new Calculator();
+        assertThrows(IllegalArgumentException.class, () -> {
+            calc.pressDigitKey(100);
+        });
+    }
+
+    @Test
+    @DisplayName("")
+    void testAddDigitKeyFornegativeDecimals () {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(-0.5);
+    }
+
+
 
 }
 

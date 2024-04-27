@@ -24,6 +24,11 @@ public class Calculator {
     }
 
     /**
+     * @return den aktuellen Operand die als String zurückgegeben wird
+     */
+    public String readLatestOperation() {return latestOperation;}
+
+    /**
      * Empfängt den Wert einer gedrückten Zifferntaste. Da man nur eine Taste auf einmal
      * drücken kann muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
      * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
@@ -34,7 +39,6 @@ public class Calculator {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-
         screen = screen + digit;
     }
 
