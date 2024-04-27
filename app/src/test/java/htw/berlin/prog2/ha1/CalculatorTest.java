@@ -107,6 +107,26 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display correct result after multiple press Equals Key")
+    void testMultipleSubtractions() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+        calc.pressEqualsKey();
+
+        String expected2 = "4";
+        String actual2 = calc.readScreen();
+        assertEquals(expected, actual);
+        assertEquals(expected2, actual2);
+    }
+
 }
 
 

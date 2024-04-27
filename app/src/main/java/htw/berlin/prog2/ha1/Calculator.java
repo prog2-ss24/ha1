@@ -1,5 +1,7 @@
 package htw.berlin.prog2.ha1;
 
+import static java.sql.DriverManager.println;
+
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
@@ -117,17 +119,45 @@ public class Calculator {
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
+    double grundzahl;
+    double operationszahl;
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+
+        // Speichern des aktuellen Bildschirminhalts vor der Berechnung
+        String previousScreenValue = screen;
+        if (grundzahl != Double.parseDouble(screen)){
+            operationszahl = Double.parseDouble(screen);
+        }
+        grundzahl = latestValue;
+        // Aktualisieren von latestValue basierend auf dem aktuellen Bildschirminhalt
+        //double secondOperand = Double.parseDouble(screen);
+        // Berechnung des Ergebnisses basierend auf dem neuesten Operator und Wert
+        var result = switch (latestOperation) {
+            case "+" -> grundzahl + operationszahl;
+            case "-" -> grundzahl - operationszahl;
+            case "x" -> grundzahl * operationszahl;
+            case "/" -> grundzahl / operationszahl;
             default -> throw new IllegalArgumentException();
         };
+
+        // Aktualisierung des Bildschirms mit dem Ergebnis der Berechnung
         screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+        // Weitere Anpassungen des Bildschirms
+        if (screen.equals("Infinity")) screen = "Error";
+        if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+
+        grundzahl = result;
+        latestValue = grundzahl;
+
     }
+
+
+
+
+
+
+
 }
