@@ -89,6 +89,99 @@ class CalculatorTest {
     }
 
 
-    //TODO hier weitere Tests erstellen
+    // hier weitere Tests erstellen
+
+@Test
+@DisplayName("Perioden Stellenwert < 10)")
+void testStellenwerteunter10(){
+    Calculator calc = new Calculator();
+
+    calc.pressDigitKey(1);
+    calc.pressDigitKey(0);
+    calc.pressBinaryOperationKey("/");
+    calc.pressDigitKey(3);
+    calc.pressEqualsKey();
+    String expected = "3.33333333";
+    String actual = calc.readScreen();
+    assertEquals(expected, actual);
 }
+
+
+@Test 
+@DisplayName("Doppelter Punkt")
+void Doublepoint(){
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(1);
+    calc.pressDotKey();
+    calc.pressDigitKey(0);
+    calc.pressDotKey();
+    calc.pressDigitKey(1);
+    calc.pressBinaryOperationKey("+");
+    calc.pressDigitKey(1);
+    calc.pressEqualsKey();
+    String expected = "2.01";
+    String actual = calc.readScreen();
+    assertEquals(expected, actual);
+}
+
+
+@Test@DisplayName("Multiplikation von 0")
+void multiplicationWith0(){
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(5);
+    calc.pressDigitKey(0);
+    calc.pressBinaryOperationKey("x");
+    calc.pressDigitKey(0); 
+    calc.pressEqualsKey();
+    String expected = "0";
+    String actual = calc.readScreen();
+    assertEquals(expected, actual);
+}
+
+@Test@DisplayName("Dreifach Operation")
+void trippleoperation(){
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(2);
+    calc.pressBinaryOperationKey("+");
+    calc.pressDigitKey(2);
+    calc.pressBinaryOperationKey("+");
+    calc.pressDigitKey(2);
+    calc.pressEqualsKey();
+    String expected = "6";
+    String actual = calc.readScreen();
+                assertEquals(expected, actual);
+    }
+
+@Test @DisplayName("Addition von negativen Zahlen")
+void sumOfNegativIntegers(){
+    Calculator calc = new Calculator();
+        calc.pressBinaryOperationKey("-");
+    calc.pressDigitKey(1);
+    calc.pressBinaryOperationKey("+");
+    calc.pressDigitKey(4);
+    calc.pressEqualsKey();
+String expected= "3";
+String actual = calc.readScreen();
+assertEquals(expected, actual);
+}
+
+@Test
+@DisplayName("Addieren von negativem Wert")
+void additionOfNegativInt(){
+    Calculator calc = new Calculator(); 
+    calc.pressBinaryOperationKey("-");
+calc.pressDigitKey(2);
+calc.pressBinaryOperationKey("+");
+calc.pressDigitKey(5);
+calc.pressEqualsKey();
+String expected = "3";
+String actual = calc.readScreen();
+assertEquals(expected, actual);
+
+}
+
+    }
+
+        
+
 
