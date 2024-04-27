@@ -131,6 +131,21 @@ class CalculatorTest {
 
 
 
+    @Test
+    @DisplayName("Should display 0 ")
+    void testReciprocalOfZero() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
 
 
 
