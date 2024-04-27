@@ -88,7 +88,16 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test 4
+    void testDecimalPoint() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(5);
+        calc.pressDotKey();
+        calc.pressDigitKey(3);
+
+        assertEquals("5.3", calc.readScreen());
+    }
     //TODO hier weitere Tests erstellen
 }
 
