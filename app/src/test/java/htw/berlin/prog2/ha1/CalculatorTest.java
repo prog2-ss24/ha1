@@ -88,7 +88,60 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should subtract one positive number from another")
+    void testPositiveSubtraction() {
+        Calculator calc = new Calculator();
 
-    //TODO hier weitere Tests erstellen
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+        String expected = "-5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+        //TODO hier weitere Tests erstellen
+    }
+
+    @Test
+    @DisplayName("multiple multiplication")
+    void testMultipleMultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+
+        calc.pressEqualsKey();
+
+
+        String expected = "8";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    @DisplayName("Press Clear Taste muss Zwischenwerte behalten")
+    void testPressClear() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(5);
+        calc.pressClearKey();
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+
+        String expected = "50";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
 }
 
