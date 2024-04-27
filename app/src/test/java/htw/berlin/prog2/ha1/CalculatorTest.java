@@ -110,16 +110,24 @@ class CalculatorTest {
 
 
     @Test
-    @DisplayName("wurzel von negativer zahl") // Test 1
-    void testWurzelVonNegativerZahl() {
+    @DisplayName("Fehler anzeigen wenn mehr als 10 Ziffern eingegeben werden") // Test 1
+    void testMehrAlsZehnzahlen() {
         Calculator calc = new Calculator();
 
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(4);
         calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(6);
         calc.pressDigitKey(7);
-        calc.pressUnaryOperationKey("√"); // hier wird die Wurzel einer negativen Zahl gezogen
+        calc.pressDigitKey(8);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(1); // 11 Zahl eingabe
 
         String expected = "Error";
+
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
@@ -147,7 +155,26 @@ class CalculatorTest {
             String actual = calc.readScreen();
 
             assertEquals(expected, actual);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     }
+
+
 
 
 
