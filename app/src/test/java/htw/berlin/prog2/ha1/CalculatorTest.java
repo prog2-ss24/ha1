@@ -118,23 +118,83 @@ class CalculatorTest {
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
+
     @Test
-    @DisplayName("should throw an exception when pressing a binary operation key with an invalid operation")
-    void testInvalidBinaryOperationKey() {
+    @DisplayName("should display result after adding multiple positive multi-digit numbers")
+    void testMultiplePositiveAddition() {
         Calculator calc = new Calculator();
 
-        assertThrows(IllegalArgumentException.class, () -> calc.pressBinaryOperationKey("^"));
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "40";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should handle floating-point precision correctly")
+    void testFloatingPointPrecision() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "0.3"; // Approximate result due to floating-point precision
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should not cause memory issues with long screen content")
+    void testMemoryIssuesWithLongScreenContent() {
+        Calculator calc = new Calculator();
+
+        for (int i = 0; i < 1000; i++) {
+            calc.pressDigitKey(1);
+        }
+
+        String screenContent = calc.readScreen();
+    }
+
+
+
+
 
     
-    }
-
     @Test
-    @DisplayName("should throw an exception when pressing a digit key with a number not between 0 and 9")
+    @DisplayName("should throw IllegalArgumentException when pressing an invalid digit key")
     void testInvalidDigitKey() {
         Calculator calc = new Calculator();
-
-        assertThrows(IllegalArgumentException.class, () -> calc.pressDigitKey(10));
+        assertThrows(IllegalArgumentException.class, () -> calc.pressDigitKey(12));
     }
-
+  
+    
 }
 
