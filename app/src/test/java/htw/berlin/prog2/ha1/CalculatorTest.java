@@ -91,7 +91,8 @@ class CalculatorTest {
 
     //TODO hier weitere Tests erstellen
 }
-
+git commit -m     "New Green Test Percentage Calculation"
+git log 
 
     @Test
     @DisplayName("should display result after multiplying two numbers with the percentage operation key")
@@ -112,7 +113,9 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 }
-
+git commit -m  "New Red Test Input Validation Error"
+git log
+    
     @Test
     @DisplayName("should ensure screen remains unchanged, when there is an invalid input") 
     void testInputValidationError() {
@@ -128,6 +131,26 @@ class CalculatorTest {
           
         
 }
+       
+git commit -m "Fix for the New Red test Input Validation Error"
+git log    
+
+    
+    public void pressDigitKey(int digit) {
+        if (digit < 0 || digit > 9) {
+         
+            System.out.println("Invalid Input");
+            return; 
+        }
+        
+        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        screen = screen + digit;
+    }
+}
+
+
+git commit -m "New Red Test Round Off Error"
+git log    
 
     @Test
     @DisplayName("should be able to give a rounded result")
@@ -149,22 +172,9 @@ class CalculatorTest {
         assertEquals(expected, actual); 
 }
 
-//Bug fix testInputValidationError
-     
-    public void pressDigitKey(int digit) {
-        if (digit < 0 || digit > 9) {
-         
-            System.out.println("Invalid Input");
-            return; 
-        }
-        
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-        screen = screen + digit;
-    }
-}
 
-
-//Bug fix testRoundOffError
+git commit -m "Fix for the New Red Test Round Off Error"
+git log    
 
 import java.text.DecimalFormat;
 
@@ -182,7 +192,3 @@ import java.text.DecimalFormat;
         screen = df.format(result);
     }
 }
-
-    
-
-
