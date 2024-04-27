@@ -31,10 +31,12 @@ public class Calculator {
     public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-
-
-        screen = screen + digit;
+        if (screen.length() < 10) { // Kontrollieren ob weniger als 10 Ziffern angezeigt werden
+            if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+            screen = screen + digit;
+        } else {
+            screen = "Error"; // Wenn mehr als 10 Ziffern eingegeben werden, zeige "Error" an
+        }
     }
 
     /**
@@ -100,10 +102,12 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if (screen.equals("0") || screen.isEmpty()) {
-            screen = "Error"; // Zeigt "Error", wenn eine Dezimalstelle vor einer Zahl eingegeben wird
-        } else if (!screen.contains(".")) {
-            screen = screen + ".";
+        if (!screen.contains(".")) { // Prüfen, ob bereits ein Dezimaltrennzeichen existiert
+            if (!screen.equals("0") && !screen.isEmpty()) { // Prüfen, ob der Bildschirm nicht leer ist
+                screen = screen + ".";
+            } else {
+                screen = "Error"; // Fehlermeldung, wenn eine Dezimalstelle vor einer Zahl eingegeben wird
+            }
         }
     }
 
