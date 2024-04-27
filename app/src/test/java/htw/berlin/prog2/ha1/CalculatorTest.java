@@ -109,6 +109,32 @@ class CalculatorTest {
 
     }
 
+    @Test
+    @DisplayName("Should display the sum of 2 + 3 + 4")
+    public void testMultipleOperations() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+
+        String expected = "9";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+
+
+
+
+
+
+
 
 
 
