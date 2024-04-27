@@ -111,29 +111,21 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should correctly add numbers with multiple decimal places")
-    void testDecimalAdditionPrecision() {
-        Calculator calc = new Calculator();
+    @DisplayName("Should repeat the previous addition operation multiple times when equals is pressed repeatedly")
+    void testRepeatPreviousOperation() {
+        Calculator calculator = new Calculator();
 
-        // Input: 10.75 + 2.005
-        calc.pressDigitKey(1);
-        calc.pressDigitKey(0);
-        calc.pressDotKey();
-        calc.pressDigitKey(7);
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(2);
-        calc.pressDotKey();
-        calc.pressDigitKey(0);
-        calc.pressDigitKey(0);
-        calc.pressDigitKey(5);
-        calc.pressEqualsKey();
+        calculator.pressDigitKey(7);
+        calculator.pressBinaryOperationKey("+");
+        calculator.pressDigitKey(2);
+        calculator.pressEqualsKey(); // 7 + 2 = 9
+        calculator.pressEqualsKey(); // widederholt Addition: 9 + 2 = 11
 
-        // Expected result should be "12.755" but rounded/displayed as "12.76" if screen limit is 10 characters
-        String expected = "12.76";
-        String actual = calc.readScreen();
+        String expected = "11";
+        String actual = calculator.readScreen();
 
         assertEquals(expected, actual);
     }
+
 }
 
