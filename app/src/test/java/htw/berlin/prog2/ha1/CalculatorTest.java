@@ -126,12 +126,6 @@ class CalculatorTest {
         });
     }
 
-    @Test
-    @DisplayName("")
-    void testAddDigitKeyFornegativeDecimals () {
-        Calculator calc = new Calculator();
-        calc.pressDigitKey(-0.5);
-    }
 
 
 
