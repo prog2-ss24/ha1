@@ -126,7 +126,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Press Clear Taste")
+    @DisplayName("Press Clear Taste muss Zwischenwerte behalten")
     void testPressClear() {
         Calculator calc = new Calculator();
         calc.pressDigitKey(5);
