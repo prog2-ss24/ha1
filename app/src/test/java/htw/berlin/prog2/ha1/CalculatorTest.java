@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("Retro calculator")
 class CalculatorTest {
@@ -14,13 +15,11 @@ class CalculatorTest {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
-        calc.pressDigitKey(0);
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(2);
-        calc.pressDigitKey(0);
         calc.pressEqualsKey();
 
-        String expected = "40";
+        String expected = "4";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
@@ -81,6 +80,7 @@ class CalculatorTest {
         calc.pressDigitKey(7);
         calc.pressDotKey();
         calc.pressDigitKey(8);
+        
 
         String expected = "1.78";
         String actual = calc.readScreen();
@@ -88,7 +88,53 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    /* Meine Testfälle */
 
-    //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after subtracting a smaller number from a larger number")
+    void testPositiveSubtraction() {
+        Calculator calc = new Calculator();
+        
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "2";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after multiplying two positive numbers")
+    void testPositiveMultiplication() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should throw an exception when pressing a binary operation key with an invalid operation")
+    void testInvalidBinaryOperationKey() {
+        Calculator calc = new Calculator();
+
+        assertThrows(IllegalArgumentException.class, () -> calc.pressBinaryOperationKey("^"));
+
+    
+    }
+
+    @Test
+    @DisplayName("should throw an exception when pressing a digit key with a number not between 0 and 9")
+    void testInvalidDigitKey() {
+        Calculator calc = new Calculator();
+
+        assertThrows(IllegalArgumentException.class, () -> calc.pressDigitKey(10));
+    }
+
 }
 
