@@ -87,8 +87,9 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-@Test
-@DisplayName("should subtract one positive number from another")
+
+    @Test
+    @DisplayName("should subtract one positive number from another")
     void testPositiveSubtraction() {
         Calculator calc = new Calculator();
 
@@ -122,6 +123,25 @@ class CalculatorTest {
         String actual = calc.readScreen();
         assertEquals(expected, actual);
 
+    }
+
+    @Test
+    @DisplayName("Press Clear Taste")
+    void testPressClear() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(5);
+        calc.pressClearKey();
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+
+        String expected = "50";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
     }
 }
 
