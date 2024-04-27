@@ -88,7 +88,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    @Test 4
+    @Test 
     void testDecimalPoint() {
         Calculator calc = new Calculator();
 
