@@ -50,19 +50,37 @@ public class Calculator {
         latestValue = 0.0;
     }
 
+
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
      * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen.
      * Beim ersten Drücken der Taste wird der Bildschirminhalt nicht verändert, sondern nur der
      * Rechner in den passenden Operationsmodus versetzt.
-     * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
-     * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * Falls bereits eine Operation aktiv ist, berechnet diese Methode zuerst das Ergebnis der vorherigen
+     * Operation mit dem aktuellen Bildschirminhalt und aktualisiert den Bildschirm mit diesem Ergebnis,
+     * bevor sie den Rechner für die neue Operation vorbereitet.
+     * Ungültige Operationen lösen eine IllegalArgumentException aus.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
+     * @throws IllegalArgumentException wenn eine ungültige Operation übergeben wird.
      */
     public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);
+        if (!latestOperation.isEmpty()) {   // überprüft ob Operation in 'latestOperation' gespeichert ist.
+            double currentValue = Double.parseDouble(screen); // Inhalt von screen wird in 'currentValue' gespeichert
+            latestValue = switch (latestOperation) { // Berechnung basierend auf 'latestOperation'. Ergebnis in 'latestValue' gespeichert
+                case "+" -> latestValue + currentValue;
+                case "-" -> latestValue - currentValue;
+                case "x" -> latestValue * currentValue;
+                case "/" -> latestValue / currentValue;
+                default -> throw new IllegalArgumentException(); // Ungültige Operation
+            };
+
+            screen = String.valueOf(latestValue);
+        }
+
+        latestValue = Double.parseDouble(screen); // 'latestValue' enthält aktuellen Wert vor der nächsten Operation
         latestOperation = operation;
     }
+
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
@@ -108,15 +126,18 @@ public class Calculator {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
     }
 
+
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.
      * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
      * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
-     * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
-     * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
-     * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
-     * und das Ergebnis direkt angezeigt.
+     * Ergebnis der Operation berechnet und angezeigt. Falls das Ergebnis unendlich ist (z.B. durch eine Division durch Null),
+     * wird "Error" angezeigt.
+     * Das Ergebnis wird anschließend formatiert, um überflüssige Dezimalstellen zu entfernen und eine korrekte Anzeige zu gewährleisten.
+     * Überflüssige Nullen am Ende und übermäßig lange Dezimalzahlen werden aus der Anzeige entfernt, um die Klarheit zu maximieren.
      */
+
+
     public void pressEqualsKey() {
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
@@ -125,9 +146,17 @@ public class Calculator {
             case "/" -> latestValue / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
-        screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
+
+        if (Double.isInfinite(result)) {  // überprüft ob Ergebnis unendlich ist
+            screen = "Error";
+        } else {
+            screen = new java.text.DecimalFormat("#.##########").format(result); // Formatierung (keine Nullen nach Dezimal)
+        }
+
+        //screen = Double.toString(result); // Stattdessen Formatierung
+        //if(screen.equals("Infinity")) screen = "Error"; // nach oben verschoben
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
 }
