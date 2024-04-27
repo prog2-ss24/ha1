@@ -110,6 +110,21 @@ class CalculatorTest {
 
     }
 
+    @Test
+    @DisplayName("should display entered number")
+    void testEquateANumber(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+        String expected = "937";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 
 
 
