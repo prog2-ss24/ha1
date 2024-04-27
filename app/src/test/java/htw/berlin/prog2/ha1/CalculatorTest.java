@@ -1,7 +1,10 @@
 package htw.berlin.prog2.ha1;
 
 import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.MethodOrderer;
 import org.junit.jupiter.api.Test;
+
+import java.util.Queue;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
@@ -89,6 +92,25 @@ class CalculatorTest {
     }
 
 
-    //TODO hier weitere Tests erstellen
-}
 
+    //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("schuld clear the Screen")
+    void testClearScreen() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(1);
+        calc.pressClearKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+
+
+
+
+}
