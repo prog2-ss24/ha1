@@ -122,6 +122,24 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display 0 after pressing enter multiple times")
+    void testPressingEnterMultipleTimes() {
+
+        Calculator calc = new Calculator();
+
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
 
     //TODO hier weitere Tests erstellen
 }
