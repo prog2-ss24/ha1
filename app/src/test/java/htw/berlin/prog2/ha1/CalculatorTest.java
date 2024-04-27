@@ -125,6 +125,24 @@ class CalculatorTest {
         
         assertEquals(expected, actual);
     }
-    
+
+    @Test
+    @DisplayName("should repeat last operation on continuous equals presses")
+    void testNewNumberAfterResult() {
+        Calculator calc = new Calculator();
+        
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        calc.pressDigitKey(3); 
+        calc.pressEqualsKey();
+        
+        String expected = "6";  
+        String actual = calc.readScreen();
+        
+        assertEquals(expected, actual);
+    }
+
 }
 
