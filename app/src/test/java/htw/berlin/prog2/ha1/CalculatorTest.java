@@ -125,6 +125,18 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("\"should display error when inversion by zero\"")
+    void testUnaryOperationKeyWith0() {
+        Calculator calc = new Calculator();
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 
 
 
