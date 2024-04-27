@@ -88,7 +88,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    @Test 
+    @Test
     void testDecimalPoint() {
         Calculator calc = new Calculator();
 
@@ -96,7 +96,7 @@ class CalculatorTest {
         calc.pressDotKey();
         calc.pressDigitKey(3);
 
-        String expected = "53.7";
+        String expected = "5.3";
         String actual = calc.readScreen(); // Aktuellen Bildschirminhalt des Taschenrechners lesen
 
         assertEquals(expected, actual); // Überprüfen, ob der aktuelle Bildschirminhalt "53.7" entspricht
