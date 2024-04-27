@@ -89,7 +89,8 @@ class CalculatorTest {
     }
 
 
-    //TODO hier weitere Tests erstellen
+    // hier weitere Tests erstellen
+
 @Test
 @DisplayName("Perioden Stellenwert < 10)")
 void testStellenwerteunter10(){
@@ -148,11 +149,40 @@ void trippleoperation(){
     calc.pressEqualsKey();
     String expected = "6";
     String actual = calc.readScreen();
-    assertEquals(expected, actual);
+                assertEquals(expected, actual);
+    }
+
+@Test @DisplayName("Addition von negativen Zahlen")
+void sumOfNegativIntegers(){
+    Calculator calc = new Calculator();
+        calc.pressBinaryOperationKey("-");
+    calc.pressDigitKey(1);
+    calc.pressBinaryOperationKey("+");
+    calc.pressDigitKey(4);
+    calc.pressEqualsKey();
+String expected= "3";
+String actual = calc.readScreen();
+assertEquals(expected, actual);
+}
+
+@Test
+@DisplayName("Addieren von negativem Wert")
+void additionOfNegativInt(){
+    Calculator calc = new Calculator(); 
+    calc.pressBinaryOperationKey("-");
+calc.pressDigitKey(2);
+calc.pressBinaryOperationKey("+");
+calc.pressDigitKey(5);
+calc.pressEqualsKey();
+String expectedString= "3";
+String actual = calc.readScreen();
+assertEquals(expected, actual);
+
 
 }
-}
 
+    }
 
+        
 
 

@@ -108,7 +108,7 @@ package htw.berlin.prog2.ha1;
     }
 
     /**
-     * Empfängt den Befehl der gedrückten "="-Taste.
+ * Empfängt den Befehl der gedrückten "="-Taste.
      * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
      * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
      * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
