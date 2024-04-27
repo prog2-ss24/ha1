@@ -114,7 +114,35 @@ class CalculatorTest {
 
 }
 
-    
+     @Test
+    @DisplayName("should ensure screen remains unchanged, when there is an invalid input") 
+    void testInputValidationError() {
+       
+        Calculator calculator = new Calculator();
+
+        try {
+            calculator.pressDigitKey('A');
+            fail("Expected IllegalArgumentException was not thrown");
+        } catch (IllegalArgumentException e) {
+            assertEquals("0", calculator.readScreen()); 
+            assertEquals(expected, actual);
+          
+        
+}
+       
+
+    public void pressDigitKey(int digit) {
+        if (digit < 0 || digit > 9) {
+         
+            System.out.println("Invalid Input");
+            return; 
+        }
+        
+        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        screen = screen + digit;
+    }
+
+}
 
 
  
