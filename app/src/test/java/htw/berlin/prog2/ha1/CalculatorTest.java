@@ -89,17 +89,19 @@ class CalculatorTest {
     }
 
     @Test
-    void testDecimalPoint() {
+    @DisplayName("should display result after multiplying two numbers")
+    void testMultiplication() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(5);
-        calc.pressDotKey();
         calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
 
-        String expected = "5.3";
-        String actual = calc.readScreen(); // Aktuellen Bildschirminhalt des Taschenrechners lesen
+        String expected = "12";
+        String actual = calc.readScreen();
 
-        assertEquals(expected, actual); // Überprüfen, ob der aktuelle Bildschirminhalt "5.3" entspricht
+        assertEquals(expected, actual);
     }
 
     //TODO hier weitere Tests erstellen
