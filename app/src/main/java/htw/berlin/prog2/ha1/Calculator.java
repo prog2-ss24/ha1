@@ -123,7 +123,7 @@ public class Calculator {
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
-            default -> Double.parseDouble(screen);
+            default -> Double.parseDouble(screen); //screen Argument an Methode übergeben
         };
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
