@@ -102,9 +102,11 @@ package htw.berlin.prog2.ha1;
      * aktualisiert und die Inhalt fortan als negativ interpretiert.
      * Zeigt der Bildschirm bereits einen negativen Wert mit führendem Minus an, dann wird dieses
      * entfernt und der Inhalt fortan als positiv interpretiert.
+     * Wenn dies negativem Wertes über den BinaryOperationKey erfolgt, wird dies ebenfalls berücksichtigt
      */
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+        latestOperation = "-";
     }
 
     /**
