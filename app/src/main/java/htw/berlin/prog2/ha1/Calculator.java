@@ -33,6 +33,7 @@ public class Calculator {
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
+
         screen = screen + digit;
     }
 
@@ -72,7 +73,9 @@ public class Calculator {
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
      * Quadratwurzel, Prozent, Inversion, welche nur einen Operanden benötigen.
      * Beim Drücken der Taste wird direkt die Operation auf den aktuellen Zahlenwert angewendet und
-     * der Bildschirminhalt mit dem Ergebnis aktualisiert.
+     * der Bildschirminhalt mit dem Ergebnis aktualisiert. Wenn die Zahl negativ ist, die
+     *  Quadratwurzel, wird eine Fehlermeldung
+     *  („Error“) angezeigt.
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
@@ -90,6 +93,7 @@ public class Calculator {
             screen = Double.toString(result);
             if (screen.equals("NaN")) screen = "Error";
             if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
         }
 
     }
@@ -101,10 +105,11 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if (screen.equals("0")) {
-            screen = "0.";
+        if (screen.equals("0") || screen.isEmpty()) {
+            screen = "Error"; // Zeigt "Error", wenn eine Dezimalstelle vor einer Zahl eingegeben wird
+        } else if (!screen.contains(".")) {
+            screen = screen + ".";
         }
-        else if(!screen.contains(".")) screen = screen + ".";
     }
 
     /**
@@ -140,4 +145,14 @@ public class Calculator {
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
+
+
+
+
+
+
+
+
 }
+
