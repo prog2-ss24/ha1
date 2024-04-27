@@ -118,16 +118,31 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        // Überprüfe, ob der Bildschirminhalt leer ist oder mit der letzten Operation endet
+        if (screen.isEmpty() || screen.endsWith(latestOperation)) {
+            // Wenn ja, setze den Bildschirminhalt auf die letzte Operation und beende die Methode
+            screen = latestOperation;
+            return;
+        }
+
+        double endResult = Double.parseDouble(screen); // Initiales Ergebnis ist die aktuelle Zahl
         var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+            case "+" -> latestValue + endResult;
+            case "-" -> latestValue - endResult;
+            case "x" -> latestValue * endResult;
+            case "/" -> latestValue / endResult;
+            case " " -> latestValue;
             default -> throw new IllegalArgumentException();
         };
+        // Aktualisiere die vorherige Zahl und Operation für die nächste Berechnung
+        latestValue = endResult;
+        // Leere den Bildschirm und setze ihn auf das Endergebnis
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        //if(screen.isEmpty() || screen.endsWith(latestOperation)) screen = latestOperation;
+        // Überprüfe, ob der Bildschirminhalt leer ist oder mit der letzten Operation endet
+        // Wenn ja, setze den Bildschirminhalt auf die letzte Operation und beende die Methode
     }
 }
