@@ -104,6 +104,44 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+// Teilaufgabe 2.1
+@Test
+@DisplayName("should display error when getting square root of a negative number")
+void testSquareRootOfNegativeNumber() {
+    Calculator calc = new Calculator();
+
+    calc.pressDigitKey(9);
+    calc.pressBinaryOperationKey("-");
+    calc.pressDigitKey(1);
+    calc.pressDigitKey(0);
+    calc.pressUnaryOperationKey("√");
+
+    String expected = "Error";
+    String actual = calc.readScreen();
+
+    assertEquals(expected, actual);
+}
+
+
+    // Teiaufgabe 2.2
+
+    @Test
+    @DisplayName("should display error when dividing by zero")
+    void testDivisionByZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
     //TODO hier weitere Tests erstellen
 
 }
