@@ -1,5 +1,9 @@
 package htw.berlin.prog2.ha1;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+
+
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
@@ -109,25 +113,67 @@ public class Calculator {
     }
 
     /**
-     * Empfängt den Befehl der gedrückten "="-Taste.
-     * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
-     * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
-     * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
-     * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
-     * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
-     * und das Ergebnis direkt angezeigt.
+     * Verarbeitet die "=" Taste des Taschenrechners.
+     * Diese Methode versucht, die zuvor eingestellte binäre Operatoraktion auszuführen, wenn die "=" Taste gedrückt wird. Wenn zuvor kein Operator ausgewählt wurde, erfolgt keine Aktion.
+     * Wenn zwei Operanden eingegeben wurden und ein gültiger Operator ausgewählt wurde, wird das Ergebnis berechnet und angezeigt:
+     * - Für Addition, Subtraktion und Multiplikation wird die Berechnung direkt ausgeführt.
+     * - Bei der Division, wenn der Nenner null ist, wird "Error" angezeigt.
+     * Wenn die "=" Taste erneut gedrückt wird, wird die letzte Operation mit dem aktuellen Anzeigeergebnis und dem vorherigen Operator wiederholt.
+     * Das Ergebnis wird mit BigDecimal berechnet, um hohe Genauigkeit zu gewährleisten, und vor der Anzeige wird es als String formatiert, der maximal zwei Dezimalstellen hat. Wenn die Länge des Ergebnisstrings mehr als 10 Zeichen beträgt, wird sie auf die ersten 10 Zeichen gekürzt.
+     * Hinweis: Wenn während der Berechnung Fehler wie Division durch Null auftreten, wird eine Fehlermeldung angezeigt und es kann eine IllegalArgumentException oder ArithmeticException ausgelöst werden.
+     *
+     * @throws IllegalArgumentException wenn die durchgeführte Operation ungültig ist
+     * @throws ArithmeticException wenn das Ergebnis nicht genau in eine Ganzzahl umgewandelt werden kann
      */
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if (latestOperation.isEmpty()) {
+            return; // Wenn keine Operatoren vorhanden sind, wird direkt zurückgegeben
+        }
+
+        BigDecimal result;
+        boolean isDecimalOperation = screen.contains(".") || String.valueOf(latestValue).contains(".");
+
+        BigDecimal currentScreenValue = new BigDecimal(screen);
+        BigDecimal latestBigDecimalValue = new BigDecimal(String.valueOf(latestValue));
+
+        switch (latestOperation) {
+            case "+":
+                result = latestBigDecimalValue.add(currentScreenValue);
+                break;
+            case "-":
+                result = latestBigDecimalValue.subtract(currentScreenValue);
+                break;
+            case "x":
+                result = latestBigDecimalValue.multiply(currentScreenValue);
+                break;
+            case "/":
+                if (currentScreenValue.compareTo(BigDecimal.ZERO) == 0) {
+                    screen = "Error";
+                    return;
+                }
+                result = latestBigDecimalValue.divide(currentScreenValue, 10, RoundingMode.HALF_UP);
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid operation");
+        }
+
+        if (isDecimalOperation) {
+            // Umgang mit Ergebnissen von Operationen mit Dezimalzahlen
+            screen = result.stripTrailingZeros().toPlainString();
+        } else {
+            // Keine Dezimalstellen, möglichst als ganze Zahl anzeigen
+            try {
+                screen = result.toBigIntegerExact().toString();
+            } catch (ArithmeticException e) {
+                // Wenn eine exakte Umwandlung in eine ganze Zahl nicht möglich ist (z. B. weil das Ergebnis eine Dezimalzahl ist), werden zwei Dezimalstellen reserviert.
+                screen = result.setScale(2, RoundingMode.HALF_UP).stripTrailingZeros().toPlainString();
+            }
+        }
+
+        if (screen.length() > 10) {
+            screen = screen.substring(0, 10); // Kontrolle der Ausgabelänge
+        }
+
+        latestValue = new BigDecimal(screen).doubleValue(); // Aktualisieren Sie den letzten Wert für nachfolgende Operationen
     }
 }
