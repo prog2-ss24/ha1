@@ -91,7 +91,7 @@ class CalculatorTest {
     //TODO hier weitere Tests erstellen
 
     @Test
-    @DisplayName("Should change screen value to a positive one under the condition that this value was negative before")
+    @DisplayName("Digit entered should be converted to a negative one")
     void testConversionFromNegativeToPositive() {
         Calculator calc = new Calculator();
         calc.pressBinaryOperationKey("-");
@@ -102,6 +102,16 @@ class CalculatorTest {
         String expected = "-1";
         String actual = calc.readScreen();
         assertEquals(expected, actual);
+
+    }
+
+    @Test
+    @DisplayName("Values should be deleted from the calculator")
+    void testMethodForClearingValues {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(1);
+        calc.pressDigitKey("+");
+
 
     }
 
