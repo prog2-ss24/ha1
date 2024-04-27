@@ -1,5 +1,5 @@
-package htw.berlin.prog2.ha1;
 
+package htw.berlin.prog2.ha1;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
@@ -90,5 +90,115 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after multiplying two multi-digit numbers")
+    void testMultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "100";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+
+    }
+
+    @Test
+    @DisplayName("should display result after pressing clear key once")
+    void testPressClearKeyOnce() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressClearKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after pressing negative key")
+    void testPressNegativeKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    @DisplayName("should apply the last operation again when equals key is pressed twice")
+    void testPressEqualsKeyTwice() {
+
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        String expected = "8";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+
+
+
+
+    @Test
+    @DisplayName("should display after pressing the digit eleven times in a row")
+    void testMaxScreenDigits() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(9);
+
+        String expected= "999999999";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
+
+    }
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

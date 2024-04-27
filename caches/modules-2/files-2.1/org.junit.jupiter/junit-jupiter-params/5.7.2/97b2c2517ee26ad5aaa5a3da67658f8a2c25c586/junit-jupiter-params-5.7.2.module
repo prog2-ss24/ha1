@@ -1,0 +1,180 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "org.junit.jupiter",
+    "module": "junit-jupiter-params",
+    "version": "5.7.2",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "6.6.1",
+      "buildId": "35iyuwddf5g55cwvesotxnri5i"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.junit",
+          "module": "junit-bom",
+          "version": {
+            "requires": "5.7.2"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          },
+          "endorseStrictVersions": true
+        },
+        {
+          "group": "org.apiguardian",
+          "module": "apiguardian-api",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "org.junit.jupiter",
+          "module": "junit-jupiter-api",
+          "version": {
+            "requires": "5.7.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "junit-jupiter-params-5.7.2.jar",
+          "url": "junit-jupiter-params-5.7.2.jar",
+          "size": 567349,
+          "sha512": "b60e3cbb7bf480d5b8dc33f3fa103757837bd9c72aa83a96643e2d1b5d913b33c6c5b3dc356fc1c5f5d629862fb1186744fda6ce0591c3170e5802039889a1cf",
+          "sha256": "17569f7da0ce2ebeab875aa8aa79c0f2c42433ea208291e73fc1a3c9d6143115",
+          "sha1": "685f832f8c54dd40100f646d61aca88ed9545421",
+          "md5": "6c31102f6893841654d2f2e4e3cf7f49"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.localToProject": "public",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.junit",
+          "module": "junit-bom",
+          "version": {
+            "requires": "5.7.2"
+          },
+          "attributes": {
+            "org.gradle.category": "platform"
+          },
+          "endorseStrictVersions": true
+        },
+        {
+          "group": "org.apiguardian",
+          "module": "apiguardian-api",
+          "version": {
+            "requires": "1.1.0"
+          }
+        },
+        {
+          "group": "org.junit.jupiter",
+          "module": "junit-jupiter-api",
+          "version": {
+            "requires": "5.7.2"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "junit-jupiter-params-5.7.2.jar",
+          "url": "junit-jupiter-params-5.7.2.jar",
+          "size": 567349,
+          "sha512": "b60e3cbb7bf480d5b8dc33f3fa103757837bd9c72aa83a96643e2d1b5d913b33c6c5b3dc356fc1c5f5d629862fb1186744fda6ce0591c3170e5802039889a1cf",
+          "sha256": "17569f7da0ce2ebeab875aa8aa79c0f2c42433ea208291e73fc1a3c9d6143115",
+          "sha1": "685f832f8c54dd40100f646d61aca88ed9545421",
+          "md5": "6c31102f6893841654d2f2e4e3cf7f49"
+        }
+      ]
+    },
+    {
+      "name": "javadocElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "junit-jupiter-params-5.7.2-javadoc.jar",
+          "url": "junit-jupiter-params-5.7.2-javadoc.jar",
+          "size": 585116,
+          "sha512": "0eaa2b15d0a9b641c8e37044e52cf7a831d4ad3ddef3bf48dacf215bcb0adbe0a6529f68f8235cff88fa03714796017f2e2976c7676744b087b15048d5bd0e97",
+          "sha256": "4f52df70b226a677736510451c0388a3e8b0007fc4c89355fcd9cee6f5a67e86",
+          "sha1": "904045057b35aef2c896825107ec8bc842f692a9",
+          "md5": "34257cf3a1347b6f052f0e99c457479a"
+        }
+      ]
+    },
+    {
+      "name": "sourcesElements",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "junit-jupiter-params-5.7.2-sources.jar",
+          "url": "junit-jupiter-params-5.7.2-sources.jar",
+          "size": 66434,
+          "sha512": "8922389805aaeb32a58c3324ab053245e3e8ff23d7cae37547518ed292fa99137a9ef76c6a22a42b0d26940b60c2cbd3626d654568656f3094f663f9f21faff8",
+          "sha256": "0c4045014ac272efb4eef9d4e6b9e1c6c2dc1c18a97d95307790a803b045151a",
+          "sha1": "45d7318c86fa4c826fab267fadc0839d40267da2",
+          "md5": "d41aba10d7a3fa22dd13ad0c1a5fd2dc"
+        }
+      ]
+    },
+    {
+      "name": "shadowRuntimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "embedded",
+        "org.gradle.jvm.version": 8,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "junit-jupiter-params-5.7.2-all.jar",
+          "url": "junit-jupiter-params-5.7.2-all.jar",
+          "size": 567349,
+          "sha512": "b60e3cbb7bf480d5b8dc33f3fa103757837bd9c72aa83a96643e2d1b5d913b33c6c5b3dc356fc1c5f5d629862fb1186744fda6ce0591c3170e5802039889a1cf",
+          "sha256": "17569f7da0ce2ebeab875aa8aa79c0f2c42433ea208291e73fc1a3c9d6143115",
+          "sha1": "685f832f8c54dd40100f646d61aca88ed9545421",
+          "md5": "6c31102f6893841654d2f2e4e3cf7f49"
+        }
+      ]
+    }
+  ]
+}

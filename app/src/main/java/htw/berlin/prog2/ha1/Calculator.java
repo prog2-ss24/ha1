@@ -14,6 +14,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
+
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -29,11 +31,13 @@ public class Calculator {
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
-        if(digit > 9 || digit < 0) throw new IllegalArgumentException();
+        if (digit > 9 || digit < 0) throw new IllegalArgumentException();
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        if (screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
-        screen = screen + digit;
+        if (screen.length() < 9) { // Maximal 9 Ziffern
+            screen = screen + digit;
+        }
     }
 
     /**
@@ -48,6 +52,7 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+
     }
 
     /**
@@ -113,21 +118,41 @@ public class Calculator {
      * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
      * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
      * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+
+
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+        if (latestOperation.isEmpty()) {
+
+            return;
+        }
+
+        double currentScreenValue = Double.parseDouble(screen);
+        double result = switch (latestOperation) {
+            case "+" -> latestValue + currentScreenValue;
+            case "-" -> latestValue - currentScreenValue;
+            case "x" -> latestValue * currentScreenValue;
+            case "/" -> latestValue / currentScreenValue;
             default -> throw new IllegalArgumentException();
         };
-        screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+        if (Double.isInfinite(result)) {
+            screen = "Error";
+        } else {
+            screen = Double.toString(result);
+            if (screen.endsWith(".0")) {
+                screen = screen.substring(0, screen.length() - 2);
+            }
+            if (screen.contains(".") && screen.length() > 11) {
+                screen = screen.substring(0, 10);
+            }
+        }
+
+        latestValue = currentScreenValue;
     }
+
 }
+
