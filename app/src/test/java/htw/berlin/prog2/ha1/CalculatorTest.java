@@ -92,7 +92,7 @@ class CalculatorTest {
     //TODO hier weitere Tests erstellen
 
     @Test
-    @DisplayName("should display result after multiplying a decimal number by a multi-digit number")
+    @DisplayName("should display result after multiplying a decimal number by a multi-digit number.")
     void testMultiplicationOfDecimalNumbers(){
         Calculator calc = new Calculator();
         calc.pressDigitKey(3);
