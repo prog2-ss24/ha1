@@ -156,12 +156,13 @@ class CalculatorTest {
         calc.pressDigitKey(2);
         calc.pressEqualsKey();
 
-        
+
         String expected = "-18";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
+
 
 }
 
