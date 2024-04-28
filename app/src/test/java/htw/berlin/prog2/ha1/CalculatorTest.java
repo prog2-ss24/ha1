@@ -106,6 +106,77 @@ class CalculatorTest {
     }
 
 
+    @Test
+    @DisplayName("should display the result of a number devided by 100")
+    void testPercentage() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressUnaryOperationKey("%");
+        String expected = "0.02";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
     
-}
+    @Test
+    @DisplayName("should display the result of subtracting three multi-digit numbers")
+    void testNegativeSubtraction() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        String expected = "-20";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    @DisplayName("should follow the Order of operations")
+    void testOrderofOperations() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+        String expected = "30";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+
+    
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
