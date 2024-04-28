@@ -90,5 +90,73 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-}
+    //Teilaufgabe 1:Testet eine bisher ungetestete, aber funktionierende Funktionalität des Taschenrechners.
 
+    @Test
+    @DisplayName("sollte den Kehrwert einer Zahl ungleich Null anzeigen")
+    void testKehrwert() {
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(5);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "0.2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    //Teilaufgabe 2: Schreiben Sie zwei weitere zusätzliche Tests, die zwei unterschiedliche Fehlerkategorien aufdecken (d.h. deren Fehlerursachen in unterschiedlichen Methoden liegen) und somit fehlschlagen.
+    @Test
+    @DisplayName("Drücken ClearKey gefolgt von der Gleich-Taste sollte Ergebnis eine Null anzeigen, was jedoch nicht der Fall ist.") // will fail
+    void pressClear() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(1); // Ändere von 10 auf 1, da 10 ungültig ist.
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(5);
+        calc.pressClearKey();
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    @DisplayName("Beim Versuch,null umzukehren, sollte ein Fehler angezeigt werden")
+    void testInversionOfZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("Beim Berechnen der Quadratwurzel einer negativen Zahl sollte ein Fehler erscheinen.")
+    void testSquareRootAfterNegativeResult() {
+        Calculator calc = new Calculator();
+
+        // Negative Zahl erzeugen durch eine einfache Subtraktion
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey(); // Ergebnis ist -2
+
+        // Versuch, die Quadratwurzel des negativen Ergebnisses zu ziehen
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual); // Erwartet wird, dass "Error" angezeigt wird
+    }
+
+
+}
