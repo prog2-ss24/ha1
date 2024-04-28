@@ -112,6 +112,7 @@ class CalculatorTest {
     }
     /**
      *  Teilaufgabe2 (RoteTest)Testet die Funktionalität der Calculator-Klasse für die Division durch Null.
+     *  Durch if(screen.equals("Infinity")) screen = "Error"; habe ich die code fixert
      */
     @Test
     @DisplayName("should display result after division by zero")
@@ -129,6 +130,7 @@ class CalculatorTest {
 
     /**
      * Teilaufgabe2 (RoteTest) Testet die Funktionalität des Calculators für die Quadratwurzel einer positiven mehrstelligen Zahl.
+     * durch if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2); habe ich die code fixert
      */
     @Test
     @DisplayName("should display result after taking the square root of a positive multi-digit number")
@@ -144,5 +146,6 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
 }
 
