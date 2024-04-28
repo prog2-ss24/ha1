@@ -139,6 +139,39 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-    //Teilaufgabe 3
-    
+
+    @DisplayName("Retro calculator")
+    class CalculatorTest1 {
+
+        //Teilaufgabe 3: Bugfix für Testfall 1 (Division durch Null)
+        @Test
+        @DisplayName("should display error when dividing by zero")
+        void testDivisionZero() {
+            Calculator calc = new Calculator();
+
+            calc.pressDigitKey(7);
+            calc.pressBinaryOperationKey("/");
+            calc.pressDigitKey(0);
+            calc.pressEqualsKey();
+
+            String expected = "Error";
+            String actual = calc.readScreen();
+
+            assertEquals(expected, actual);
+        }
+    }
+    @Test
+    @DisplayName("should display error when drawing the square root of a negative number")
+    void testSquareRootNegative1() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressNegativeKey();
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
