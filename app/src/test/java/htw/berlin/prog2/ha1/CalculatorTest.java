@@ -57,7 +57,6 @@ class CalculatorTest {
     }
 
     @Test
-    /testtesttesttest
     @DisplayName("should display error when drawing the square root of a negative number")
     void testSquareRootOfNegative() {
         Calculator calc = new Calculator();
@@ -89,6 +88,19 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display result after inverting a number")
+    void testInvertingANumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "0.25";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
     //TODO hier weitere Tests erstellen
 }
