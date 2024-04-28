@@ -11,8 +11,10 @@ public class Calculator {
     private String screen = "0";
 
     private double latestValue;
-
+    private double lastOperand;
     private String latestOperation = "";
+
+
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -52,18 +54,23 @@ public class Calculator {
 
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
-     * Addition, Substraktion, Division, oder Multiplikation, welche zwei Operanden benötigen.
+     * Addition, Subtraktion, Division oder Multiplikation, welche zwei Operanden benötigen.
      * Beim ersten Drücken der Taste wird der Bildschirminhalt nicht verändert, sondern nur der
      * Rechner in den passenden Operationsmodus versetzt.
-     * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
+     * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt das aktuelle Zwischenergebnis
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
-     * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
+     * Wenn bereits eine vorherige Operation ausstehend ist, wird diese zuerst abgeschlossen, bevor
+     * die neue Operation angewendet wird.
+     *
+     * @param operation "+" für Addition, "-" für Subtraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
+    public void pressBinaryOperationKey(String operation) {
+        if (!latestOperation.isEmpty()) {
+            pressEqualsKey();
+        }
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
-
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
      * Quadratwurzel, Prozent, Inversion, welche nur einen Operanden benötigen.
@@ -118,11 +125,12 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        lastOperand = Double.parseDouble(screen);
         var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+            case "+" -> latestValue + lastOperand;
+            case "-" -> latestValue - lastOperand;
+            case "x" -> latestValue * lastOperand;
+            case "/" -> latestValue / lastOperand;
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
@@ -130,4 +138,4 @@ public class Calculator {
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
-}
+    }
