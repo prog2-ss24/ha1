@@ -101,5 +101,36 @@ class CalculatorTest {
         calc.pressEqualsKey();
         assertEquals("3", calc.readScreen());
     }
+
+    @Test
+    @DisplayName("should calculate numbers big numbers")
+    void test(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(100);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(300);
+        calc.pressEqualsKey();
+
+        String expected = "400";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should calculate with multiple numbers")
+    void calculatorCanDoMultipleCalculations() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        assertEquals("4.4", calc.readScreen());
+    }
 }
 
