@@ -132,9 +132,9 @@ public class Calculator {
             case "/" -> latestValue / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
-        screen = Double.toString(result);
+        screen = Float.toString((float)result);
         if(screen.equals("Infinity")) screen = "Error";
-        if(result < 1e9) { screen = String.valueOf((long) result);};
+        if(result >= 1e8 && result <= 1e9) { screen = String.valueOf((int) Math.ceil(result));}
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
