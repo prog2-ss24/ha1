@@ -14,6 +14,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    private boolean calculationFinished = false;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -98,7 +100,12 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen + ".";        
+        if (calculationFinished) {
+            screen = "0.";
+            calculationFinished = false; // Zurücksetzen des Zustands
+        } else if (!screen.contains(".")) {
+            screen = screen + ".";
+        }
     }
 
     /**
@@ -130,6 +137,7 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        calculationFinished = true;
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);

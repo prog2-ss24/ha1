@@ -129,9 +129,9 @@ class CalculatorTest {
         Calculator calc = new Calculator();
     
         calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("^"); // Versucht, eine nicht unterstützte Operation durchzuführen
+        calc.pressBinaryOperationKey("^");
     
-        String expected = "Error"; // Erwartet: "Error", da "^" keine unterstützte Operation ist
+        String expected = "Error";
         String actual = calc.readScreen();
     
         assertEquals(expected, actual);
