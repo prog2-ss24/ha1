@@ -2,6 +2,7 @@ package htw.berlin.prog2.ha1;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.platform.commons.util.ClassUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;  //compares if exactly and really equal
 
@@ -202,6 +203,20 @@ class CalculatorTest {
     String actual = calc.readScreen();
     assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("check if can enter double digit nr")  //fails as it should
+    void doubleNR (){
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(13);
+    calc.pressBinaryOperationKey("+");
+    calc.pressDigitKey(1);
+    calc.pressEqualsKey();
+
+    String expected = "14";
+    String actual = calc.readScreen();
+    assertEquals(expected, actual);
+}
 
 }
 
