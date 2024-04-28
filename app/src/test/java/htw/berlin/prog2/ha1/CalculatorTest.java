@@ -173,7 +173,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("Should display error when 1/x is used with 0")
-    void test() {
+    void testDisplayError() {
         Calculator calc = new Calculator();
 
         calc.pressUnaryOperationKey("1/x");
