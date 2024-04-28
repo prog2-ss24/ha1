@@ -48,6 +48,11 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+        if (latestOperation.isEmpty()) {
+            screen = "0";
+        } else {
+
+        }
     }
 
     /**
@@ -77,11 +82,13 @@ public class Calculator {
         var result = switch(operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
             case "%" -> Double.parseDouble(screen) / 100;
-            case "1/x" -> 1 / Double.parseDouble(screen);
+//          case "1/x" -> 1 / Double.parseDouble(screen);
+            case "1/x" -> latestValue == 0 ? Double.POSITIVE_INFINITY : 1 / latestValue; // Verhindere Division durch Null
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
-        if(screen.equals("NaN")) screen = "Error";
+        //if(screen.equals("NaN")) screen = "Error";
+        if(screen.equals("NaN") || screen.equals("Infinity")) screen = "Error"; // Erweitere die Bedingung um "Infinity"
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
     }

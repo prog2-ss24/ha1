@@ -106,4 +106,37 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    //Teilaufgabe 2: Schreiben Sie zwei weitere zusätzliche Tests, die zwei unterschiedliche Fehlerkategorien aufdecken (d.h. deren Fehlerursachen in unterschiedlichen Methoden liegen) und somit fehlschlagen.
+    @Test
+    @DisplayName("Drücken ClearKey gefolgt von der Gleich-Taste sollte Ergebnis eine Null anzeigen, was jedoch nicht der Fall ist.") // will fail
+    void pressClear() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(10);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(5);
+        calc.pressClearKey();
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
     }
+
+    @Test
+    @DisplayName("Beim Versuch,null umzukehren, sollte ein Fehler angezeigt werden")
+    void testInversionOfZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+}
