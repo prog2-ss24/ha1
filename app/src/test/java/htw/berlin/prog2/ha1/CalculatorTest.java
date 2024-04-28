@@ -88,7 +88,75 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test //Test: Multiplikation 7x9=63
+    @DisplayName("should display result after multiplying two positive numbers")
+    void testPositiveMultiplication() {
+        Calculator calc = new Calculator();
 
-    //TODO hier weitere Tests erstellen
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(9);
+        calc.pressEqualsKey();
+
+        String expected = "63";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    //@Test //Punkt vor Strich Bug
+    //@DisplayName("should do multiplication and division first, then addition and subtraction")
+    //void testMathRule() {
+        //Calculator calc = new Calculator();
+
+        //calc.pressDigitKey(5);
+        //calc.pressBinaryOperationKey("+");
+        //calc.pressDigitKey(3);
+        //calc.pressBinaryOperationKey("x");
+        //calc.pressDigitKey(4);
+        //calc.pressEqualsKey();
+
+        //String expected = "17";
+        //String actual = calc.readScreen();
+
+        //assertEquals(expected, actual);
+    //}
+
+    @Test //test 9 equals 9
+    @DisplayName("should show that a number is equal the same number")
+    void testEqualNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressEqualsKey();
+
+        String expected = "9";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Should display max. 9 digits")
+    void testMaxDigits() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+
+        String expected = "555555555";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
