@@ -146,6 +146,29 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display result of last calculation on screen")
+    void testLastCalculationResultDisplayed() {
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+
+        assertEquals("8", calc.readScreen());
+
+
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+
+        assertEquals("10", calc.readScreen());
+    }
+
+
 
 }
 
