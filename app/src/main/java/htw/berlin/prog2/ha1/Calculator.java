@@ -12,24 +12,28 @@ public class Calculator {
 
     private double latestValue;
 
+    private String latestOperation = "";
+
+    private int clearKeyCount = 0;
+   
+    public String getScreen() {
+        return screen;
+    }
+
     public double getLatestValue() {
         return latestValue;
     }
-
-    public void setLatestValue(double latestValue) {
-        this.latestValue = latestValue;
-    }
-
-    private String latestOperation = "";
 
     public String getLatestOperation() {
         return latestOperation;
     }
 
-    public void setLatestOperation(String latestOperation) {
-        this.latestOperation = latestOperation;
+    public int getClearKeyCount() {
+        return clearKeyCount;
     }
-    
+
+
+  
    
    
    
@@ -53,6 +57,7 @@ public class Calculator {
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
         screen = screen + digit;
+        
     }
 
     /**
@@ -64,12 +69,18 @@ public class Calculator {
      * im Ursprungszustand ist.                                                                 //fehlt hier was?
      */
     public void pressClearKey() {
-         screen = "0";
-        
-    }   
+        clearKeyCount++;
+        if (clearKeyCount == 1) {
+            screen = "0";
+        } else if (clearKeyCount == 2) {
+            clearKeyCount = 0;
+            pressClearKeyTwice();
+        }
+    }
     public void pressClearKeyTwice(){
         latestOperation = "";
         latestValue = 0.0;
+        screen = "0";
     }
     
             
@@ -86,8 +97,13 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division      
      */
     public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);                                       //numberformatexception wird nicht auftreten unter annahme onlinecalculator da keine buchstaben, kommata oder leerzeichen eingegeben werden kännen
-        latestOperation = operation;                                                    //arithmeticexception = durch null teilen // auch bei onlinerehcner /0 = error
+        if (!latestOperation.isEmpty() && !screen.equals("0")) { //latest operation nicht empty und screen nicht 0 -> equals key gedrückt um ergebnis zu aktualisieren          
+            pressEqualsKey();
+        }
+        
+       
+        latestValue = Double.parseDouble(screen);
+        latestOperation = operation;
     }
 
     /**
@@ -157,6 +173,7 @@ public class Calculator {
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
 
+   
 
 
 
