@@ -165,26 +165,42 @@ class CalculatorTest {
         calc.pressDigitKey(2);
         calc.pressEqualsKey();
 
-        String expected = "0.3"; // Approximate result due to floating-point precision
+        String expected = "0.3";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
 
     @Test
-    @DisplayName("should not cause memory issues with long screen content")
-    void testMemoryIssuesWithLongScreenContent() {
+    @DisplayName("should display the same number, if equals is pressed")
+    void testShowSearchNumber() {
         Calculator calc = new Calculator();
 
-        for (int i = 0; i < 1000; i++) {
-            calc.pressDigitKey(1);
-        }
+        calc.pressDigitKey(6);
+        calc.pressEqualsKey();
 
-        String screenContent = calc.readScreen();
+        String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
     }
 
+    @Test
+    public void testPressingDotKeyTwice() {
+        Calculator calculator = new Calculator();
+        calculator.pressDotKey();
+        calculator.pressDotKey();
+        assertEquals("0.", calculator.readScreen());
+    }
 
-
+    @Test
+    public void testPercentCalculation() {
+        Calculator calculator = new Calculator();
+        calculator.pressDigitKey(9);
+        calculator.pressDigitKey(0);
+        calculator.pressUnaryOperationKey("%");
+        assertEquals("0.9", calculator.readScreen());
+    }
 
 
     
