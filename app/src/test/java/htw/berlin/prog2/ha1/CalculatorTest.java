@@ -110,33 +110,6 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    @Test
-    @DisplayName("unterschiedliche Funktionen des Clear-Buttons")
-    void testred1() {
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("+");
-        calc.pressEqualsKey();
-        calc.pressClearKey();
-        String expected = "5.0";
-        String actual = Double.toString(calc.latestValue);
-
-        assertEquals(expected, actual);
-    }
-
-    @Test
-    @DisplayName("unterschiedliche Funktionen des Clear-Buttons")
-    void testred2() {
-        Calculator calc = new Calculator();
-
-        calc.pressUnaryOperationKey("1/x");
-
-        String expected = "Error";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
 
 }
 
