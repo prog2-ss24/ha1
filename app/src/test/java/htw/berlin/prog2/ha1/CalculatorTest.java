@@ -121,11 +121,12 @@ class CalculatorTest {
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
 
-        String expected = "80";
+        String expected = "43";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
+
 
     @Test
     @DisplayName("should display result after adding two positive multi-digit numbers with the multiplication with a positive digit number")
@@ -133,7 +134,7 @@ class CalculatorTest {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
-        calc.pressDigitKey(0);
+        calc.pressDigitKey(2);
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(2);
         calc.pressDigitKey(0);
@@ -141,11 +142,29 @@ class CalculatorTest {
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
 
-        String expected = "80";
+        String expected = "82";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("Should display Error if you inverse zero")
+    void inversezero()
+    {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+
+    }
 }
 
