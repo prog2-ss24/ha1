@@ -14,6 +14,8 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    private String memory ="";
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
@@ -29,11 +31,22 @@ public class Calculator {
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
+
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        Boolean negative = false;     //Variable added
+
+        if(screen.equals("-0")) {     //If screen equals "-0" variable negative is true (triggered by the NegativeKey Method)
+            negative = true;
+        }
+
+        if(latestValue == Double.parseDouble(screen)) screen = "";
 
         screen = screen + digit;
+
+        if(negative == true) {       //If negative is true, add the "-" before the values
+            screen = "-" + screen;
+        }
     }
 
     /**
@@ -48,6 +61,19 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+
+    }
+
+    public void pressMemoryAddKey() {
+
+        memory = screen;
+
+    }
+
+    public void pressMemoryKey() {
+
+        screen = memory;
+
     }
 
     /**
@@ -60,9 +86,22 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+
+        // Wenn die letzte Operation nicht leer ist, wird die Gleichheitszeichen gedrückt und
+        // latestValue ersetzt. Also, es wird eine erste Operation ausgeführt, bevor die zweite
+        // Operation ausgeführt und der Wert gespeichert wird.
+
+        // Jetzt wird geprüft, ob die vorherige Operation eine binäre Operation war, bevor das
+        // Gleichheitszeichen gedrückt werden muss.
+        if (!latestOperation.isEmpty() && (latestOperation.equals("+") || latestOperation.equals("-") || latestOperation.equals("*") || latestOperation.equals("/"))) {
+            pressEqualsKey();
+            }
+
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
+
+
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
@@ -97,6 +136,7 @@ public class Calculator {
         if(!screen.contains(".")) screen = screen + ".";
     }
 
+
     /**
      * Empfängt den Befehl der gedrückten Vorzeichenumkehrstaste ("+/-").
      * Zeigt der Bildschirm einen positiven Wert an, so wird ein "-" links angehängt, der Bildschirm
@@ -104,6 +144,7 @@ public class Calculator {
      * Zeigt der Bildschirm bereits einen negativen Wert mit führendem Minus an, dann wird dieses
      * entfernt und der Inhalt fortan als positiv interpretiert.
      */
+
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
     }
