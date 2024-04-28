@@ -90,5 +90,99 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after multiplying a decimal number by a multi-digit number.")
+    void testMultiplicationOfDecimalNumbers(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(3);
+        calc.pressDotKey();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "35";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    @DisplayName("should display entered number")
+    void testEquateANumber(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+        String expected = "937";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    @DisplayName("should display Error when forming the inverse of zero")
+    void testInversionOfZero(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(8);
+        calc.pressEqualsKey();
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+    /*
+    * Folgende Tests sind nicht Teil der Abgabe HA 1. Der Bugfix zu diesen Tests war für mich zu kompliziert,
+    * daher besteht Nachfragebedarf.
+    *
+    * @Test
+    * @DisplayName("should display negative number even if the negative-key was pressed before the digit-key")
+    * void testNegativeZeroToNegativeDigit(){
+    *     Calculator calc = new Calculator();
+    *     calc.pressNegativeKey();
+    *     calc.pressDigitKey(3);
+    *
+    *     String expected = "-3";
+    *     String actual = calc.readScreen();
+    *     assertEquals(expected, actual);
+    * }
+    *
+    * Der folgende Test wurde erstellt, um die Problemquelle des vorherigen Tests zu identifizieren.
+    * D.h. dieser Test gehört nicht zur Abgabe der 1.HA
+    *
+    * @Test
+    * @DisplayName("should make a zero a negative zero")
+    * void testSwitchZeroIntoNegativeZero(){
+    *    Calculator calc = new Calculator();
+    *    calc.pressNegativeKey();
+    *
+    *    String expected = "-0";
+    *    String actual = calc.readScreen();
+    *
+    *    assertEquals(expected, actual);
+    * }
+    */
+
+
+
+
+
+
+
+
+
+
 }
 
