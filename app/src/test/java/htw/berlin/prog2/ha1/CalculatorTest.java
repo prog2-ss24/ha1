@@ -90,5 +90,49 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("test clear function")
+    void testclearFunction() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(8);
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
+        calc.pressClearKey();
+        String expected = "0";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("result without .0")
+    void testsquareroot() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressUnaryOperationKey("√");
+        String expected = "3";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after adding two positive multi-digit numbers")
+    void testplusfunction() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+
+        String expected = "40";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
