@@ -124,8 +124,8 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("should display result after substracting positive from postive number")
-    void testSubstractionFromlargerNumber() {
+    @DisplayName("should display result after subtracting positive from positive number")
+    void testSubtractionFromlargerNumber() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(6);
