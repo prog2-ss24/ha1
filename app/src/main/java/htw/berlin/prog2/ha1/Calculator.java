@@ -30,6 +30,11 @@ public class Calculator {
      */
     public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
+        if (screen.contains(".")) {
+            if (screen.replace(".", "").length() > 8) return;
+        } else {
+            if (screen.length() >= 9) return;
+        }
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
