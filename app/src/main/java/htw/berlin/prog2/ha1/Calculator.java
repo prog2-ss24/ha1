@@ -13,6 +13,7 @@ public class Calculator {
     private double latestValue;
 
     private String latestOperation = "";
+    private int counter = 0;
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -45,9 +46,13 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
+        counter += 1;
         screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+        if (counter == 2) {
+            latestOperation = "";
+            latestValue = 0.0;
+            counter = 0;
+        }
     }
 
     /**
@@ -110,7 +115,7 @@ public class Calculator {
 
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.
-     * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
+     * Wurde zuvor keine Operationstaste gedrückt, gibt es jetzt den input zuruck den man davor schon eingegeben hatte .
      * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
      * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
@@ -123,6 +128,7 @@ public class Calculator {
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
+            case "" -> Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
