@@ -135,5 +135,32 @@ class CalculatorTest {
     }
 
 
+    @Test
+    @DisplayName("decimalzahl sollte keine unnötige null(nullen) nach kommastelle anzeigen ")
+    void testTwo() {
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
+
+        calc.pressEqualsKey();
+
+        String expected = "11.616";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
 }
 
