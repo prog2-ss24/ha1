@@ -142,14 +142,15 @@ class CalculatorTest {
 
     @Test
     @DisplayName("Handles the case when zero is inputed in the calculator for the 1/x case")
-    void testUnaryOperatorZeroCase () {
+    void testArithmeticException () {
         Calculator calc = new Calculator();
         calc.pressDigitKey(0);
-        calc.pressUnaryOperationKey("1/x");
-        String expected = "Error";
-        String actual = calc.readScreen();
+        String operation = "1/x";
+        ArithmeticException expection = assertThrows(ArithmeticException.class, () -> {
+            calc.pressUnaryOperationKey(operation);
+        });
 
-        assertEquals(expected, actual);
+        assertEquals("Error", expection.getMessage());
 
     }
 
