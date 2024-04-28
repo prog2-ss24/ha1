@@ -134,7 +134,26 @@ void testEqualKey() {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display result after adding multiple positive multi-digit numbers")
+    void testPositiveAdditionWithMultipleDigits() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "120";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
     //TODO hier weitere Tests erstellen
 
