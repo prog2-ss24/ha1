@@ -90,5 +90,88 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-}
+    // Teilaufgabe 1 (funktioniert)
+    @Test
+    @DisplayName("should display result after adding two small positive numbers")
+    void testSmallPositiveAddition() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    //Teilaufgabe 2 (Testfall 1)
+    @Test
+    @DisplayName("should display error when dividing by zero")
+    void testDivisionZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    //Teilaufgabe 2 (Testfall 2) (working)
+    @Test
+    @DisplayName("should display error when drawing the square root of a negative number")
+    void testSquareRootNegative() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressNegativeKey();
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @DisplayName("Retro calculator")
+    class CalculatorTest1 {
+
+        //Teilaufgabe 3: Bugfix für Testfall 1 (Division durch Null)
+        @Test
+        @DisplayName("should display error when dividing by zero")
+        void testDivisionZero() {
+            Calculator calc = new Calculator();
+
+            calc.pressDigitKey(7);
+            calc.pressBinaryOperationKey("/");
+            calc.pressDigitKey(0);
+            calc.pressEqualsKey();
+
+            String expected = "Error";
+            String actual = calc.readScreen();
+
+            assertEquals(expected, actual);
+        }
+    }
+    @Test
+    @DisplayName("should display error when drawing the square root of a negative number")
+    void testSquareRootNegative1() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressNegativeKey();
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+}
