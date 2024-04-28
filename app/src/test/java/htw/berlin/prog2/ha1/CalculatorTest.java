@@ -90,5 +90,53 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after multiply two positive multi-digit numbers")
+    void testgreen1() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(6);
+        calc.pressDigitKey(6);
+        calc.pressEqualsKey();
+
+        String expected = "15444";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("unterschiedliche Funktionen des Clear-Buttons")
+    void testred1() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressEqualsKey();
+        calc.pressClearKey();
+        String expected = "5.0";
+        String actual = Double.toString(calc.latestValue);
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("unterschiedliche Funktionen des Clear-Buttons")
+    void testred2() {
+        Calculator calc = new Calculator();
+
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
