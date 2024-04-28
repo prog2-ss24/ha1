@@ -123,6 +123,29 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should not allow inputting more than nine digits, even with dot")
+    void testMaximumDigitsLimit() {
+        Calculator calc = new Calculator();
+
+        // Input eleven digits
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(6);
+        calc.pressDigitKey(7);
+        calc.pressDigitKey(8);
+        calc.pressDotKey();
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(1);
+
+        String expected = "12345678.9";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
 }
 
