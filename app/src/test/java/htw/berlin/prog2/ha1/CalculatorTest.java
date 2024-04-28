@@ -2,7 +2,6 @@ package htw.berlin.prog2.ha1;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.platform.commons.util.ClassUtils;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;  //compares if exactly and really equal
 

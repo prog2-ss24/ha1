@@ -66,7 +66,7 @@ public class Calculator {
      * so dass "0" angezeigt wird, jedoch ohne zuvor zwischengespeicherte Werte zu löschen.
      * Wird daraufhin noch einmal die Taste gedrückt, dann werden auch zwischengespeicherte
      * Werte sowie der aktuelle Operationsmodus zurückgesetzt, so dass der Rechner wieder
-     * im Ursprungszustand ist.                                                                 //fehlt hier was?
+     * im Ursprungszustand ist.                                                                 
      */
     public void pressClearKey() {
         clearKeyCount++;
