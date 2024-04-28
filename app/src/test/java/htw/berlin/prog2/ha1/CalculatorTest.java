@@ -124,6 +124,7 @@ class CalculatorTest {
     }
     @Test
     @DisplayName("should display latest value")
+
     void testClear(){
         Calculator calc = new Calculator();
         calc.pressDigitKey(2);
