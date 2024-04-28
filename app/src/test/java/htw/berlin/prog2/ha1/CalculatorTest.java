@@ -122,7 +122,21 @@ class CalculatorTest {
 
     }
 
+    @Test
+    @DisplayName("should display the result of the root of negative zero which should be 0")
+    void testSquareRootOfNegativeZero(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressNegativeKey();
+        calc.pressUnaryOperationKey("√");
 
 
+        String expected ="0";
+        String actual = calc.readScreen();
 
+        assertEquals(expected, actual);
+
+
+}
 }
