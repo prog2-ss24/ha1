@@ -11,7 +11,7 @@ import static java.sql.DriverManager.println;
 public class Calculator {
 
     private String screen = "0";
-
+    private boolean isNegative = false;
     private double latestValue;
 
     private String latestOperation = "";
@@ -61,10 +61,15 @@ public class Calculator {
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
+    public void pressBinaryOperationKey(String operation) {
+        if (isNegative) {
+            screen = "-" + screen;
+        }
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        isNegative = false; // Reset isNegative after using it
     }
+
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
@@ -107,8 +112,17 @@ public class Calculator {
      * entfernt und der Inhalt fortan als positiv interpretiert.
      */
     public void pressNegativeKey() {
-        screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+        if (screen.startsWith("-")) {
+            screen = screen.substring(1);
+            isNegative = false;
+        } else {
+            screen = "-" + screen;
+            isNegative = true;
+        }
     }
+
+
+
 
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.

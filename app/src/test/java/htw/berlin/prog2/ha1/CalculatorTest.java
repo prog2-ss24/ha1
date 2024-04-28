@@ -127,6 +127,23 @@ class CalculatorTest {
         assertEquals(expected2, actual2);
     }
 
+    @Test
+    @DisplayName("should display result for a addition of one negative number and one positive")
+    void testAdditionOneNegativeOnePositiveDigit() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("+"); // Addition vorbereiten
+        calc.pressDigitKey(1); // Positive Zahl eingeben
+        calc.pressDigitKey(0); // Ziffer eingeben, um die Zahl "10" zu bilden
+        calc.pressEqualsKey(); // Ergebnis berechnen
+
+        String expected = "6"; // Erwartetes Ergebnis: -4 + 10 = 6
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
 
