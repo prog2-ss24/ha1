@@ -261,6 +261,23 @@ public CalculatorTest {
 
             assertEquals(expected, actual);
         }
+        @Test
+        @DisplayName("should repeat the last operation again on the new result by pressing equals key")
+        void testPressEqualsKeyDouble() {
+            Calculator calc = new Calculator();
+
+            calc.pressDigitKey(5);
+            calc.pressBinaryOperationKey('*');
+            calc.pressDigitKey(3);
+            calc.pressEqualsKey();  // First equals to perform the operation 5 * 3
+            calc.pressEqualsKey();  // Second equals to repeat the last operation on the result, 15 * 3
+
+            String expected = "45";
+            String actual = calc.readScreen();
+
+            assertEquals(expected, actual);
+        }
+
 
 
 
