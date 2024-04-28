@@ -10,6 +10,8 @@ public class Calculator {
 
     private String screen = "0";
 
+    private int numberLong = 0;
+
     private double latestValue;
 
     private String latestOperation = "";
@@ -24,7 +26,7 @@ public class Calculator {
     /**
      * Empfängt den Wert einer gedrückten Zifferntaste. Da man nur eine Taste auf einmal
      * drücken kann muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
-     * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
+     * Prüft ob bereits 9 Zahlen eingeben wurde und wenn nicht wird die Ziffer auf dem Bildschirm angezeigt
      * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
@@ -33,7 +35,10 @@ public class Calculator {
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
-        screen = screen + digit;
+        if (numberLong < 9) {
+            screen = screen + digit;
+            numberLong++;
+        }
     }
 
     /**
@@ -48,6 +53,7 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+        numberLong = 0;
     }
 
     /**
@@ -62,6 +68,7 @@ public class Calculator {
     public void pressBinaryOperationKey(String operation)  {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        numberLong = 0;
     }
 
     /**
@@ -83,7 +90,7 @@ public class Calculator {
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-
+        numberLong = 0;
     }
 
     /**
@@ -127,6 +134,7 @@ public class Calculator {
         };
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
+        if(result < 1e9) { screen = String.valueOf((long) result);};
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
