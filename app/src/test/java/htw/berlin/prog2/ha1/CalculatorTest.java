@@ -118,5 +118,17 @@ class CalculatorTest {
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display result after divison by  0" )
+    void testDivisonByZero() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(6);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+        String expected = "0";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
 }
 
