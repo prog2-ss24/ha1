@@ -133,6 +133,13 @@ public class Calculator {
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-        /*if(screen.endsWith("+")) screen = screen.substring(0,screen.);*/
+        // While schleife soll solange laufen und die lezten nullen entfernen bis
+        // die if  bedinigung in der while schleife nicht erfüllt wird
+        // (bis im Ergebnis keinen nullen nach der kommastlle am ende der zahl enthalten sind)
+        int i=1;
+        while(i < result) {
+            if (screen.contains(".") && screen.endsWith("0")) screen = screen.substring(0, screen.length() - 1);
+            i++;
+        }
     }
 }
