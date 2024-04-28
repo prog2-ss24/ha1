@@ -118,7 +118,7 @@ class CalculatorTest {
      * Teilaufgabe2 RoteTest
      * Überprüft, ob das Ergebnis nach der Berechnung der Quadratwurzel einer Zahl ohne Dezimalpunkt angezeigt wird.
      *
-     *
+     * if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
      * @return
      * Gibt den Bildschirminhalt nach der Quadratwurzelberechnung als String zurück. Erwartet wird eine ganze Zahl ohne Dezimalpunkt.
      */
@@ -143,7 +143,7 @@ class CalculatorTest {
     /**
      * Teilaufgabe2 ZweiteRoteTest
      * Überprüft, ob ein Fehler angezeigt wird, wenn versucht wird, die Inversion von Null durchzuführen.
-     *
+     * if(screen.equals("Infinity")) screen = "Error";
      * @return
      * Gibt den Bildschirminhalt nach der Berechnung der Inversion als String zurück. Erwartet wird "Error".
      */
