@@ -107,7 +107,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display result after multiplying a number which is negative and a number which is positive")
+    @DisplayName("should display the same number if no operation has been used")
     void testOperationNachGleichheitszeichen(){
         Calculator calc = new Calculator();
 
@@ -118,6 +118,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+
+
+    }
 
 
     }
