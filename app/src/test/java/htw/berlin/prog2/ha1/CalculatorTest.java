@@ -243,6 +243,24 @@ public CalculatorTest {
 
             assertEquals(expected, actual);
         }
+        @Test
+        @DisplayName("should finish the first Operation before going on with the second one")
+        void testTwoOperations() {
+            Calculator calc = new Calculator();
 
-}
+            calc.pressDigitKey(1);
+            calc.pressBinaryOperationKey('+');  // Use quotes around operations
+            calc.pressDigitKey(2);
+            calc.pressBinaryOperationKey('*');  // Use quotes around operations
+            calc.pressDigitKey(2);
+            calc.pressEqualsKey();  // You need to press equals to get the result of the operation
+
+            String expected = "6";
+            String actual = calc.readScreen();
+
+            assertEquals(expected, actual);
+        }
+
+
+    }
 
