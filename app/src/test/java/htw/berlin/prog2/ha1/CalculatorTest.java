@@ -157,9 +157,30 @@ class CalculatorTest {
 
     }
 
+// weiterer Roter Test, da ich die Bugs des vorherigen roten Tests nicht lösen konnte
 
-    
+    @Test
+    @DisplayName("should display result of a addition between a positive multi-digit number and a negative multi-digit number")
+    void testPositiveAdditionNegativeNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressNegativeKey();
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
     }
+
+}
+    
+    
 
 
 
