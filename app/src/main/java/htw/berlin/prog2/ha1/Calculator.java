@@ -3,7 +3,7 @@ package htw.berlin.prog2.ha1;
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
- * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
+ * und dessen Bildschirm bis zu 9 Ziffern darstellen kann.
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
  */
 public class Calculator {
@@ -26,6 +26,7 @@ public class Calculator {
      * drücken kann muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
      * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
      * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
+     * Es werden maximal 9 Ziffern dargestellt.
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
@@ -33,8 +34,8 @@ public class Calculator {
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
-        if (screen.length() < 9) {
-            screen += digit;
+        if (screen.length() < 9) { //Prüfen der Anzahl der Ziffern
+            screen += digit; //Hinzufügen bei <9 oder belassen der Ziffern bei =9 und >9
         }
     }
 
@@ -125,7 +126,7 @@ public class Calculator {
             case "-" -> latestValue - Double.parseDouble(screen);
             case "x" -> latestValue * Double.parseDouble(screen);
             case "/" -> latestValue / Double.parseDouble(screen);
-            default -> Double.parseDouble(screen); //screen Argument an Methode übergeben
+            default -> Double.parseDouble(screen); //Switch-Expression, Umwandlung in Double, Wiedergabe
         };
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";

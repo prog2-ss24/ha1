@@ -137,7 +137,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("Should give out max. 9 digits")
+    @DisplayName("Should display max. 9 digits")
     void testMaxDigits() {
         Calculator calc = new Calculator();
 
