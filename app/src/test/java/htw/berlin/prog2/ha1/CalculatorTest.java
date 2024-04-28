@@ -90,5 +90,53 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-}
+    @Test
+    @DisplayName("should display result after multiplying a number which is negative and a number which is positive")
+    void testNegativeMultiplikation() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(8);
+        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(6);
+        calc.pressEqualsKey();
+
+        String expected ="-48";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display the same number if no operation has been used")
+    void testOperationNachGleichheitszeichen(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected ="5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+
+    }
+
+    @Test
+    @DisplayName("should display the result of the root of negative zero which should be 0")
+    void testSquareRootOfNegativeZero(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressNegativeKey();
+        calc.pressUnaryOperationKey("√");
+
+
+        String expected ="0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+
+}
+}
