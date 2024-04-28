@@ -90,5 +90,53 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+     //Teilaufgabe 1
+     @Test
+     @DisplayName("should display result after multiplying two positive numbers")
+     void testPositiveMultiplication(){
+         Calculator calc = new Calculator();
+ 
+         calc.pressDigitKey(5);
+         calc.pressBinaryOperationKey("x");
+         calc.pressDigitKey(5);
+         calc.pressEqualsKey();
+ 
+         String expected = "25";
+         String actual = calc.readScreen();
+ 
+         assertEquals(expected, actual);
+     }
+
+    // Teilaufgabe 2.1
+    @Test
+    @DisplayName("should display error when inverting 0")
+    void testInversionOfZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    // Teilaufgabe 2.2
+    @Test
+    @DisplayName("Test pressEqualsKey without previous operation")
+    public void pressEqualsKeyWithoutPreviousOperation() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+        String expected = "7";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
 }
 
