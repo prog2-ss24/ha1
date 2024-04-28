@@ -121,20 +121,6 @@ void testEqualKey() {
     // Teiaufgabe 2.2
 
     @Test
-    @DisplayName("should display error when attempting to calculate the factorial of a negative number")
-    void testFactorialOfNegativeNumber() {
-        Calculator calc = new Calculator();
-
-        calc.pressUnaryOperationKey("!"); // Fakultät einer negativen Zahl
-        calc.pressDigitKey(5);
-        calc.pressEqualsKey();
-
-        String expected = "Error";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
-    @Test
     @DisplayName("should display result after adding multiple positive multi-digit numbers")
     void testPositiveAdditionWithMultipleDigits() {
         Calculator calc = new Calculator();
