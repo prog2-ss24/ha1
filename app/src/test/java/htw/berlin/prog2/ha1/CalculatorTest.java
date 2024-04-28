@@ -91,15 +91,15 @@ class CalculatorTest {
 
     //TODO hier weitere Tests erstellen
     @Test
-    @DisplayName("substract test")
-    void testsubstract() {
+    @DisplayName("test clear function")
+    void testclearFunction() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(8);
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(7);
-        calc.pressEqualsKey();
-        String expected = "1";
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
+        calc.pressClearKey();
+        String expected = "0";
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
@@ -115,6 +115,8 @@ class CalculatorTest {
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
+
+
 
 }
 
