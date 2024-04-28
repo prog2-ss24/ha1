@@ -139,17 +139,17 @@ void testEqualKey() {
     void testPositiveAdditionWithMultipleDigits() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(5);
+        calc.pressDigitKey(7);
         calc.pressDigitKey(0);
         calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(2);
+        calc.pressDigitKey(1);
         calc.pressDigitKey(0);
         calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(5);
+        calc.pressDigitKey(7);
         calc.pressDigitKey(0);
         calc.pressEqualsKey();
 
-        String expected = "120";
+        String expected = "150";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
