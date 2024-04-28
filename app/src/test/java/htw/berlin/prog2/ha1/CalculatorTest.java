@@ -90,5 +90,54 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-}
+    @Test
+    @DisplayName("should display result after subtracting two positive multi-digit numbers")
+    void testPositiveSubtraction() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "30";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should only print out max of 9 digits")
+    void testMoreThenNineDigits() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(5);
+        String expected = "555555555";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("Should not repeat unary operation with equal key")
+    void testUnaryOperationRepeatWithEqualKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressUnaryOperationKey("%");
+        calc.pressEqualsKey();
+
+        String expected = "0.05";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+}
