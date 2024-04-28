@@ -106,6 +106,20 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display result after multiplying a number which is negative and a number which is positive")
+    void testOperationNachGleichheitszeichen(){
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected ="5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+
+    }
 
 }
