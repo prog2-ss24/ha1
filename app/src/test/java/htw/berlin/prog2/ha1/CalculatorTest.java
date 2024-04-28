@@ -139,5 +139,27 @@ class CalculatorTest {
 
             assertEquals(expected, actual);
 
-}}
+}
+    /**
+     * Teilaufgabe2 ZweiteRoteTest
+     * Überprüft, ob ein Fehler angezeigt wird, wenn versucht wird, die Inversion von Null durchzuführen.
+     *
+     * @return
+     * Gibt den Bildschirminhalt nach der Berechnung der Inversion als String zurück. Erwartet wird "Error".
+     */
+    @Test
+    @DisplayName("should display error when doing inversion by zero")
+    void testInversionByZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+}
 
