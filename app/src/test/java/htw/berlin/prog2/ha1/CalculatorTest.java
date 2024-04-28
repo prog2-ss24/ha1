@@ -110,6 +110,7 @@ class CalculatorTest {
     }
     @Test
     @DisplayName("should display result after getting the square root of 4 ")
+
     void testSquare() {
         Calculator calc = new Calculator();
         calc.pressDigitKey(4);
