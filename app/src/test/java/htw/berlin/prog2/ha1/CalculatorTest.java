@@ -104,5 +104,31 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("Insert max 9 Number")
+    void testMax9Number() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+
+        String expected = "500000001";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
 
