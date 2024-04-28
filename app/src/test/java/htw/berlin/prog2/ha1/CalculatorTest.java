@@ -90,5 +90,65 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    /**
+     * Teilaufgabe 1 GrüneTest
+     * Testet die Subtraktionsoperation mit positiven Zahlen und stellt sicher, dass der Taschenrechner
+     * keine mehrfachen Dezimalpunkte im Ergebnis zulässt.
+     */
+
+    @Test
+    @DisplayName("should not allow multiple decimal dots")
+    void testPositiveMinus() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(4);
+
+        calc.pressEqualsKey();
+
+        String expected = "4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    /**
+     * Testet die Darstellung des Ergebnisses nach der Berechnung der Quadratwurzel einer Zahl ohne Dezimalpunkt.
+     */
+
+    @Test
+    @DisplayName("should display the result after getting the square root of a number but without a decimal point")
+    void testASquareRoot2() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "10";
+        String actual = calc.readScreen();
+
+        assertEquals(expected,actual);
+}
+    /**
+     * Testfall für die Anzeige eines Fehlers bei der Division durch Null.
+     */
+
+    @Test
+    @DisplayName("should show error on division by zero")
+    void testInversionByZero() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected,actual);
+}
+
 }
 
