@@ -118,12 +118,14 @@ class CalculatorTest {
         calc.pressDigitKey(9);
         calc.pressClearKey();
         calc.pressDigitKey(4);
+        calc.pressEqualsKey();
 
         String expected = "5";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
     }
+
 
 
     //red test 2
