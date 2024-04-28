@@ -106,40 +106,38 @@ class CalculatorTest {
 
 // Teilaufgabe 2.1
 @Test
-@DisplayName("should display error when getting square root of a negative number")
-void testSquareRootOfNegativeNumber() {
+@DisplayName("should display latest number after pressing equals")
+void testEqualKey() {
     Calculator calc = new Calculator();
+    calc.pressDigitKey(3);
+    calc.pressEqualsKey();
 
-    calc.pressDigitKey(9);
-    calc.pressBinaryOperationKey("-");
-    calc.pressDigitKey(1);
-    calc.pressDigitKey(0);
-    calc.pressUnaryOperationKey("√");
-
-    String expected = "Error";
+    String expected = "3";
     String actual = calc.readScreen();
 
     assertEquals(expected, actual);
+
 }
-
-
     // Teiaufgabe 2.2
 
     @Test
-    @DisplayName("should display error when dividing by zero")
-    void testDivisionByZero() {
+    @DisplayName("should display error when dividing zero by zero")
+    void testZeroDivision() {
+        // Arrange
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(9);
-        calc.pressBinaryOperationKey("/");
-        calc.pressDigitKey(0);
-        calc.pressEqualsKey();
+        // Act
+        calc.pressDigitKey(0); // Eingabe der ersten Zahl
+        calc.pressBinaryOperationKey("/"); // Auswahl der Division
+        calc.pressDigitKey(0); // Eingabe der zweiten Zahl
+        calc.pressEqualsKey(); // Ausführen der Berechnung
 
+        // Assert
         String expected = "Error";
         String actual = calc.readScreen();
-
         assertEquals(expected, actual);
     }
+
 
 
     //TODO hier weitere Tests erstellen
