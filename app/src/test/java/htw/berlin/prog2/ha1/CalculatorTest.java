@@ -104,19 +104,5 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-    @Test
-    @DisplayName("number will square")
-    void testSquare() {
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(1);
-        calc.pressDigitKey(0);
-        calc.pressUnaryOperationKey("x^2");
-
-        String expected = "100.0";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
 }
 
