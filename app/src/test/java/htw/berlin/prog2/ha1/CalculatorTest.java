@@ -106,7 +106,7 @@ class CalculatorTest {
         assertEquals(expected, actual); 
     }
     @Test
-    @DisplayName("should correctly clear cache after pressing clear key")
+    @DisplayName("should display 0 after pressing clear key once")
     void testClearKey(){
         Calculator calc = new Calculator();
         calc.pressDigitKey(9);
@@ -118,19 +118,18 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("should correctly clear cache after pressing clear key")
+    @DisplayName("should correctly clear cache after pressing clear key twice")
     void testClearKeyAll() {
     Calculator calc = new Calculator();
     calc.pressDigitKey(9);
     calc.pressNegativeKey();
-    calc.pressClearKey();
-    calc.pressClearKey(); // Zweites Mal drücken
+    calc.pressDigitKey(9);
+    calc.pressClearKeyTwice(); 
 
-    String expected = "0";
-    String actual = calc.readScreen();
-    assertEquals(expected, actual);
+    assertEquals(0.0, calc.getLatestValue());
+    assertEquals("", calc.getLatestOperation());
 
-    //string expected /assertEqual mit den beiden anderen werten latest value latest operation 
+    
 }
     @Test
     @DisplayName("should correctly add 3 positive numbers")
@@ -139,7 +138,6 @@ class CalculatorTest {
     calc.pressDigitKey(9);
     calc.pressBinaryOperationKey("+");
     calc.pressDigitKey(9);
-    calc.pressEqualsKey();
     calc.pressBinaryOperationKey("+");
     calc.pressDigitKey(9);
     calc.pressEqualsKey();
@@ -162,7 +160,48 @@ class CalculatorTest {
     String actual = calc.readScreen();
     assertEquals(expected, actual);
     }
-}
+    @Test
+    @DisplayName("equal key multiple times should keep using same operation on result")
+    void testEquals (){
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(9);
+    calc.pressBinaryOperationKey("+");
+    calc.pressDigitKey(9);
+    calc.pressEqualsKey();
+    calc.pressEqualsKey();
+    calc.pressEqualsKey();
 
-//klammern hinzufügen um übersichtlicher zu machen?
+    String expected = "36";
+    String actual = calc.readScreen();
+    assertEquals(expected, actual);
+}
+    @Test
+    @DisplayName("should correclty multiply 2 numbers")
+    void multiply (){
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(9);
+    calc.pressBinaryOperationKey("x");
+    calc.pressDigitKey(9);
+    calc.pressEqualsKey();
+
+    String expected = "81";
+    String actual = calc.readScreen();
+    assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should correctly divide 2 numbers")
+    void divide(){
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(9);
+    calc.pressBinaryOperationKey("/");
+    calc.pressDigitKey(9);
+    calc.pressEqualsKey();
+
+    String expected = "1";
+    String actual = calc.readScreen();
+    assertEquals(expected, actual);
+    }
+
+}
 
