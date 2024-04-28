@@ -90,5 +90,29 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    /**
+     * teilaufgabe 1 grüneTest
+     * Löscht den aktuellen Eintrag auf dem Taschenrechner, ohne den Taschenrechnerzustand zurückzusetzen.
+     *
+     * @return
+     * Gibt den Bildschirminhalt nach dem Löschen des Eintrags als String zurück. Erwartet wird, dass der Bildschirm "0" anzeigt.
+     */
+
+    @Test
+    @DisplayName("should clear current entry without resetting the calculator state")
+    void testClearEntry() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressClearKey(); // Clear Entry
+
+        String expected = "0"; // Expecting the screen to show "0" after clearing entry
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
