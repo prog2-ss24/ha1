@@ -90,5 +90,60 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after substracting two positive multi-digit numbers")
+    void testSubtractionMultipleEquals() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(6);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "1";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display correct result after multiple press Equals Key")
+    void testMultipleSubtractions() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+        calc.pressEqualsKey();
+
+        String expected2 = "4";
+        String actual2 = calc.readScreen();
+        assertEquals(expected, actual);
+        assertEquals(expected2, actual2);
+    }
+
+    @Test
+    @DisplayName("should display result for a addition of one negative number and one positive")
+    void testAdditionOneNegativeOnePositiveDigit() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("+"); // Addition vorbereiten
+        calc.pressDigitKey(1); // Positive Zahl eingeben
+        calc.pressDigitKey(0); // Ziffer eingeben, um die Zahl "10" zu bilden
+        calc.pressEqualsKey(); // Ergebnis berechnen
+
+        String expected = "6"; // Erwartetes Ergebnis: -4 + 10 = 6
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
+
 

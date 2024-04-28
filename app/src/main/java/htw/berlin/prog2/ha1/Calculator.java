@@ -1,5 +1,7 @@
 package htw.berlin.prog2.ha1;
 
+import static java.sql.DriverManager.println;
+
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
@@ -9,7 +11,7 @@ package htw.berlin.prog2.ha1;
 public class Calculator {
 
     private String screen = "0";
-
+    private boolean isNegative = false;
     private double latestValue;
 
     private String latestOperation = "";
@@ -59,10 +61,15 @@ public class Calculator {
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
+    public void pressBinaryOperationKey(String operation) {
+        if (isNegative) {
+            screen = "-" + screen;
+        }
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        isNegative = false; // Reset isNegative after using it
     }
+
 
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
@@ -105,8 +112,17 @@ public class Calculator {
      * entfernt und der Inhalt fortan als positiv interpretiert.
      */
     public void pressNegativeKey() {
-        screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+        if (screen.startsWith("-")) {
+            screen = screen.substring(1);
+            isNegative = false;
+        } else {
+            screen = "-" + screen;
+            isNegative = true;
+        }
     }
+
+
+
 
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.
@@ -117,17 +133,45 @@ public class Calculator {
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
+    double grundzahl;
+    double operationszahl;
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+
+        // Speichern des aktuellen Bildschirminhalts vor der Berechnung
+        String previousScreenValue = screen;
+        if (grundzahl != Double.parseDouble(screen)){
+            operationszahl = Double.parseDouble(screen);
+        }
+        grundzahl = latestValue;
+        // Aktualisieren von latestValue basierend auf dem aktuellen Bildschirminhalt
+        //double secondOperand = Double.parseDouble(screen);
+        // Berechnung des Ergebnisses basierend auf dem neuesten Operator und Wert
+        var result = switch (latestOperation) {
+            case "+" -> grundzahl + operationszahl;
+            case "-" -> grundzahl - operationszahl;
+            case "x" -> grundzahl * operationszahl;
+            case "/" -> grundzahl / operationszahl;
             default -> throw new IllegalArgumentException();
         };
+
+        // Aktualisierung des Bildschirms mit dem Ergebnis der Berechnung
         screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+        // Weitere Anpassungen des Bildschirms
+        if (screen.equals("Infinity")) screen = "Error";
+        if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
+        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+
+        grundzahl = result;
+        latestValue = grundzahl;
+
     }
+
+
+
+
+
+
+
 }
