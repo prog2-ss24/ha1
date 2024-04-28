@@ -59,15 +59,12 @@ public class Calculator {
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
-    public void pressBinaryOperationKey(String operation)  {
-        if (screen.endsWith(".")) {
-            screen += "0";
-        }    
+    public void pressBinaryOperationKey(String operation)  { 
         latestValue = Double.parseDouble(screen);
-        screen = "0";
-        latestOperation = operation;
+         latestOperation = operation;
         
     }
+
     /**
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
      * Quadratwurzel, Prozent, Inversion, welche nur einen Operanden benötigen.
@@ -122,6 +119,7 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        if (latestOperation.equals("")) return; // testShowsNumber fix
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
             case "-" -> latestValue - Double.parseDouble(screen);
@@ -129,12 +127,11 @@ public class Calculator {
             case "/" -> latestValue / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
-
-        result = Math.round(result * 10.0) / 10.0;
-
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
 }
+
+   

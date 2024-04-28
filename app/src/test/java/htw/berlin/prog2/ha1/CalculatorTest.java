@@ -172,8 +172,21 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("Should display error when 1/x is used with 0")
+    void test() {
+        Calculator calc = new Calculator();
+
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     @DisplayName("should display the same number, if equals is pressed")
-    void testShowSearchNumber() {
+    void testShowsNumber() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(6);
