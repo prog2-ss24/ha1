@@ -90,5 +90,43 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after minus")
+    void testPositiveMinus() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("Should display result after 8 than Equals")
+    void testEqualsAfterANumber(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(8);
+        calc.pressEqualsKey();
+        String expected = "8";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("Should display the percentage of 3")
+    void testResultWithoutEquals(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(3);
+        calc.pressUnaryOperationKey("%");
+        calc.pressEqualsKey();
+        String expected = "0.03";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
 }
 
