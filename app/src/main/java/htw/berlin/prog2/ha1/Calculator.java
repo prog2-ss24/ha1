@@ -81,9 +81,12 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
-        if(screen.equals("NaN")) screen = "Error";
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-
+        if(screen.contains(".") && screen.length() > 12 && screen.contains("-") ){
+            screen = screen.substring(0, 11);
+        } else {
+            if(screen.equals("NaN")) screen = "Error";
+            if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        }
     }
 
     /**
@@ -105,6 +108,9 @@ public class Calculator {
      * entfernt und der Inhalt fortan als positiv interpretiert.
      */
     public void pressNegativeKey() {
+        if(latestOperation != ""){
+            screen = "0";
+        }
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
     }
 
