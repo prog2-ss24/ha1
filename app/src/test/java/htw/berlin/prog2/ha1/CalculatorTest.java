@@ -143,7 +143,7 @@ public CalculatorTest {
             calc.pressDigitKey(0);
             calc.pressEqualsKey();
 
-            String expected = "4000";
+            String expected = "40";
             String actual = calc.readScreen();
 
             assertEquals(expected, actual);
@@ -237,6 +237,7 @@ public CalculatorTest {
             calc.pressBinaryOperationKey("-");
             calc.pressDigitKey(1);
             calc.pressDigitKey(0);
+            calc.pressEqualsKey();
 
             String expected = "10";
             String actual = calc.readScreen();
@@ -249,17 +250,18 @@ public CalculatorTest {
             Calculator calc = new Calculator();
 
             calc.pressDigitKey(1);
-            calc.pressBinaryOperationKey('+');  // Use quotes around operations
+            calc.pressBinaryOperationKey('+');
             calc.pressDigitKey(2);
-            calc.pressBinaryOperationKey('*');  // Use quotes around operations
+            calc.pressBinaryOperationKey('*');
             calc.pressDigitKey(2);
-            calc.pressEqualsKey();  // You need to press equals to get the result of the operation
+            calc.pressEqualsKey();
 
             String expected = "6";
             String actual = calc.readScreen();
 
             assertEquals(expected, actual);
         }
+
 
 
     }
