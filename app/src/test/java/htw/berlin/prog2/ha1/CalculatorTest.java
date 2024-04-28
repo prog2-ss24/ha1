@@ -90,5 +90,71 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    //Eingabe löschen
+
+    @Test
+    @DisplayName("Should rase input")
+    void testClearKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(6);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(8);
+        calc.pressClearKey();
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    // Bug 1
+    @Test
+    @DisplayName("Should be able to perform multi-operator calculations")
+    void testMultiplicationAndAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        
+
+        String expected = "34";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
 }
+    // Bug 2
+    @Test
+    @DisplayName("Should be able to perform operations where numbers do not have the same amount of digits")
+    void testAmountOfDigits() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(8);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        
+
+        String expected = "180";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+}
+
+    
+}
+
 
