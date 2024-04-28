@@ -113,21 +113,31 @@ public class Calculator {
 
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.
-     * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
-     * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
-     * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
-     * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
-     * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
-     * und das Ergebnis direkt angezeigt.
+     * - Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
+     * - Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
+     *   Ergebnis der Operation angezeigt. Nach der Berechnung wird das Ergebnis in latestValue gespeichert,
+     *   um die gleiche Operation bei erneutem Drücken der "="-Taste auf das Ergebnis anzuwenden.
+     * - Falls bei einer Operation, wie der Division, ein Fehler auftritt (z.B. Division durch Null),
+     *   wird "Error" auf dem Bildschirm angezeigt.
+     * - Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
+     *   Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
+     *   und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        if (latestOperation.isEmpty()) {
+            return; // If no operation was set, do nothing.
+        }
+        var inputValue = Double.parseDouble(screen);
         var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+            case "+" -> latestValue + inputValue;
+            case "-" -> latestValue - inputValue;
+            case "x" -> latestValue * inputValue;
+            case "/" -> latestValue / inputValue;
             default -> throw new IllegalArgumentException();
         };
+
+        // Update latestValue with the result for potential repeated operations
+        latestValue = result;
         screen = Double.toString(result);
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
