@@ -177,7 +177,27 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+// weiterer Roter Test, da ich die vorherigen nicht lösen konnte...
+    @Test
+    @DisplayName("should display the result of addition of three multi-digit numbers")
+    void testAdditionThreeNumbers() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+        String expected = "60";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
 }
     
     
