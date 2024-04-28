@@ -115,6 +115,31 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+    @Test
+    @DisplayName("should not add digit when 9 digits on screen")
+    void testAdding10thDigit() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+
+        String expected = "111111112";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
     //TODO hier weitere Tests erstellen
 }
 
