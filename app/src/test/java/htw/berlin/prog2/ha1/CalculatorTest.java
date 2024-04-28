@@ -126,6 +126,61 @@ class CalculatorTest {
     }
 
 
+    @Test
+    @DisplayName("should display Error when forming the inverse of zero")
+    void testInversionOfZero(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(8);
+        calc.pressEqualsKey();
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+    /*
+    * Folgende Tests sind nicht Teil der Abgabe HA 1. Der Bugfix zu diesen Tests war für mich zu kompliziert,
+    * daher besteht Nachfragebedarf.
+    *
+    * @Test
+    * @DisplayName("should display negative number even if the negative-key was pressed before the digit-key")
+    * void testNegativeZeroToNegativeDigit(){
+    *     Calculator calc = new Calculator();
+    *     calc.pressNegativeKey();
+    *     calc.pressDigitKey(3);
+    *
+    *     String expected = "-3";
+    *     String actual = calc.readScreen();
+    *     assertEquals(expected, actual);
+    * }
+    *
+    * Der folgende Test wurde erstellt, um die Problemquelle des vorherigen Tests zu identifizieren.
+    * D.h. dieser Test gehört nicht zur Abgabe der 1.HA
+    *
+    * @Test
+    * @DisplayName("should make a zero a negative zero")
+    * void testSwitchZeroIntoNegativeZero(){
+    *    Calculator calc = new Calculator();
+    *    calc.pressNegativeKey();
+    *
+    *    String expected = "-0";
+    *    String actual = calc.readScreen();
+    *
+    *    assertEquals(expected, actual);
+    * }
+    */
+
+
+
+
+
+
+
 
 
 
