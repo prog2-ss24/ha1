@@ -13,6 +13,7 @@ public class Calculator {
     private double latestValue;
 
     private String latestOperation = "";
+    private boolean pressedClearEntryKey = false;
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -45,9 +46,16 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        screen = "0";
+        if (!pressedClearEntryKey) {
+            screen = "0";
+            pressedClearEntryKey = true;
+        } else if (pressedClearEntryKey) {
+            screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+        pressedClearEntryKey = false;
+
+        }
     }
 
     /**
@@ -94,7 +102,7 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen + ".";
+        if(!screen.contains(".") && screen.length() < 9 ) screen = screen + ".";
     }
 
     /**

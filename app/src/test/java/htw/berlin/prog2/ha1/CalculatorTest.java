@@ -90,5 +90,69 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after adding two positive single-digit numbers")
+    void testSimpleAddition() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+        String expected = "10";
+        String actual = calc.readScreen();
+
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("")
+    void test() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(3);
+        calc.pressDotKey();
+
+
+        String expected = "333333333";
+        String actual = calc.readScreen();
+
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("")
+    public void pressClearKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(7);
+        calc.pressClearKey();
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+
+        String expected = "6";
+        String actual = calc.readScreen();
+
+
+        assertEquals(expected, actual);
+    }
 }
+
+
+
+
 
