@@ -43,9 +43,12 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-            screen = "0";
+        if (screen != "0") {
+            screen = "0";} else
+        {
             latestOperation = "";
             latestValue = 0.0;
+        }
     }
 
     /**
@@ -124,6 +127,7 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        if(screen.equals("NaN")) screen = "Error";
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
