@@ -198,6 +198,8 @@ class CalculatorTest {
         assertEquals(expected, actual);
 
     }
+
+    // Ich konnte leider nur einen Bug lösen, an den anderen bin ich gescheitert. 
 }
     
     
