@@ -114,5 +114,30 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-}
+    /**
+     * Teilaufgabe2 RoteTest
+     * Überprüft, ob das Ergebnis nach der Berechnung der Quadratwurzel einer Zahl ohne Dezimalpunkt angezeigt wird.
+     *
+     *
+     * @return
+     * Gibt den Bildschirminhalt nach der Quadratwurzelberechnung als String zurück. Erwartet wird eine ganze Zahl ohne Dezimalpunkt.
+     */
+
+    @Test
+    @DisplayName("should display the result after getting the square root of a number but without a decimal point")
+
+        void testASquareRoot() {
+            Calculator calc = new Calculator();
+
+
+            calc.pressDigitKey(1);
+            calc.pressDigitKey(6);
+            calc.pressUnaryOperationKey("√");
+
+            String expected = "4";
+            String actual = calc.readScreen();
+
+            assertEquals(expected, actual);
+
+}}
 
