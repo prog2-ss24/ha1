@@ -109,10 +109,10 @@ class CalculatorTest {
 @DisplayName("should display latest number after pressing equals")
 void testEqualKey() {
     Calculator calc = new Calculator();
-    calc.pressDigitKey(3);
+    calc.pressDigitKey(5);
     calc.pressEqualsKey();
 
-    String expected = "3";
+    String expected = "5";
     String actual = calc.readScreen();
 
     assertEquals(expected, actual);
@@ -120,7 +120,20 @@ void testEqualKey() {
 }
     // Teiaufgabe 2.2
 
+    @Test
+    @DisplayName("should display error when attempting to calculate the factorial of a negative number")
+    void testFactorialOfNegativeNumber() {
+        Calculator calc = new Calculator();
 
+        calc.pressUnaryOperationKey("!"); // Fakultät einer negativen Zahl
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey();
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
 
     //TODO hier weitere Tests erstellen
