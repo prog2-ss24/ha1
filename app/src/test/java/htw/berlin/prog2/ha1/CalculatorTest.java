@@ -131,7 +131,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should return 0.0 after pressing clear")
+    @DisplayName("should be able to perform a binary operation after another one")
     void testDoubleAddition() {
         Calculator calc = new Calculator();
 
