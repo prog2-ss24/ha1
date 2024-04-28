@@ -138,5 +138,25 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("Beim Berechnen der Quadratwurzel einer negativen Zahl sollte ein Fehler erscheinen.")
+    void testSquareRootAfterNegativeResult() {
+        Calculator calc = new Calculator();
+
+        // Negative Zahl erzeugen durch eine einfache Subtraktion
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(5);
+        calc.pressEqualsKey(); // Ergebnis ist -2
+
+        // Versuch, die Quadratwurzel des negativen Ergebnisses zu ziehen
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual); // Erwartet wird, dass "Error" angezeigt wird
+    }
+
 
 }
