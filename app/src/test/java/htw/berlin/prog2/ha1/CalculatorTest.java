@@ -103,7 +103,18 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("should prohibit inversion of 0")
+    void testInvertingZero() {
+        Calculator calc = new Calculator();
 
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "ERROR";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
     //TODO hier weitere Tests erstellen
 }
 
