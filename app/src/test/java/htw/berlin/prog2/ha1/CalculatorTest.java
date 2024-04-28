@@ -126,6 +126,36 @@ class CalculatorTest {
         });
     }
 
+    @Test
+    @DisplayName("Operands should all change accordingly when the key is pressed")
+    void testChangeOfOperands () {
+        Calculator calc = new Calculator();
+        calc.pressBinaryOperationKey("+");
+        calc.pressBinaryOperationKey("-");
+        calc.pressBinaryOperationKey("x");
+
+        String expected = "x";
+        String actual = calc.readLatestOperation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Handles the case when zero is inputed in the calculator for the 1/x case")
+    void testUnaryOperatorZeroCase () {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
+
+
+
+
 
 
 
