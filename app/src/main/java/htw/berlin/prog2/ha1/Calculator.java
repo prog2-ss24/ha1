@@ -13,6 +13,8 @@ public class Calculator {
     private double latestValue;
 
     private String latestOperation = "";
+    //introducing var actualValue to store screen value without cutting off digits to handle some rounding errors
+    private double actualValue = 0.0;
 
     /**
      * @return den aktuellen Bildschirminhalt als String
@@ -34,6 +36,8 @@ public class Calculator {
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
         screen = screen + digit;
+        //store input in new var
+        actualValue = Double.parseDouble(screen);
     }
 
     /**
@@ -48,6 +52,8 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
+        //clear new var
+        actualValue = 0.0;
     }
 
     /**
@@ -60,8 +66,11 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
-        latestValue = Double.parseDouble(screen);
+        //retaining the proper value
+        latestValue = actualValue;
         latestOperation = operation;
+        //necessary for handling of unary operations before a binary one
+        screen = "0";
     }
 
     /**
@@ -72,15 +81,18 @@ public class Calculator {
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
-        latestValue = Double.parseDouble(screen);
+        //retaining the proper value and usage of it
+        latestValue = actualValue;
         latestOperation = operation;
         var result = switch(operation) {
-            case "√" -> Math.sqrt(Double.parseDouble(screen));
-            case "%" -> Double.parseDouble(screen) / 100;
-            case "1/x" -> 1 / Double.parseDouble(screen);
+            case "√" -> Math.sqrt(actualValue);
+            case "%" -> actualValue / 100;
+            case "1/x" -> 1 / actualValue;
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        //store proper value
+        actualValue = result;
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
@@ -95,6 +107,8 @@ public class Calculator {
      */
     public void pressDotKey() {
         if(!screen.contains(".")) screen = screen + ".";
+        //might not be needed
+        actualValue = Double.parseDouble(screen);
     }
 
     /**
@@ -106,6 +120,8 @@ public class Calculator {
      */
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+        //handling for usage at the end of a multi digit number, otherwise already handled in pressDigitKey
+        actualValue *= -1;
     }
 
     /**
@@ -118,16 +134,21 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        //usage of new var
         var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+            case "+" -> latestValue + actualValue;
+            case "-" -> latestValue - actualValue;
+            case "x" -> latestValue * actualValue;
+            case "/" -> latestValue / actualValue;
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        //storing for next operation
+        actualValue = result;
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
+        // handling for big number format to retain the exponent even if the output has to be limited
+        if(screen.contains("E") && screen.length() > 11) screen = screen.substring(0,11-screen.length()+screen.indexOf("E")) + screen.substring(screen.indexOf("E"));
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
 }
