@@ -91,8 +91,8 @@ class CalculatorTest {
 
     //TODO hier weitere Tests erstellen
     @Test
-    @DisplayName("should display result after subtracting two positive multi-digit numbers")
-    void testPositiveeSubtracting() {
+    @DisplayName("should display result after subtracting two numbers")
+    void testSubtracting() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
@@ -108,7 +108,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("should display result after getting the square root of 4")
+    @DisplayName("should display result after getting the square root of 4 ")
     void testSquare() {
         Calculator calc = new Calculator();
         calc.pressDigitKey(4);
