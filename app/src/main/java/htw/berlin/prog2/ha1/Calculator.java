@@ -6,6 +6,8 @@ package htw.berlin.prog2.ha1;
  * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
  */
+
+
 public class Calculator {
 
     private String screen = "0";
@@ -14,12 +16,19 @@ public class Calculator {
 
     private String latestOperation = "";
 
+    private boolean clearFlag = false;
+
     /**
      * @return den aktuellen Bildschirminhalt als String
      */
     public String readScreen() {
         return screen;
     }
+
+    /**
+     * @return den aktuellen Operand die als String zurückgegeben wird
+     */
+    public String readLatestOperation() {return latestOperation;}
 
     /**
      * Empfängt den Wert einer gedrückten Zifferntaste. Da man nur eine Taste auf einmal
@@ -32,7 +41,6 @@ public class Calculator {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-
         screen = screen + digit;
     }
 
@@ -45,9 +53,17 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+        if (!clearFlag) {
+
+            screen = "0";
+            clearFlag = true;
+
+        } else {
+            screen = "0";
+            latestOperation = "";
+            latestValue = 0.0;
+            clearFlag = false;
+        }
     }
 
     /**
@@ -77,12 +93,20 @@ public class Calculator {
         var result = switch(operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
             case "%" -> Double.parseDouble(screen) / 100;
-            case "1/x" -> 1 / Double.parseDouble(screen);
+            case "1/x" -> {
+                double screenValue = Double.parseDouble(screen);
+                if(screenValue == 0) {
+                    throw new ArithmeticException("Error");
+                } else {
+                    yield 1 / screenValue;
+                }
+            }
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
 
     }
 

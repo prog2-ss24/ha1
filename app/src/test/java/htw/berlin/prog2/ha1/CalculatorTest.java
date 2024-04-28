@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("Retro calculator")
 class CalculatorTest {
@@ -88,7 +89,79 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("Digit entered should be converted to a negative one")
+    void testConversionFromNegative() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(1);
+        calc.pressNegativeKey();
+
+        String expected = "-1";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
+    }
+
+    @Test
+    @DisplayName("The binary operator should not be deleted upon pressing the pressClearKey in cases where there was an operand")
+    void testMethodForClearingValues() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressClearKey();
+
+        String expected = "+";
+        String actual = calc.readLatestOperation();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Illegalargument should be thrown")
+    void testIllegalArgument () {
+        Calculator calc = new Calculator();
+        assertThrows(IllegalArgumentException.class, () -> {
+            calc.pressDigitKey(100);
+        });
+    }
+
+    @Test
+    @DisplayName("Operands should all change accordingly when the key is pressed")
+    void testChangeOfOperands () {
+        Calculator calc = new Calculator();
+        calc.pressBinaryOperationKey("+");
+        calc.pressBinaryOperationKey("-");
+        calc.pressBinaryOperationKey("x");
+
+        String expected = "x";
+        String actual = calc.readLatestOperation();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Handles the case when zero is inputed in the calculator for the 1/x case")
+    void testArithmeticException () {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(0);
+        String operation = "1/x";
+        ArithmeticException expection = assertThrows(ArithmeticException.class, () -> {
+            calc.pressUnaryOperationKey(operation);
+        });
+
+        assertEquals("Error", expection.getMessage());
+
+    }
+
+
+
+
+
+
+
 }
+
+
+
 
