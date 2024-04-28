@@ -155,10 +155,35 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-   /*  @Test
+    @Test
     @DisplayName("")
     void test() {
         Calculator calc = new Calculator();
- */
+ 
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual); 
+    }
+
+    /* @Test
+    @DisplayName("should display result after subtracting one positive and one negative multi-digit numbers")
+    void testNegative() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);        
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "7";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    } */
 }
 
