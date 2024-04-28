@@ -103,6 +103,23 @@ class CalculatorTest {
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
-    
+
+
+    @Test
+    @DisplayName("should show the latest number when no Operation is used")
+    void testEqualKeyWithNoPreOperationkey(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(6);
+        calc.pressDotKey();
+        calc.pressEqualsKey();
+
+
+        String actual = calc.readScreen();
+        String expected = "6";
+
+        assertEquals(expected,actual);
+    }
+
 }
 
