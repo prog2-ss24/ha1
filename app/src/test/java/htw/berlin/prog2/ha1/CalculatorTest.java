@@ -91,7 +91,8 @@ class CalculatorTest {
 
     //TODO hier weitere Tests erstellen
 
-    @Test @DisplayName("should display result after subtracting one number from another")
+    @Test
+    @DisplayName("should display result after subtracting one number from another")
     void SubtractionFromNumber() {
         Calculator calc = new Calculator();
 
@@ -102,7 +103,24 @@ class CalculatorTest {
 
         String expected = "6";
         String actual = calc.readScreen();
-        assertEquals(expected, actual); }
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display as many numbers as the online calculator for a negative number")
+    void NegativeLength() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressNegativeKey();
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "-0.11111111";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 
 }
 
