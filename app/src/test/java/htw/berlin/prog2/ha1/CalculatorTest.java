@@ -90,5 +90,53 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after subtracting two numbers")
+    void testSubtracting() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display result after getting the square root of 4 ")
+    void testSquare() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(4);
+
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected,actual);
+
+    }
+    @Test
+    @DisplayName("should display latest value")
+    void testClear(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressClearKey();
+
+        String expected = "20.0";
+        String actual = calc.getLatestValue();
+
+        assertEquals(expected,actual);
+
+    }
 }
 
