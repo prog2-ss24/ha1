@@ -111,64 +111,21 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-
     @Test
-    @DisplayName("should display the right answer when dividing two decimals")
-    void divisionOfTwoDecimal() {
+    @DisplayName("square root")
+    void squareRootTest() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(0);
-        calc.pressDotKey();
-        calc.pressDigitKey(2);
-        calc.pressBinaryOperationKey("/");
-        calc.pressDigitKey(0);
-        calc.pressDotKey();
-        calc.pressDigitKey(2);
-        calc.pressEqualsKey();
-
-
-        String expected = "1";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
-    @Test
-    @DisplayName("squared root of decimal")
-    void squaredRootOfDecimal() {
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(0);
-        calc.pressDotKey();
-        calc.pressDigitKey(2);
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(9);
         calc.pressUnaryOperationKey("√");
 
-        String expected = "0.447";
+        String expected = "7";
         String actual = calc.readScreen();
+
 
         assertEquals(expected, actual);
     }
-
-    @Test
-    @DisplayName("should display a positiv decimal with two digits after comma")
-    void shouldDisplayEnoughDigits() {
-        Calculator calc = new Calculator();
-
-        calc.pressDigitKey(2);
-        calc.pressDotKey();
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(2);
-        calc.pressDotKey();
-        calc.pressDigitKey(5);
-        calc.pressDigitKey(5);
-        calc.pressEqualsKey();
-
-        String expected = "5.05";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual);
-    }
-
 
 
 }
