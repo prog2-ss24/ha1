@@ -122,6 +122,19 @@ class CalculatorTest {
         assertEquals(expected, actual);
      }
 
+     @Test
+    @DisplayName("should gives the same digit after pressing  the equal key")
+    void testReturnSameNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+        String expected = "7";
+        String actual = calc.readScreen();
+
+        assertEquals(expected,actual);
+     }
     //TODO hier weitere Tests erstellen
 
 }
