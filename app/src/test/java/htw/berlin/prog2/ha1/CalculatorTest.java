@@ -117,8 +117,27 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("
+    @DisplayName("should multiply decimals")
+    void testMultiplyDecimals() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+
+
+        String expected = "0.01";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
     }
+
     //TODO hier weitere Tests erstellen
 }
 
