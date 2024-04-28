@@ -87,8 +87,6 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-    
-    //TODO hier weitere Tests erstellen
 
     @Test
     @DisplayName("should display result after multiplying two positive multi-digit numbers")
@@ -101,6 +99,38 @@ class CalculatorTest {
     calc.pressEqualsKey();
 
     String expected = "20";
+    String actual = calc.readScreen();
+
+    assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display error when trying to divide by zero")
+    void testDivisionByZero() {
+    Calculator calc = new Calculator();
+
+    calc.pressDigitKey(8);
+    calc.pressBinaryOperationKey("/");
+    calc.pressDigitKey(0);
+    calc.pressEqualsKey();
+
+    String expected = "Error";
+    String actual = calc.readScreen();
+
+    assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display error when trying to perform an unsupported operation")
+    void testUnsupportedOperation() {
+    Calculator calc = new Calculator();
+
+    calc.pressDigitKey(8);
+    calc.pressBinaryOperationKey("%"); // Try to perform unsupported operation
+    calc.pressDigitKey(4);
+    calc.pressEqualsKey();
+
+    String expected = "Error";
     String actual = calc.readScreen();
 
     assertEquals(expected, actual);
