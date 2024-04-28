@@ -131,26 +131,28 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
 }
-
+    // Bug 2
     @Test
-    @DisplayName("Should output a single percent of the associated value and be processed by the underlying calculation")
-    void testPercentageKey() {
+    @DisplayName("Should be able to perform operations where numbers do not have the same amount of digits")
+    void testAmountOfDigits() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(8);
-        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
         calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(1);
-        calc.pressDigitKey(1);
-        calc.pressUnaryOperationKey("√");
-        //calc.pressEqualsKey();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
         
 
-        String expected = "112";
+        String expected = "180";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
-    }
+}
 
     
 }

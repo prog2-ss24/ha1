@@ -44,10 +44,19 @@ public class Calculator {
      * Werte sowie der aktuelle Operationsmodus zurückgesetzt, so dass der Rechner wieder
      * im Ursprungszustand ist.
      */
-    public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+
+     // Funktionalität erweitert: C und CE bestimmt 
+     public void pressClearKey() {
+        if (screen.equals("0")) { // Wenn auf dem Bildschirm '0' angezeigt wird, werden die gespeicherten Werte durch Drücken von 'C' nicht gelöscht. 
+            latestValue = 0.0;
+            latestOperation = ""; 
+        } else {
+            screen = "0"; // Zurücksetzen des Bildschirms
+            if (latestValue != 0.0) { // Wenn ein Wert gespeichert ist, wird durch zweimaliges Drücken von "C" alles gelöscht.
+                latestValue = 0.0;
+                latestOperation = "";
+            }
+        }
     }
 
     /**
@@ -63,9 +72,9 @@ public class Calculator {
         if (!latestOperation.isEmpty()) {
             calculateResult();  // Bugfix: Miteinbeziehung des vorherigen Ergebnisses bei der Berechnung einer weiteren Variable 
         } else {
-            latestValue = Double.parseDouble(screen);  // No pending operation, so store the current screen value (EXISTING LOGIC REUSED)
+            latestValue = Double.parseDouble(screen);  
         }
-        latestOperation = operation;  // Set the new operation (UNCHANGED)
+        latestOperation = operation; 
         screen = "0";  // Bugfix: Bildschirm wird freigemacht um weiteren Input zu ermöglichen
     }
 // Bugfix 1: Methode um zu prüfen, ob der double-Wert als int ausgegeben werden kann
@@ -109,7 +118,7 @@ public class Calculator {
         latestOperation = operation;
         var result = switch(operation) {
             case "√" -> Math.sqrt(Double.parseDouble(screen));
-            case "%" -> Double.parseDouble(screen) * 0.01;
+            case "%" -> Double.parseDouble(screen) / 100; 
             case "1/x" -> 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
@@ -152,7 +161,7 @@ public class Calculator {
      */
 
 
-     // Bugfix: Methode nutzt die neue Rechenlogik für "=" und alle weiteren binären Operatoren, womit Redundanz vorgebeugt wird
+     // Bugfix 1: Methode nutzt die neue Rechenlogik für "=" und alle weiteren binären Operatoren, womit Redundanz vorgebeugt wird
 
     public void pressEqualsKey() {
         calculateResult();
