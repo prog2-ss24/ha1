@@ -90,5 +90,66 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after subtracting two negative multi-digit numbers")
+    void testNegativeAddition() {
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressNegativeKey();
+        calc.pressEqualsKey();
+
+        String expected = "-20";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("square root")
+    void squareRootTest() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(9);
+        calc.pressUnaryOperationKey("√");
+
+        String expected = "7";
+        String actual = calc.readScreen();
+
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("Test ten digit")
+    void TenDigitTest() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(6);
+        calc.pressDigitKey(7);
+        calc.pressDigitKey(8);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(0);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(2);
+
+
+
+        String expected = "1234567890";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
 }
 
