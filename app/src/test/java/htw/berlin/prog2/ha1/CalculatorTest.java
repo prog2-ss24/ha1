@@ -105,11 +105,11 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display error when trying to divide by zero")
-    void testDivisionByZero() {
+    @DisplayName("should display error when dividing by zero with binary operation")
+    void testDivisionByZeroBinaryOperation() {
     Calculator calc = new Calculator();
 
-    calc.pressDigitKey(8);
+    calc.pressDigitKey(5);
     calc.pressBinaryOperationKey("/");
     calc.pressDigitKey(0);
     calc.pressEqualsKey();
@@ -121,19 +121,22 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should display error when trying to perform an unsupported operation")
-    void testUnsupportedOperation() {
+    @DisplayName("should correctly handle input with multiple decimal dots")
+    void testMultipleDecimalDots() {
     Calculator calc = new Calculator();
 
+    calc.pressDigitKey(1);
+    calc.pressDotKey();
+    calc.pressDigitKey(7);
+    calc.pressDotKey();
     calc.pressDigitKey(8);
-    calc.pressBinaryOperationKey("%"); // Try to perform unsupported operation
-    calc.pressDigitKey(4);
-    calc.pressEqualsKey();
 
-    String expected = "Error";
+    String expected = "1.78";
     String actual = calc.readScreen();
 
     assertEquals(expected, actual);
     }
+
 }
+
 
