@@ -90,5 +90,19 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should clear the screen")
+    void test_clear_screen() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        assertEquals("20", calc.readScreen()); //Überprüft ob die Methode pressDigitKey funktioniert
+        calc.pressClearKey();
+        String expected = "0";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
