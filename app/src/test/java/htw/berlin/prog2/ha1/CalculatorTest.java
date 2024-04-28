@@ -90,6 +90,8 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    //green test
     @Test
     @DisplayName("should reset calculator state after pressing clear key")
     void testClearKey() {
@@ -104,5 +106,44 @@ class CalculatorTest {
 
         assertEquals("0", calc.readScreen());
     }
+
+    //red test 1
+    @Test
+    @DisplayName("It should be able to change the digit entered without clearing the entire operation ")
+    void testChangingDigits() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(9);
+        calc.pressClearKey();
+        calc.pressDigitKey(4);
+
+        String expected = "5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+    //red test 2
+    @Test
+    @DisplayName("should return your input after pressing the equal key even without adding in any operations")
+    void enter1Input1Answer(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
 }
+
+
+
+
 
