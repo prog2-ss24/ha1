@@ -48,8 +48,8 @@ public class Calculator {
         screen = "0";
         latestOperation = "";
         latestValue = 0.0;
-
     }
+
 
     /**
      * Empfängt den Wert einer gedrückten binären Operationstaste, also eine der vier Operationen
@@ -75,25 +75,20 @@ public class Calculator {
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
-        double inputValue = Double.parseDouble(screen);
-
-        if (operation.equals("√") && inputValue < 0) {
-            screen = "Error";
-        } else {
-            var result = switch(operation) {
-                case "√" -> Math.sqrt(inputValue);
-                case "%" -> inputValue / 100;
-                //case "1/x" -> 1 / Double.parseDouble(screen);
-                case "1/x" -> latestValue == 0 ? Double.POSITIVE_INFINITY : 1 / latestValue; // Verhindere Division durch Null
-                default -> throw new IllegalArgumentException();
-            };
-
-            screen = Double.toString(result);
-        }
-
-        if(screen.equals("NaN") || screen.equals("Infinity")) screen = "Error";
+        var result = switch(operation) {
+            case "√" -> Math.sqrt(Double.parseDouble(screen));
+            case "%" -> Double.parseDouble(screen) / 100;
+//          case "1/x" -> 1 / Double.parseDouble(screen);
+            case "1/x" -> latestValue == 0 ? Double.POSITIVE_INFINITY : 1 / latestValue; // Verhindere Division durch Null
+            default -> throw new IllegalArgumentException();
+        };
+        screen = Double.toString(result);
+        //if(screen.equals("NaN")) screen = "Error";
+        if(screen.equals("NaN") || screen.equals("Infinity")) screen = "Error"; // Erweitere die Bedingung um "Infinity"
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
     }
+
 
 
     /**
@@ -130,6 +125,9 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
+        if (latestOperation.isEmpty()) {
+            return;  // Keine Operation zu berechnen
+        }
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
             case "-" -> latestValue - Double.parseDouble(screen);
@@ -137,9 +135,12 @@ public class Calculator {
             case "/" -> latestValue / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
         };
+        latestOperation = ""; // Operation zurücksetzen, um wiederholte Ausführungen zu verhindern
         screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
+        if(screen.equals("Infinity") || screen.equals("NaN")) screen = "Error";
+        if(screen.endsWith(".0")) screen = screen.substring(0, screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+
+
     }
 }

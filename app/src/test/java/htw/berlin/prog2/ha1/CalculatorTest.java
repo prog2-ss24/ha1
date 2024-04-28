@@ -112,7 +112,7 @@ class CalculatorTest {
     @DisplayName("Drücken ClearKey gefolgt von der Gleich-Taste sollte Ergebnis eine Null anzeigen, was jedoch nicht der Fall ist.") // will fail
     void pressClear() {
         Calculator calc = new Calculator();
-        calc.pressDigitKey(10);
+        calc.pressDigitKey(1); // Ändere von 10 auf 1, da 10 ungültig ist.
         calc.pressBinaryOperationKey("/");
         calc.pressDigitKey(5);
         calc.pressClearKey();
@@ -122,8 +122,8 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
-
     }
+
 
     @Test
     @DisplayName("Beim Versuch,null umzukehren, sollte ein Fehler angezeigt werden")
