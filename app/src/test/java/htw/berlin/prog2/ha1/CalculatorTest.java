@@ -144,7 +144,7 @@ class CalculatorTest {
         calc.pressEqualsKey();
 
 
-        String expected = "6";
+        String expected = "13";
         String actual = calc.readScreen();
 
 
