@@ -96,12 +96,12 @@ class CalculatorTest {
     void testPositiveMultiplication() {
         Calculator calc = new Calculator();
         calc.pressDigitKey(6);
-      calc.pressBinaryOperationKey("x");
-      calc.pressDigitKey(8);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(8);
         calc.pressEqualsKey();
-      String expected = "48";
-      String actual = calc.readScreen();
-      assertEquals(expected, actual);
+        String expected = "48";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
     }
     @Test
     @DisplayName("should display result after subtracting two positive multi digit numbers")
@@ -119,16 +119,15 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("should display result after divison by  0" )
-    void testDivisonByZero() {
+    @DisplayName("shoud display more than 10 digits" )
+    void testOverflow() {
         Calculator calc = new Calculator();
-        calc.pressDigitKey(6);
-        calc.pressBinaryOperationKey("/");
-        calc.pressDigitKey(0);
-        calc.pressEqualsKey();
-        String expected = "0";
+        for (int i = 0; i < 12; i++) {
+            calc.pressDigitKey(1);
+        }
+        String expected = "1111111111";
         String actual = calc.readScreen();
         assertEquals(expected, actual);
+
     }
 }
-
