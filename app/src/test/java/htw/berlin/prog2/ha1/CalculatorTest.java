@@ -121,17 +121,16 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should correctly handle input with multiple decimal dots")
-    void testMultipleDecimalDots() {
+    @DisplayName("should display error when attempting to divide by a non-integer result")
+    void testDivisionByNonIntegerResult() {
     Calculator calc = new Calculator();
 
     calc.pressDigitKey(1);
-    calc.pressDotKey();
-    calc.pressDigitKey(7);
-    calc.pressDotKey();
-    calc.pressDigitKey(8);
+    calc.pressBinaryOperationKey("/");
+    calc.pressDigitKey(3);
+    calc.pressEqualsKey();
 
-    String expected = "1.78";
+    String expected = "Error";
     String actual = calc.readScreen();
 
     assertEquals(expected, actual);
