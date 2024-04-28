@@ -57,6 +57,8 @@ public class Calculator {
      * Rechner in den passenden Operationsmodus versetzt.
      * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * Wenn es eine Eingabe von einer dritten Zahl gibt, wird das aktuelle Zwischenergebnis mit der neuen Eingabe
+     * verrechnet und das neue aktuelle Zwischenergebnis angezeigt.
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
@@ -113,12 +115,16 @@ public class Calculator {
 
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.
-     * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
+     * Wurde zuvor keine Operationstaste gedrückt, wird die eingegebene Zahl ausgegeben.
      * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
-     * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt,
+     * auch bei der Division von Null durch Null.
      * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
+     * Wenn es sich um eine Prozentrechnung handelt, zuletzt also die Prozenttaste gewählt wurde,
+     * werden die Operanden in Prozentwerte bzw. Dezimalzahlen umgerechnet, miteinander multipliziert
+     * und anschließend durch 100 geteilt. Das Ergebnis wird ebenfalls als Dezimalzahl angezeigt.
      */
     public void pressEqualsKey() {
         if (latestOperation.isEmpty()) {                                                  // HA
