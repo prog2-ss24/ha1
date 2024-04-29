@@ -117,21 +117,26 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should multiply decimals")
-    void testMultiplyDecimals() {
+    @DisplayName("should not add another digit to screen when nine numbers are on screen")
+    void testDontAllow10thDigit() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(0);
-        calc.pressDotKey();
         calc.pressDigitKey(1);
-        calc.pressBinaryOperationKey("x");
-        calc.pressDigitKey(0);
-        calc.pressDotKey();
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(1);
         calc.pressEqualsKey();
 
 
-        String expected = "0.01";
+        String expected = "111111112";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
