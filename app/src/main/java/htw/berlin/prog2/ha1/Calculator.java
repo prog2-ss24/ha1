@@ -140,5 +140,6 @@ public class Calculator {
 
         // Fix 2
         if(screen.equals("NaN")) screen = "Error";
+
     }
 }
