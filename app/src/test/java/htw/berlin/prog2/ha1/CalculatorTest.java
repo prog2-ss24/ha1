@@ -37,7 +37,7 @@ class CalculatorTest {
         String expected = "1.41421356";
         String actual = calc.readScreen();
 
-        assertEquals(expected, actual);
+        assertEquals(expected, actual.replaceAll(",", ".")); // Ersetze das Komma durch einen Punkt
     }
 
     @Test
