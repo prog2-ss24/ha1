@@ -93,7 +93,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result after subtracting two positive multi-digit numbers")
-    void testNegativeAddition() {
+    void testSubtracting() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(4);
@@ -126,7 +126,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("should display 0 when dividing by zero")
+    @DisplayName("should display 0 when multiplying by zero")
     void testMultiplicationByZero() {
         Calculator calc = new Calculator();
 
@@ -142,3 +142,4 @@ class CalculatorTest {
     }
 }
 
+//Test
