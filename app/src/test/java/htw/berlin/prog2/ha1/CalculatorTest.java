@@ -88,7 +88,28 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    /**
+     * Teilaufgabe (zweite Rote Test)
+     * Testet, ob der Taschenrechner die vorherige Addition wiederholt, wenn die "=" Taste wiederholt gedrückt wird.
+     * Dieser Test initialisiert ein Calculator-Objekt und führt eine Addition von 7 und 2 durch, dann wird die "=" Taste zum ersten Mal gedrückt, was das Ergebnis 9 liefert.
+     * Anschließend wird die "=" Taste erneut gedrückt, um zu überprüfen, ob der Taschenrechner die letzte Operation (7 + 2) wiederholt und korrekt das neue Ergebnis 11 berechnet und anzeigt.
+     * Erwartet wird, dass das Ergebnis "11" auf dem Bildschirm angezeigt wird, was eine erfolgreiche Wiederholung der vorherigen Operation bestätigen würde.
+     */
+    @Test
+    @DisplayName("Should repeat the previous addition operation multiple times when equals is pressed repeatedly")
+    void testRepeatPreviousOperation() {
+        Calculator calculator = new Calculator();
 
-    //TODO hier weitere Tests erstellen
+        calculator.pressDigitKey(7);
+        calculator.pressBinaryOperationKey("+");
+        calculator.pressDigitKey(2);
+        calculator.pressEqualsKey(); // 7 + 2 = 9
+        calculator.pressEqualsKey(); // widederholt Addition: 9 + 2 = 11
+
+        String expected = "11";
+        String actual = calculator.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 

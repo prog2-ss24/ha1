@@ -12,6 +12,8 @@ public class Calculator {
 
     private double latestValue;
 
+    private double lastInputValue;// Neues Feld zum Speichern des zuletzt eingegebenen Werts
+
     private String latestOperation = "";
 
     /**
@@ -109,25 +111,69 @@ public class Calculator {
     }
 
     /**
-     * Empfängt den Befehl der gedrückten "="-Taste.
-     * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
-     * Wurde zuvor eine binäre Operationstaste gedrückt und zwei Operanden eingegeben, wird das
-     * Ergebnis der Operation angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
-     * Wird die Taste weitere Male gedrückt (ohne andere Tasten dazwischen), so wird die letzte
-     * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
-     * und das Ergebnis direkt angezeigt.
+     * Empfängt den Befehl der gedrückten "=" Taste und führt die Berechnung basierend auf der zuletzt ausgeführten Operation
+     * und dem zuletzt eingegebenen Wert durch. Diese Methode handhabt auch Fehlersituationen wie die Division durch Null.
+     * Wenn keine Operation vor der "=" Taste ausgeführt wurde, bleibt der Zustand unverändert.
+     *
+     * @throws IllegalArgumentException wenn eine ungültige Operation übergeben wird.
      */
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
-        };
-        screen = Double.toString(result);
-        if(screen.equals("Infinity")) screen = "Error";
-        if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
-        if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        double currentInput = Double.parseDouble(screen);
+
+        if (latestOperation.isEmpty()) return;  // Wenn keine vorherige Operation vorhanden ist, führe nichts aus.
+
+        if (!latestOperation.isEmpty() && lastInputValue != 0) {
+            // Wenn ein letzter Eingabewert vorhanden und nicht 0 ist, verwende diesen Wert für die Berechnung.
+            currentInput = lastInputValue;
+        } else {
+            // Andernfalls aktualisiere den letzten Eingabewert mit dem aktuellen Wert auf dem Bildschirm für zukünftige Operationen.
+            lastInputValue = currentInput;
+        }
+
+        double result = 0;
+        boolean isError = false;
+        switch (latestOperation) {
+            case "+":
+                result = latestValue + currentInput;
+                break;
+            case "-":
+                result = latestValue - currentInput;
+                break;
+            case "x":
+                result = latestValue * currentInput;
+                break;
+            case "/":
+                if (currentInput == 0) {
+                    isError = true;
+                } else {
+                    result = latestValue / currentInput;
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid operation.");
+        }
+
+        if (isError) {
+            screen = "Error";
+        } else {
+            latestValue = result;  // Aktualisiere den letzten berechneten Wert für die nächste Verwendung.
+            screen = formatResult(result);// Formatieren und anzeigen des Ergebnisses.
+        }
+    }
+
+    /**
+     * Formatieren des Ergebnisses der Berechnung für die Anzeige auf dem Bildschirm.
+     * Entfernt unnötige Nullen und Punkte bei Bedarf, um das Ergebnis sauber darzustellen.
+     *
+     * @param result das zu formatierende Ergebnis der Berechnung.
+     * @return formatierter String des Ergebnisses.
+     */
+    private String formatResult(double result) {
+        if (result == (long) result) {
+            return String.format("%d", (long) result);
+        } else {
+            return String.format("%.10f", result).replaceAll("0*$", "").replaceAll("\\.$", "");
+        }
     }
 }
+
