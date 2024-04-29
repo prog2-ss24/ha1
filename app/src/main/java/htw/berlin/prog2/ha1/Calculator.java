@@ -60,6 +60,10 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+        // Bedinigung zur Prüfen das das Letze rechnung nicht leer sein darf ,also soll direkt bei BinaryOperationkey
+        // Berechnet werden
+        if(latestOperation.length() !=0)
+            pressEqualsKey();
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
@@ -129,5 +133,16 @@ public class Calculator {
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        // While schleife soll solange laufen und die lezten nullen entfernen bis
+        // die if  bedinigung in der while schleife nicht erfüllt wird
+        // (bis im Ergebnis keinen nullen nach der kommastlle am ende der zahl enthalten sind)
+        if(!screen.contains("Error")){
+            int i = 1;
+            while (i < result) {
+                if (screen.contains(".") && screen.endsWith("0") && !screen.contains("Error"))
+                    screen = screen.substring(0, screen.length() - 1);
+                i++;
+            }
+        }
     }
 }
