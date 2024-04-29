@@ -5,6 +5,7 @@ package htw.berlin.prog2.ha1;
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
  * und dessen Bildschirm bis zu zehn Ziffern plus einem Dezimaltrennzeichen darstellen kann.
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
+ * Nachricht Test.
  */
 public class Calculator {
 
@@ -18,7 +19,9 @@ public class Calculator {
      * @return den aktuellen Bildschirminhalt als String
      */
     public String readScreen() {
+
         return screen;
+
     }
 
     /**
@@ -29,11 +32,13 @@ public class Calculator {
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
+
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
 
         if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
         screen = screen + digit;
+
     }
 
     /**
@@ -45,9 +50,13 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
+
         screen = "0";
+
         latestOperation = "";
+
         latestValue = 0.0;
+
     }
 
     /**
@@ -60,8 +69,11 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+
         latestValue = Double.parseDouble(screen);
+
         latestOperation = operation;
+
     }
 
     /**
@@ -72,16 +84,24 @@ public class Calculator {
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
+
         latestValue = Double.parseDouble(screen);
+
         latestOperation = operation;
+
         var result = switch(operation) {
+
             case "√" -> Math.sqrt(Double.parseDouble(screen));
             case "%" -> Double.parseDouble(screen) / 100;
             case "1/x" -> 1 / Double.parseDouble(screen);
             default -> throw new IllegalArgumentException();
+
         };
+
         screen = Double.toString(result);
+
         if(screen.equals("NaN")) screen = "Error";
+
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
     }
@@ -94,7 +114,9 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
+
         if(!screen.contains(".")) screen = screen + ".";
+
     }
 
     /**
@@ -105,7 +127,9 @@ public class Calculator {
      * entfernt und der Inhalt fortan als positiv interpretiert.
      */
     public void pressNegativeKey() {
+
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+
     }
 
     /**
@@ -118,16 +142,32 @@ public class Calculator {
      * und das Ergebnis direkt angezeigt.
      */
     public void pressEqualsKey() {
-        var result = switch(latestOperation) {
-            case "+" -> latestValue + Double.parseDouble(screen);
-            case "-" -> latestValue - Double.parseDouble(screen);
-            case "x" -> latestValue * Double.parseDouble(screen);
-            case "/" -> latestValue / Double.parseDouble(screen);
+
+        if (latestOperation.isEmpty()) return;
+        
+        double newValue = Double.parseDouble(screen);
+
+        double result = switch(latestOperation) {
+
+            case "+" -> latestValue + newValue;
+            case "-" -> latestValue - newValue;
+            case "x" -> latestValue * newValue;
+            case "/" -> latestValue / newValue;
+
             default -> throw new IllegalArgumentException();
+        
         };
+
+        latestValue = newValue; 
+
         screen = Double.toString(result);
+
         if(screen.equals("Infinity")) screen = "Error";
+
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
+        
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
-    }
+    
+    } 
+    
 }

@@ -89,6 +89,60 @@ class CalculatorTest {
     }
 
 
-    //TODO hier weitere Tests erstellen
+    //Teilaufgabe 01 - zusätzlicher Test
+    @Test
+    @DisplayName("should display result when dividing a positive multi-digit number with another single-digit number")
+    void testDivisionByDecimal() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(9);
+        calc.pressEqualsKey();
+
+        String expected = "5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    //Teilaufgabe 02 
+    
+    @Test
+    @DisplayName("should repeat last operation on continuous equals presses")
+    void testRepeatLastOperation() {
+        Calculator calc = new Calculator();
+        
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();  
+        
+        String expected = "11";  
+        String actual = calc.readScreen();
+        
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should repeat last operation on continuous equals presses")
+    void testNewNumberAfterResult() {
+        Calculator calc = new Calculator();
+        
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        calc.pressDigitKey(3); 
+        calc.pressEqualsKey();
+        
+        String expected = "6";  
+        String actual = calc.readScreen();
+        
+        assertEquals(expected, actual);
+    }
+
 }
 
