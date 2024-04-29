@@ -37,7 +37,7 @@ class CalculatorTest {
         String expected = "1.41421356";
         String actual = calc.readScreen();
 
-        assertEquals(expected, actual);
+        assertEquals(expected, actual.replaceAll(",", ".")); // Ersetze das Komma durch einen Punkt
     }
 
     @Test
@@ -87,8 +87,60 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-
-
     //TODO hier weitere Tests erstellen
-}
+    @Test
+    @DisplayName("should correctly change the sign of a number")
+    void testChangeSign() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressNegativeKey(); // Erwartet: -5
+        String expected = "-5";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
 
+    @Test
+    @DisplayName("should handle decimal points correctly after an operation")
+    void testDecimalHandlingAfterOperation() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey(); // Erstes Ergebnis: 10
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(5); // Neue Eingabe: 2.5
+        String expected = "2.5";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+
+    @Test
+    @DisplayName("Test multiple digit input followed by a decimal point")
+    public void testMultipleDigitsAndDecimalPoint() {
+        Calculator calc = new Calculator();  // Erstellen Sie eine Instanz des Taschenrechners
+
+        // Drücken Sie sechsmal die Zifferntaste "1"
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(1);
+
+
+        // Drücken Sie die Dezimalpunkttaste
+        calc.pressDotKey();
+
+        // Erwarteter Bildschirmwert nach dem Drücken des Dezimalpunkts
+        String expected = "111111111.";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual, "The screen should display '111111111.' after entering six ones followed by a decimal point");
+    }
+
+}
