@@ -90,5 +90,55 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after multiplying two positive multi-digit numbers")
+    void testPositiveMultiplication() {
+
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "400";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
+    }
+
+
+
+
+    @Test
+    @DisplayName("should display error when press the button 1/x")
+    void redtest1() {
+        Calculator calc = new Calculator();
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display a negative number even press the negative key before pressing a number")
+    void redtest2() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(6);
+
+        String expected = "-6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    
 }
+
+
 

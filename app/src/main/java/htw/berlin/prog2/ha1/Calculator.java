@@ -30,9 +30,8 @@ public class Calculator {
      */
     public void pressDigitKey(int digit) {
         if(digit > 9 || digit < 0) throw new IllegalArgumentException();
-
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-
+        if(screen.equals("0") || (latestValue == Double.parseDouble(screen) && !screen.equals("-0"))) screen = ""; // 2Tr
+        if(screen.equals("-0")) screen = "-"; // 2 Rt
         screen = screen + digit;
     }
 
@@ -74,11 +73,31 @@ public class Calculator {
     public void pressUnaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
-        var result = switch(operation) {
-            case "√" -> Math.sqrt(Double.parseDouble(screen));
-            case "%" -> Double.parseDouble(screen) / 100;
-            case "1/x" -> 1 / Double.parseDouble(screen);
-            default -> throw new IllegalArgumentException();
+
+        double result;  //
+
+        switch(operation) {
+
+            case "√":
+                result = Math.sqrt(Double.parseDouble(screen));
+                break;
+
+            case "%":
+               result = Double.parseDouble(screen) / 100;
+                break;
+
+            case "1/x":
+                if (screen.equals("0")){
+                    result = Double.NaN;
+                }
+
+                else {
+                    result = 1 / Double.parseDouble(screen);
+                }
+                break;
+
+            default:
+                throw new IllegalArgumentException(); //
         };
         screen = Double.toString(result);
         if(screen.equals("NaN")) screen = "Error";
@@ -131,3 +150,4 @@ public class Calculator {
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
 }
+
