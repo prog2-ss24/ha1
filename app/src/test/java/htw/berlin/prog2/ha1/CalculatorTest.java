@@ -90,5 +90,59 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    //Teilaufgabe 1
+    @Test
+    @DisplayName("should display result after adding two positive numbers with decimal dots")
+    void testPositiveAdditionDecimalDots() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressDotKey();
+        calc.pressDigitKey(7);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(7);
+        calc.pressDotKey();
+        calc.pressDigitKey(7);
+        calc.pressEqualsKey();
+
+        String expected = "15.4";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    // Teilaufgabe 2
+    @Test
+    @DisplayName("should display result after adding decimal zero")
+     void testOperatingWithDecimalZero(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDotKey();
+        calc.pressEqualsKey();
+
+        String expected = "2";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display result after pressing equals key two times in a row")
+    void testTwiceEqualsKey(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        String expected = "0.5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
 
