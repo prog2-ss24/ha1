@@ -111,39 +111,69 @@ public class Calculator {
     }
 
     /**
-     * Empfängt den Befehl der gedrückten "=" Taste. Diese Methode verarbeitet die Berechnung basierend auf der zuletzt ausgeführten Operation und dem zuletzt eingegebenen Wert.
-     * Wenn keine Operations-Taste vor der "=" Taste gedrückt wurde, passiert nichts.
-     * Bei der ersten Ausführung nach der Eingabe eines Operators und eines zweiten Operanden wird das Ergebnis der Operation angezeigt.
-     * Tritt bei der Operation, wie zum Beispiel der Division, ein Fehler auf (z. B. Division durch Null), wird "Error" angezeigt.
-     * Wenn die "=" Taste weitere Male gedrückt wird, ohne dass zwischendurch andere Tasten gedrückt werden, wiederholt der Rechner die letzte Operation mit dem zuletzt verwendeten zweiten Operanden und aktualisiert das Ergebnis auf dem Bildschirm.
+     * Empfängt den Befehl der gedrückten "=" Taste und führt die Berechnung basierend auf der zuletzt ausgeführten Operation
+     * und dem zuletzt eingegebenen Wert durch. Diese Methode handhabt auch Fehlersituationen wie die Division durch Null.
+     * Wenn keine Operation vor der "=" Taste ausgeführt wurde, bleibt der Zustand unverändert.
      *
-     * @throws IllegalArgumentException wenn eine ungültige Operation übergeben wird
+     * @throws IllegalArgumentException wenn eine ungültige Operation übergeben wird.
      */
     public void pressEqualsKey() {
-        if (latestOperation.isEmpty()) return;  // Wenn es keinen vorherigen Vorgang gibt, einfach zurückgeben
-
         double currentInput = Double.parseDouble(screen);
-        if (latestValue == currentInput) {
-            // Wenn die auf dem Bildschirm angezeigte Zahl der zuletzt verwendeten Zahl entspricht, wird lastInputValue für die Berechnung verwendet
+
+        if (latestOperation.isEmpty()) return;  // Wenn keine vorherige Operation vorhanden ist, führe nichts aus.
+
+        if (!latestOperation.isEmpty() && lastInputValue != 0) {
+            // Wenn ein letzter Eingabewert vorhanden und nicht 0 ist, verwende diesen Wert für die Berechnung.
             currentInput = lastInputValue;
         } else {
-            // Aktualisiere lastInputValue auf die Zahl, die vor dieser Operation auf dem Bildschirm stand
+            // Andernfalls aktualisiere den letzten Eingabewert mit dem aktuellen Wert auf dem Bildschirm für zukünftige Operationen.
             lastInputValue = currentInput;
         }
 
-        var result = switch (latestOperation) {
-            case "+" -> latestValue + currentInput;
-            case "-" -> latestValue - currentInput;
-            case "x" -> latestValue * currentInput;
-            case "/" -> latestValue / currentInput;
-            default -> throw new IllegalArgumentException();
-        };
+        double result = 0;
+        boolean isError = false;
+        switch (latestOperation) {
+            case "+":
+                result = latestValue + currentInput;
+                break;
+            case "-":
+                result = latestValue - currentInput;
+                break;
+            case "x":
+                result = latestValue * currentInput;
+                break;
+            case "/":
+                if (currentInput == 0) {
+                    isError = true;
+                } else {
+                    result = latestValue / currentInput;
+                }
+                break;
+            default:
+                throw new IllegalArgumentException("Invalid operation.");
+        }
 
-        latestValue = result;  // Aktualisiere latestValue auf das aktuelle Berechnungsergebnis für die nächste Verwendung
-        screen = Double.toString(result);
-        if (screen.equals("Infinity")) screen = "Error";
-        if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
-        if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+        if (isError) {
+            screen = "Error";
+        } else {
+            latestValue = result;  // Aktualisiere den letzten berechneten Wert für die nächste Verwendung.
+            screen = formatResult(result);// Formatieren und anzeigen des Ergebnisses.
+        }
+    }
+
+    /**
+     * Formatieren des Ergebnisses der Berechnung für die Anzeige auf dem Bildschirm.
+     * Entfernt unnötige Nullen und Punkte bei Bedarf, um das Ergebnis sauber darzustellen.
+     *
+     * @param result das zu formatierende Ergebnis der Berechnung.
+     * @return formatierter String des Ergebnisses.
+     */
+    private String formatResult(double result) {
+        if (result == (long) result) {
+            return String.format("%d", (long) result);
+        } else {
+            return String.format("%.10f", result).replaceAll("0*$", "").replaceAll("\\.$", "");
+        }
     }
 }
 

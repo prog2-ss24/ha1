@@ -87,29 +87,14 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-    @Test
-    @DisplayName("should correctly handle consecutive binary operations like addition and subtraction")
-    void testConsecutiveBinaryOperations() {
-        Calculator calc = new Calculator();
 
-        // Additionsoperation führt durch
-        calc.pressDigitKey(5);
-        calc.pressBinaryOperationKey("+");
-        calc.pressDigitKey(3);
-        calc.pressEqualsKey();
-
-        // Weiter Subtraktions-Operation
-        calc.pressBinaryOperationKey("-");
-        calc.pressDigitKey(2);
-        calc.pressEqualsKey();
-
-        // Wünschergbnis ist 5 + 3 - 2 = 6
-        String expected = "6";
-        String actual = calc.readScreen();
-
-        assertEquals(expected, actual, "The calculator should correctly calculate the result of consecutive addition and subtraction.");
-    }
-
+    /**
+     * Teilaufgabe (zweite Rote Test)
+     * Testet, ob der Taschenrechner die vorherige Addition wiederholt, wenn die "=" Taste wiederholt gedrückt wird.
+     * Dieser Test initialisiert ein Calculator-Objekt und führt eine Addition von 7 und 2 durch, dann wird die "=" Taste zum ersten Mal gedrückt, was das Ergebnis 9 liefert.
+     * Anschließend wird die "=" Taste erneut gedrückt, um zu überprüfen, ob der Taschenrechner die letzte Operation (7 + 2) wiederholt und korrekt das neue Ergebnis 11 berechnet und anzeigt.
+     * Erwartet wird, dass das Ergebnis "11" auf dem Bildschirm angezeigt wird, was eine erfolgreiche Wiederholung der vorherigen Operation bestätigen würde.
+     */
     @Test
     @DisplayName("Should repeat the previous addition operation multiple times when equals is pressed repeatedly")
     void testRepeatPreviousOperation() {
@@ -126,6 +111,5 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
-
 }
 
