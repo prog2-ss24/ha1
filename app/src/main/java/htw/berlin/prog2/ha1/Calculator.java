@@ -136,10 +136,13 @@ public class Calculator {
         // While schleife soll solange laufen und die lezten nullen entfernen bis
         // die if  bedinigung in der while schleife nicht erfüllt wird
         // (bis im Ergebnis keinen nullen nach der kommastlle am ende der zahl enthalten sind)
-        int i=1;
-        while(i < result) {
-            if (screen.contains(".") && screen.endsWith("0")) screen = screen.substring(0, screen.length() - 1);
-            i++;
+        if(!screen.contains("Error")){
+            int i = 1;
+            while (i < result) {
+                if (screen.contains(".") && screen.endsWith("0") && !screen.contains("Error"))
+                    screen = screen.substring(0, screen.length() - 1);
+                i++;
+            }
         }
     }
 }

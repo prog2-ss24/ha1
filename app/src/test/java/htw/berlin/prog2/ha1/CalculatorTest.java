@@ -113,7 +113,7 @@ class CalculatorTest {
 
 
     @Test
-    @DisplayName("ZahlenKette_addition")
+    @DisplayName("ZahlenKette_addition mit mehrern operanden")
     void testOne() {
         Calculator calc = new Calculator();
 
