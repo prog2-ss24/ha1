@@ -12,6 +12,8 @@ public class Calculator {
 
     private double latestValue;
     private double ghostValue;
+    // Zusätzliche Laufvariable zur "0." Anzeige nach einer Operationswahl
+    private boolean operationSelected=false;
 
     private String latestOperation = "";
 
@@ -27,6 +29,7 @@ public class Calculator {
      * drücken kann muss der Wert positiv und einstellig sein und zwischen 0 und 9 liegen.
      * Führt in jedem Fall dazu, dass die gerade gedrückte Ziffer auf dem Bildschirm angezeigt
      * oder rechts an die zuvor gedrückte Ziffer angehängt angezeigt wird.
+     * Ebenfalls wird die Laufvariable zur "0." Anzeige zurückgesetzt.
      *
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
@@ -36,6 +39,7 @@ public class Calculator {
         if (screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
         screen = screen + digit;
+        operationSelected=false;
     }
 
     /**
@@ -63,12 +67,14 @@ public class Calculator {
      * Rechner in den passenden Operationsmodus versetzt.
      * Beim zweiten Drücken nach Eingabe einer weiteren Zahl wird direkt des aktuelle Zwischenergebnis
      * auf dem Bildschirm angezeigt. Falls hierbei eine Division durch Null auftritt, wird "Error" angezeigt.
+     * Setzt Laufvariable zur "0." Anzeige.
      *
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation) {
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
+        operationSelected = true;
     }
 
     /**
@@ -106,9 +112,7 @@ public class Calculator {
     public void pressDotKey() {
         if (!screen.contains(".")) screen = screen + ".";
         /* Fix ("should display result after adding decimal zero") */
-        if (!latestOperation.isEmpty()) {
-            screen = "0.";
-        }
+        if (operationSelected) screen = "0.";
     }
 
     /**
@@ -133,8 +137,7 @@ public class Calculator {
      *
      */
     public void pressEqualsKey() {
-        // Fix ("should display result after pressing equals key two times in a row")
-        ghostValue = latestValue;
+
         var result = switch (latestOperation) {
             case "+" -> {
                 if (ghostValue == latestValue) {
@@ -167,6 +170,8 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        // Fix ("should display result after pressing equals key two times in a row")
+        ghostValue = latestValue;
         if (screen.equals("Infinity")) screen = "Error";
         if (screen.endsWith(".0")) screen = screen.substring(0, screen.length() - 2);
         if (screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);

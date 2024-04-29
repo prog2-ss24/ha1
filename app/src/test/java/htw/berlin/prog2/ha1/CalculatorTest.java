@@ -90,8 +90,8 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
-    // Teilaufgabe 1
 
+    //Teilaufgabe 1
     @Test
     @DisplayName("should display result after adding two positive numbers with decimal dots")
     void testPositiveAdditionDecimalDots() {
@@ -112,7 +112,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
-    //Teilaufgabe 2
+    // Teilaufgabe 2
     @Test
     @DisplayName("should display result after adding decimal zero")
      void testOperatingWithDecimalZero(){
