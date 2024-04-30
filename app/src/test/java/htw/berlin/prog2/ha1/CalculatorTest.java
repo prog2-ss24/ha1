@@ -90,5 +90,49 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after substracting two positive numbers")
+    void calculatorCanDoFiveMinusTwo(){
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+        assertEquals("3", calc.readScreen());
+    }
+
+    @Test
+    @DisplayName("should clear only last number ")
+    void test(){
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressClearKey();
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should calculate with multiple numbers")
+    void calculatorCanDoMultipleCalculations() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressDotKey();
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        assertEquals("4.4", calc.readScreen());
+    }
 }
 
