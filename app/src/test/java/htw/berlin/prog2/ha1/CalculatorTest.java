@@ -103,7 +103,7 @@ class CalculatorTest {
     }
 
     @Test
-    @DisplayName("should calculate numbers big numbers")
+    @DisplayName("should clear only last number ")
     void test(){
         Calculator calc = new Calculator();
 
