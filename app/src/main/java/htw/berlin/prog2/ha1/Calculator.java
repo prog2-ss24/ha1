@@ -60,6 +60,10 @@ public class Calculator {
      * @param operation "+" für Addition, "-" für Substraktion, "x" für Multiplikation, "/" für Division
      */
     public void pressBinaryOperationKey(String operation)  {
+        // Multiple numbers
+        if (!latestOperation.isEmpty()) {
+            pressEqualsKey();  // Perform the pending operation
+        }
         latestValue = Double.parseDouble(screen);
         latestOperation = operation;
     }
@@ -103,8 +107,12 @@ public class Calculator {
      * aktualisiert und die Inhalt fortan als negativ interpretiert.
      * Zeigt der Bildschirm bereits einen negativen Wert mit führendem Minus an, dann wird dieses
      * entfernt und der Inhalt fortan als positiv interpretiert.
+     * Zeigt der Bildschirm eine Null an, so wird keine Anpassung vorgenommen, da die Negation von Null immer Null ist.
      */
     public void pressNegativeKey() {
+        if (screen.equals("0")) {
+            return;
+        }
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
     }
 
@@ -130,4 +138,5 @@ public class Calculator {
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
 }
