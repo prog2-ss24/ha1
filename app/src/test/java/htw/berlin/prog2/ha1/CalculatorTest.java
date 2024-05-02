@@ -88,7 +88,60 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display result after multiplying two numbers")
+    void testMultiplication() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "12";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+// Teilaufgabe 2.1
+@Test
+@DisplayName("should display latest number after pressing equals")
+void testEqualKey() {
+    Calculator calc = new Calculator();
+    calc.pressDigitKey(5);
+    calc.pressEqualsKey();
+
+    String expected = "5";
+    String actual = calc.readScreen();
+
+    assertEquals(expected, actual);
+
+}
+    // Teiaufgabe 2.2
+
+    @Test
+    @DisplayName("should display result after adding multiple positive multi-digit numbers")
+    void testPositiveAdditionWithMultipleDigits() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(7);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(7);
+        calc.pressDigitKey(0);
+        calc.pressEqualsKey();
+
+        String expected = "150";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
     //TODO hier weitere Tests erstellen
+
 }
 
