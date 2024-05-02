@@ -110,8 +110,8 @@ class CalculatorTest {
 
 
     @Test
-    @DisplayName("Fehler anzeigen wenn mehr als 10 Ziffern eingegeben werden") // Test 1
-    void testMehrAlsZehnzahlen() {
+    @DisplayName("Fehler anzeigen wenn mehr als 9 Ziffern eingegeben werden") // Test 1
+    void testMehrAlsNeunzahlen() {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(1);
@@ -123,24 +123,12 @@ class CalculatorTest {
         calc.pressDigitKey(7);
         calc.pressDigitKey(8);
         calc.pressDigitKey(9);
-        calc.pressDigitKey(0);
-        calc.pressDigitKey(1); // 11 Zahl eingabe
+        calc.pressDigitKey(0); // 10 zahl eingabe
 
-        String expected = "Error";
-
+        String expected = "123456789";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
-
-
-
-
-
-
-
-
-
-
     }
 
 
@@ -149,12 +137,18 @@ class CalculatorTest {
         void testDezimalstelleVorZiffer() {
             Calculator calc = new Calculator();
 
-            calc.pressDotKey(); // Eine Dezimalstelle bevor eine Zahl eingegeben wurde
+            calc.pressDotKey();
 
-            String expected = "Error";
+            String expected = "0.";
             String actual = calc.readScreen();
 
             assertEquals(expected, actual);
+
+
+
+
+
+
 
 
 

@@ -29,14 +29,14 @@ public class Calculator {
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
-        if(digit > 9 || digit < 0) throw new IllegalArgumentException();
+        if (screen.length() >= 9) return; // Keine weiteren Ziffern mehr hinzufügen
 
-        if (screen.length() < 10) { // Kontrollieren ob weniger als 10 Ziffern angezeigt werden
-            if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
-            screen = screen + digit;
-        } else {
-            screen = "Error"; // Wenn mehr als 10 Ziffern eingegeben werden, zeige "Error" an
-        }
+        if (digit > 9 || digit < 0) throw new IllegalArgumentException();
+
+        if (screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+
+        screen = screen + digit;
+
     }
 
     /**
@@ -102,12 +102,10 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if (!screen.contains(".")) { // Prüfen, ob bereits ein Dezimaltrennzeichen existiert
-            if (!screen.equals("0") && !screen.isEmpty()) { // Prüfen, ob der Bildschirm nicht leer ist
-                screen = screen + ".";
-            } else {
-                screen = "Error"; // Fehlermeldung, wenn eine Dezimalstelle vor einer Zahl eingegeben wird
-            }
+        if (screen.equals("")) { // Bildschirm leer dann fügen führende Null vor Dezimaltrennzeichen hinzu
+            screen = "0.";
+        } else if (!screen.contains(".")) { // Sollte das Dezimaltrennzeichen noch nicht vorhanden sein hinzufügen
+            screen = screen + ".";
         }
     }
 
