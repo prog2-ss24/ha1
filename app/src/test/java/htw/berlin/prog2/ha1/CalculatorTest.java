@@ -90,5 +90,124 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display result after subtract two numbers")
+    void testPositiveSubtract() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "0";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+
+
+    }
+
+
+    @Test
+    @DisplayName("Fehler anzeigen wenn mehr als 9 Ziffern eingegeben werden") // Test 1
+    void testMehrAlsNeunzahlen() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(6);
+        calc.pressDigitKey(7);
+        calc.pressDigitKey(8);
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(0); // 10 zahl eingabe
+
+        String expected = "123456789";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+
+        @Test
+        @DisplayName("Dezimalstelle bevor eine Zahl eingegeben wurde") // Test 2
+        void testDezimalstelleVorZiffer() {
+            Calculator calc = new Calculator();
+
+            calc.pressDotKey();
+
+            String expected = "0.";
+            String actual = calc.readScreen();
+
+            assertEquals(expected, actual);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 

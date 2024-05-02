@@ -29,11 +29,14 @@ public class Calculator {
      * @param digit Die Ziffer, deren Taste gedrückt wurde
      */
     public void pressDigitKey(int digit) {
-        if(digit > 9 || digit < 0) throw new IllegalArgumentException();
+        if (screen.length() >= 9) return; // Keine weiteren Ziffern mehr hinzufügen
 
-        if(screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
+        if (digit > 9 || digit < 0) throw new IllegalArgumentException();
+
+        if (screen.equals("0") || latestValue == Double.parseDouble(screen)) screen = "";
 
         screen = screen + digit;
+
     }
 
     /**
@@ -45,9 +48,13 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+
+            screen = "0";
+            latestOperation = "";
+            latestValue = 0.0;
+
+
+
     }
 
     /**
@@ -68,7 +75,9 @@ public class Calculator {
      * Empfängt den Wert einer gedrückten unären Operationstaste, also eine der drei Operationen
      * Quadratwurzel, Prozent, Inversion, welche nur einen Operanden benötigen.
      * Beim Drücken der Taste wird direkt die Operation auf den aktuellen Zahlenwert angewendet und
-     * der Bildschirminhalt mit dem Ergebnis aktualisiert.
+     * der Bildschirminhalt mit dem Ergebnis aktualisiert. Wenn die Zahl negativ ist, die
+     *  Quadratwurzel, wird eine Fehlermeldung
+     *  („Error“) angezeigt.
      * @param operation "√" für Quadratwurzel, "%" für Prozent, "1/x" für Inversion
      */
     public void pressUnaryOperationKey(String operation) {
@@ -85,7 +94,6 @@ public class Calculator {
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
     }
-
     /**
      * Empfängt den Befehl der gedrückten Dezimaltrennzeichentaste, im Englischen üblicherweise "."
      * Fügt beim ersten Mal Drücken dem aktuellen Bildschirminhalt das Trennzeichen auf der rechten
@@ -94,7 +102,11 @@ public class Calculator {
      * Beim zweimaligem Drücken, oder wenn bereits ein Trennzeichen angezeigt wird, passiert nichts.
      */
     public void pressDotKey() {
-        if(!screen.contains(".")) screen = screen + ".";
+        if (screen.equals("")) { // Bildschirm leer dann fügen führende Null vor Dezimaltrennzeichen hinzu
+            screen = "0.";
+        } else if (!screen.contains(".")) { // Sollte das Dezimaltrennzeichen noch nicht vorhanden sein hinzufügen
+            screen = screen + ".";
+        }
     }
 
     /**
@@ -130,4 +142,14 @@ public class Calculator {
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
     }
+
+
+
+
+
+
+
+
+
 }
+
