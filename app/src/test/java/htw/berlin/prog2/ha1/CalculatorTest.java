@@ -113,21 +113,20 @@ class CalculatorTest {
     }
 
     @Test
-    void testMultipleOperations(){
+    void testMultipleOperationsWithOneEquals(){
         Calculator calculator = new Calculator();
         calculator.pressDigitKey(8);
         calculator.pressBinaryOperationKey("/");
         calculator.pressDigitKey(4);
-        calculator.pressEqualsKey();
-        calculator.pressBinaryOperationKey("+");
+        calculator.pressBinaryOperationKey("x");
         calculator.pressDigitKey(2);
-        calculator.pressEqualsKey();
-        calculator.pressBinaryOperationKey("*");
+        calculator.pressBinaryOperationKey("+");
         calculator.pressDigitKey(4);
         calculator.pressEqualsKey();
 
 
-        assertEquals("16", calculator.readScreen());
+
+        assertEquals("8", calculator.readScreen());
     }
 
 }
