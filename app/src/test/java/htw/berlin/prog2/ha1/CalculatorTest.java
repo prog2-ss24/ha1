@@ -113,14 +113,21 @@ class CalculatorTest {
     }
 
     @Test
-    void testDivisonBy0(){
+    void testMultipleOperations(){
         Calculator calculator = new Calculator();
         calculator.pressDigitKey(8);
         calculator.pressBinaryOperationKey("/");
-        calculator.pressDigitKey(0);
+        calculator.pressDigitKey(4);
+        calculator.pressEqualsKey();
+        calculator.pressBinaryOperationKey("+");
+        calculator.pressDigitKey(2);
+        calculator.pressEqualsKey();
+        calculator.pressBinaryOperationKey("*");
+        calculator.pressDigitKey(4);
         calculator.pressEqualsKey();
 
-        assertEquals("Error", calculator.readScreen());
+
+        assertEquals("16", calculator.readScreen());
     }
 
 }
