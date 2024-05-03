@@ -87,8 +87,80 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+    @Test
+    @DisplayName("should display correct result after applying percentage operation")
+    void testPercentageOperation() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("%");
+
+        String expected = "0.5";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 
 
-    //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("should display correct result after multiplying two negative numbers")
+    void testNegativeMultiplication() {
+        Calculator calc = new Calculator();
+
+
+        calc.pressDigitKey(5);
+        calc.pressNegativeKey();
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(2);
+        calc.pressNegativeKey();
+        calc.pressEqualsKey();
+
+        String expected = "10";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should not allow inputting more than nine digits, even with dot")
+    void testMaximumDigitsLimit() {
+        Calculator calc = new Calculator();
+
+        // Input eleven digits
+        calc.pressDigitKey(1);
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(3);
+        calc.pressDigitKey(4);
+        calc.pressDigitKey(5);
+        calc.pressDigitKey(6);
+        calc.pressDigitKey(7);
+        calc.pressDigitKey(8);
+        calc.pressDotKey();
+        calc.pressDigitKey(9);
+        calc.pressDigitKey(1);
+
+        String expected = "12345678.9";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+    @Test
+    @DisplayName("should display result of last calculation on screen")
+    void testLastCalculationResultDisplayed() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+        calc.pressEqualsKey();
+
+        assertEquals("11", calc.readScreen());
+    }
+
+
+
 }
 
