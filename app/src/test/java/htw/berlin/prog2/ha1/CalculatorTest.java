@@ -113,20 +113,15 @@ class CalculatorTest {
     }
 
     @Test
-    void testMultipleOperationsWithOneEquals(){
+    void testMultipleUnaryOperations(){
         Calculator calculator = new Calculator();
-        calculator.pressDigitKey(8);
-        calculator.pressBinaryOperationKey("/");
-        calculator.pressDigitKey(4);
-        calculator.pressBinaryOperationKey("x");
-        calculator.pressDigitKey(2);
-        calculator.pressBinaryOperationKey("+");
-        calculator.pressDigitKey(4);
-        calculator.pressEqualsKey();
+        calculator.pressDigitKey(1);
+        calculator.pressDigitKey(6);
+        calculator.pressUnaryOperationKey("√");
+        calculator.pressUnaryOperationKey("√");
 
 
-
-        assertEquals("8", calculator.readScreen());
+        assertEquals("2", calculator.readScreen());
     }
 
 }
