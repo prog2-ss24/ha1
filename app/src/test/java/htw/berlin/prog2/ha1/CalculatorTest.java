@@ -90,5 +90,39 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    void testAddition(){
+        Calculator calculator = new Calculator();
+        calculator.pressDigitKey(2);
+        calculator.pressDigitKey(0);
+        calculator.pressBinaryOperationKey("+");
+        calculator.pressDigitKey(1);
+        calculator.pressDigitKey(0);
+        calculator.pressEqualsKey();
+
+        assertEquals("30", calculator.readScreen());
+    }
+
+    @Test
+    void testInversionOf0(){
+        Calculator calculator = new Calculator();
+        calculator.pressDigitKey(0);
+        calculator.pressUnaryOperationKey("1/x");
+
+        assertEquals("Error", calculator.readScreen());
+    }
+
+    @Test
+    void testMultipleUnaryOperations(){
+        Calculator calculator = new Calculator();
+        calculator.pressDigitKey(1);
+        calculator.pressDigitKey(6);
+        calculator.pressUnaryOperationKey("√");
+        calculator.pressUnaryOperationKey("√");
+
+
+        assertEquals("2", calculator.readScreen());
+    }
+
 }
 
