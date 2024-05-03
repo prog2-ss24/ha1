@@ -151,21 +151,13 @@ class CalculatorTest {
     void testLastCalculationResultDisplayed() {
         Calculator calc = new Calculator();
 
-
         calc.pressDigitKey(5);
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(3);
         calc.pressEqualsKey();
-
-
-        assertEquals("8", calc.readScreen());
-
-
-        calc.pressDigitKey(2);
         calc.pressEqualsKey();
 
-
-        assertEquals("10", calc.readScreen());
+        assertEquals("11", calc.readScreen());
     }
 
 
