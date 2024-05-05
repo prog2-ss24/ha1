@@ -129,5 +129,17 @@ class CalculatorTest {
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
-
+    @Test
+    @DisplayName("Square Root is also possible before pressing a digti key")
+    void testSquareRootBeforePressing() {
+        Calculator calc = new Calculator();
+        calc.pressUnaryOperationKey("√");
+        calc.pressDigitKey(9);
+        calc.pressEqualsKey();
+        String expected = "3";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
 }
+
+
