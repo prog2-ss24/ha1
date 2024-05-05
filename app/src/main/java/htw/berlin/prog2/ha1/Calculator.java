@@ -99,15 +99,19 @@ public class Calculator {
 
     /**
      * Empfängt den Befehl der gedrückten Vorzeichenumkehrstaste ("+/-").
-     * Zeigt der Bildschirm einen positiven Wert an, so wird ein "-" links angehängt, der Bildschirm
-     * aktualisiert und die Inhalt fortan als negativ interpretiert.
-     * Zeigt der Bildschirm bereits einen negativen Wert mit führendem Minus an, dann wird dieses
-     * entfernt und der Inhalt fortan als positiv interpretiert.
+     * Wenn der Bildschirm einen positiven Wert anzeigt, wird ein "-" vorangestellt, um den Wert negativ zu machen,
+     * und der Bildschirminhalt wird aktualisiert.
+     * Wenn der Bildschirm bereits einen negativen Wert mit einem führenden Minuszeichen anzeigt, wird das Minuszeichen entfernt,
+     * und der Wert wird als positiv interpretiert.
+     * Wenn der Bildschirm den Wert "0" anzeigt, hat dieser Aufruf keine Auswirkungen.
      */
-    public void pressNegativeKey() {
-        screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
-    }
 
+    public void pressNegativeKey() {
+        if (!screen.equals("0")) {
+        screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+        }
+    }
+    
     /**
      * Empfängt den Befehl der gedrückten "="-Taste.
      * Wurde zuvor keine Operationstaste gedrückt, passiert nichts.
@@ -117,7 +121,13 @@ public class Calculator {
      * Operation (ggf. inklusive letztem Operand) erneut auf den aktuellen Bildschirminhalt angewandt
      * und das Ergebnis direkt angezeigt.
      */
+
     public void pressEqualsKey() {
+        if (latestOperation.isEmpty()) {
+            // Wenn keine Operation ausgewählt wurde, wird der Bildschirminhalt nicht zurückgesetzt
+            return;
+        }
+        
         var result = switch(latestOperation) {
             case "+" -> latestValue + Double.parseDouble(screen);
             case "-" -> latestValue - Double.parseDouble(screen);
