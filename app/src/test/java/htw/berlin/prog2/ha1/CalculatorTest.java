@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("Retro calculator")
 class CalculatorTest {
@@ -88,7 +89,51 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    @Test
+    @DisplayName("should display result after multiplying two positive multi-digit numbers")
+    void testPositiveMultiplication() {
+    Calculator calc = new Calculator();
 
-    //TODO hier weitere Tests erstellen
+    calc.pressDigitKey(5);
+    calc.pressBinaryOperationKey("x");
+    calc.pressDigitKey(4);
+    calc.pressEqualsKey();
+
+    String expected = "20";
+    String actual = calc.readScreen();
+
+    assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display the last entered number when pressing equals without a binary operation")
+    void testEqualsWithoutBinaryOperation() {
+    Calculator calc = new Calculator();
+
+    // Pressing equals without a binary operation
+    calc.pressDigitKey(8);
+    calc.pressEqualsKey();
+
+    String expected = "8"; // Erwartet die Zahl "8"
+    String actual = calc.readScreen();
+
+    assertEquals(expected, actual);
+    }
+    
+    @Test
+    @DisplayName("should not change the screen when pressing negative on zero")
+    void testNegativeOnZero() {
+        Calculator calc = new Calculator();
+
+        // Vorzeichenumkehr auf Null anwenden
+        calc.pressDigitKey(0);
+        calc.pressNegativeKey();
+
+        String expected = "0"; // Der Bildschirm sollte sich nicht ändern
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
 }
+
 
