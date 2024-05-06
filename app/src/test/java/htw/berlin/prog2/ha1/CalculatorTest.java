@@ -24,6 +24,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testPositiveAddition()");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
     @Test
@@ -38,6 +41,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testSquareRoot()");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
     @Test
@@ -54,6 +60,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testDivisionByZero");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
     @Test
@@ -69,6 +78,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testSquareRootOfNegative()");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
     @Test
@@ -86,9 +98,76 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testMultipleDecimalDots");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
 
     //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("Soll eine Zahl von einer anderen Abziehen")
+    void testSubtract() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(1);
+        calc.pressEqualsKey();
+
+        String expected = "1";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+        System.out.println("testSubtract()");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
+    }
+
+    @Test
+    @DisplayName("Soll mehr als nur zwei Zahlen zusammenrechnen.")
+    void testSubtractAndMultiply() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(4);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "9";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+        System.out.println("testSubtractAndMultiply()");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
+    }
+
+    @Test
+    @DisplayName("Soll punkt vor Strich ausrechnen")
+    void punktVorStrichTest() {
+        Calculator calc = new Calculator();
+
+        calc.pressNegativeKey();
+        calc.pressDigitKey(2);
+        calc.pressDigitKey(0);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(4);
+        calc.pressEqualsKey();
+
+        String expected = "8";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+        System.out.println("punktVorStrichTest()");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
+    }
+
 }
 
