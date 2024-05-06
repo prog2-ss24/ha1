@@ -24,6 +24,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testPositiveAddition()");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
     @Test
@@ -38,6 +41,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testSquareRoot()");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
     @Test
@@ -54,6 +60,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testDivisionByZero");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
     @Test
@@ -69,6 +78,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testSquareRootOfNegative()");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
     @Test
@@ -86,6 +98,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testMultipleDecimalDots");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
 
@@ -104,6 +119,9 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("testSubtract()");
+        System.out.println("Ausgerechnetes Ergebnis: " + actual);
+        System.out.println("Erwartetes Ergebnis: " + expected);
     }
 
     @Test
@@ -123,6 +141,7 @@ class CalculatorTest {
         String expected = "9";
         String actual = calc.readScreen();
         assertEquals(expected, actual);
+        System.out.println("testSubtractAndMultiply()");
         System.out.println("Ausgerechnetes Ergebnis: " + actual);
         System.out.println("Erwartetes Ergebnis: " + expected);
     }
@@ -145,6 +164,7 @@ class CalculatorTest {
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
+        System.out.println("punktVorStrichTest()");
         System.out.println("Ausgerechnetes Ergebnis: " + actual);
         System.out.println("Erwartetes Ergebnis: " + expected);
     }

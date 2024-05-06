@@ -124,13 +124,18 @@ public class Calculator {
 
     public void pressEqualsKey() {
         saveLastValues.add(Double.parseDouble(screen));
-        double result = checkOperation();
-        if(result % 1 == 0){
-            screen = Integer.toString((int) result);
-        }else {
-            screen = Double.toString(result);
+        double result;
+        try {
+            result = checkOperation();
+            if (result % 1 == 0) {
+                screen = Integer.toString((int) result);
+            } else {
+                screen = Double.toString(result);
+            }
+            //if (screen.equals("Infinity") || screen.equals("NaN")) {screen = "Error";}
+        }catch (ArithmeticException e) {
+            screen = "Error";
         }
-        if (screen.equals("Infinity")) screen = "Error";
     }
 
 
@@ -148,8 +153,9 @@ public class Calculator {
                     aktWert *= nextWert;
                     break;
                 case "/":
-                    if (nextWert == 0) throw new ArithmeticException("Division durch null!");
-                    aktWert /= nextWert;
+                    if (nextWert == 0) {
+                        throw new ArithmeticException("Division durch null!");
+                    }else{aktWert /= nextWert;}
                     break;
                 default:
                     zwischenWert.add(aktWert);
