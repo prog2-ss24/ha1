@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.fail;
 
 @DisplayName("Retro calculator")
 class CalculatorTest {
@@ -130,13 +131,11 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
     @Test
-    @DisplayName("Square Root is also possible before pressing a digti key")
-    void testSquareRootBeforePressing() {
+    @DisplayName("should not throw an error when 1/x key is pressed")
+    void Test1xKey() {
         Calculator calc = new Calculator();
-        calc.pressUnaryOperationKey("√");
-        calc.pressDigitKey(9);
-        calc.pressEqualsKey();
-        String expected = "3";
+        calc.pressUnaryOperationKey("1/x");
+        String expected = "0";
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
