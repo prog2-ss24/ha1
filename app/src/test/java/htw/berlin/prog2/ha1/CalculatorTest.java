@@ -121,7 +121,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should display result after adding multiple positive multi-digit numbers")
-    void testMultiplePositiveAddition() {
+    void testMultiplePositiveAddition() { // Ich habe dieser roete Test gefunden aber könnte nicht loesen
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
@@ -153,7 +153,7 @@ class CalculatorTest {
 
     @Test
     @DisplayName("should handle floating-point precision correctly")
-    void testFloatingPointPrecision() {
+    void testFloatingPointPrecision() { // Ich habe dieser roete Test gefunden aber könnte nicht loesen
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(0);
