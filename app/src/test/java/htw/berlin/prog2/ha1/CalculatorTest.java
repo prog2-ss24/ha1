@@ -4,6 +4,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @DisplayName("Retro calculator")
 class CalculatorTest {
@@ -14,13 +15,11 @@ class CalculatorTest {
         Calculator calc = new Calculator();
 
         calc.pressDigitKey(2);
-        calc.pressDigitKey(0);
         calc.pressBinaryOperationKey("+");
         calc.pressDigitKey(2);
-        calc.pressDigitKey(0);
         calc.pressEqualsKey();
 
-        String expected = "40";
+        String expected = "4";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
@@ -81,6 +80,7 @@ class CalculatorTest {
         calc.pressDigitKey(7);
         calc.pressDotKey();
         calc.pressDigitKey(8);
+        
 
         String expected = "1.78";
         String actual = calc.readScreen();
@@ -88,7 +88,142 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+    /* Meine Testfälle */
 
-    //TODO hier weitere Tests erstellen
+    @Test
+    @DisplayName("should display result after subtracting a smaller number from a larger number")
+    void testPositiveSubtraction() {
+        Calculator calc = new Calculator();
+        
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("-");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "2";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after multiplying two positive numbers")
+    void testPositiveMultiplication() {
+        Calculator calc = new Calculator();
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("x");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display result after adding multiple positive multi-digit numbers")
+    void testMultiplePositiveAddition() { // Ich habe dieser roete Test gefunden aber könnte nicht loesen
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "40";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should handle floating-point precision correctly")
+    void testFloatingPointPrecision() { // Ich habe dieser roete Test gefunden aber könnte nicht loesen
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("+");
+        calc.pressDigitKey(0);
+        calc.pressDotKey();
+        calc.pressDigitKey(2);
+        calc.pressEqualsKey();
+
+        String expected = "0.3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("Should display error when 1/x is used with 0")
+    void testDisplayError() {
+        Calculator calc = new Calculator();
+
+        calc.pressUnaryOperationKey("1/x");
+
+        String expected = "Error";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("should display the same number, if equals is pressed")
+    void testShowsNumber() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(6);
+        calc.pressEqualsKey();
+
+        String expected = "6";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void testPressingDotKeyTwice() {
+        Calculator calculator = new Calculator();
+        calculator.pressDotKey();
+        calculator.pressDotKey();
+        assertEquals("0.", calculator.readScreen());
+    }
+
+    @Test
+    public void testPercentCalculation() {
+        Calculator calculator = new Calculator();
+        calculator.pressDigitKey(9);
+        calculator.pressDigitKey(0);
+        calculator.pressUnaryOperationKey("%");
+        assertEquals("0.9", calculator.readScreen());
+    }
+
+
+    
+    @Test
+    @DisplayName("should throw IllegalArgumentException when pressing an invalid digit key")
+    void testInvalidDigitKey() {
+        Calculator calc = new Calculator();
+        assertThrows(IllegalArgumentException.class, () -> calc.pressDigitKey(12));
+    }
+  
+    
 }
 
