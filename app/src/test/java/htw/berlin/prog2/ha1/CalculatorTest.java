@@ -135,7 +135,7 @@ class CalculatorTest {
     void Test1xKey() {
         Calculator calc = new Calculator();
         calc.pressUnaryOperationKey("1/x");
-        String expected = "0";
+        String expected = "Error";
         String actual = calc.readScreen();
         assertEquals(expected, actual);
     }
